@@ -1,0 +1,16 @@
+{
+	"require": {
+		"vlucas/phpdotenv": "^2.4",
+		"robmorgan/phinx": "^0.8.0",
+		"nesbot/carbon": "^1.22",
+		"whoops/phalcon": "^2.0"
+	},
+	"autoload": {
+		"classmap": [
+			"database"
+		],
+		"psr-4": {
+			"PWSZ\\": "app/"
+		}
+	}
+}

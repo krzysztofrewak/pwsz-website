@@ -1,0 +1,68 @@
+<template>
+	<div class="ui inverted vertical superheader center aligned segment">
+		<div class="ui container" id="navigation">
+			<div class="ui large secondary inverted pointing menu">
+				<router-link :to="{ name: 'home' }" class="brand item">
+					Krzysztof <span class="bolded">Rewak</span>
+				</router-link>
+
+				<router-link v-for="link in headerLinks" :to="{ name: link.name }" v-bind:key="link.name" class="item" v-bind:class="{ active: isActive(link.name) }">{{ link.label }}</router-link>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script type="text/javascript">
+	export default {
+		data() {
+			return {
+				authenticated: false,
+				headerLinks: [
+					{ name: "news", label: "Aktualności" },
+					{ name: "courses", label: "Kursy" },
+					{ name: "grades", label: "Oceny" },
+					{ name: "faq", label: "FAQ" },
+					{ name: "contact", label: "Kontakt" },
+				],
+			}
+		},
+		methods: {
+			isActive(section) {
+				return section == this.$route.meta.section
+			},
+		}
+	} 
+</script>
+
+<style lang="scss">
+	.superheader {
+		a.item.active {
+			border: 0px !important;
+			margin: 0px !important;
+		}
+
+		.brand.item {
+			font-weight: 700;
+			background: rgba(255, 255, 255, 0.1) !important;
+
+			.bolded {
+				text-transform: uppercase;
+				margin-left: 5px;
+				color: White;
+			}
+		}
+	}
+
+	@media only screen and (max-width: 700px) {
+		a.item {
+			display: block;
+			color: Red;
+		}
+		
+		.superheader {
+			&.segment {
+				min-height: 240px;
+			}
+		}
+	}
+</style>
