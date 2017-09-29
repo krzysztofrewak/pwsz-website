@@ -17,7 +17,17 @@ function r(string $action, string $controller, string $namespace = "PWSZ\\Contro
 $router->notFound(r("notFound", "Index"));
 
 $router->addGet("/api", r("index", "Index"));
+
 $router->addGet("/api/news", r("getNews", "News"));
+$router->addGet("/api/news/{id}", r("getEntry", "News"));
+
 $router->addGet("/api/courses", r("getCourses", "Courses"));
+$router->addGet("/api/courses/{id}", r("getEntry", "Courses"));
+
+$router->addGet("/api/faq", r("getQuestions", "FAQ"));
+
+$router->addPost("/api/grades", r("getGrades", "Grades"));
+$router->addGet("/api/grades/semesters", r("getSemesters", "Grades"));
+$router->addGet("/api/grades/semesters/{id}", r("getSemesterCourses", "Grades"));
 
 return $router;

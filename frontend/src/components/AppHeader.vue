@@ -53,15 +53,17 @@
 		}
 	}
 
-	@media only screen and (max-width: 700px) {
-		a.item {
-			display: block;
-			color: Red;
-		}
-		
-		.superheader {
-			&.segment {
-				min-height: 240px;
+	@media only screen and (max-width: 720px) {
+		#navigation {
+			.menu {
+				display: flex;
+				flex-direction: column;
+
+				a {
+					display: block !important;
+					flex: 1;
+					width: 100%;
+				}
 			}
 		}
 	}

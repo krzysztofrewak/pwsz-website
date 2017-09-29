@@ -1,18 +1,11 @@
 <template>
-	<div>
-		<h1>Aktualności i informacje</h1>
-
-		<div class="ui piled segments" v-for="entry in news">
+	<div v-if="entry">
+		<div class="ui piled segments">
 			<div class="ui entry title secondary segment">
 				<span class="ui medium header">{{ entry.title }}</span>
 				<span class="entry timestamp">dodano {{ entry.timestamp }}</span>
 			</div>
 			<div class="ui segment" v-html="entry.content">
-			</div>
-			<div class="ui clearing secondary segment">
-				<router-link :to="{ name: 'news.entry', params: { id: entry.id } }" class="ui tiny circular icon right floated button">
-					<i class="share alternate icon"></i>
-				</router-link>
 			</div>
 		</div>
 	</div>
@@ -22,7 +15,7 @@
 	export default {
 		data() {
 			return {
-				news: [],
+				entry: null,
 			}
 		},
 		created() {
@@ -32,8 +25,8 @@
 			fetchInitialData() {
 				var self = this
 
-				self.$http.get(this.apiUrl + "news").then(function(response) {
-					self.news = response.body.data
+				self.$http.get(this.apiUrl + "news/" + self.$route.params.id).then(function(response) {
+					self.entry = response.body.data
 				})
 			},
 		},

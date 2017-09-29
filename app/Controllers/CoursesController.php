@@ -11,6 +11,8 @@ class CoursesController extends Controller {
 			->setSuccessStatus()
 			->setData([
 				[
+					"id" => 1,
+					"active" => true,
 					"index" => "PZ",
 					"name" => "Projekt zespołowy",
 					"field" => "INF/SSK",
@@ -19,6 +21,8 @@ class CoursesController extends Controller {
 					"form" => "projekt",
 				],
 				[
+					"id" => 2,
+					"active" => true,
 					"index" => "PPO",
 					"name" => "Projektowanie i programowanie obiektowe",
 					"field" => "INF",
@@ -26,6 +30,30 @@ class CoursesController extends Controller {
 					"semester_name" => "zimowy",
 					"form" => "laboratorium",
 				],
+				[
+					"id" => 3,
+					"active" => false,
+					"index" => "PPSI",
+					"name" => "Projektowanie i programowanie systemów internetowych I",
+					"field" => "INF/PAM",
+					"semester_no" => "IV",
+					"semester_name" => "letni",
+					"form" => "projekt",
+				],
+			]);
+
+		return $this->renderResponse();
+	}
+
+	public function getEntryAction(): Response {
+		$this->responseArray
+			->setSuccessStatus()
+			->setData([
+				"id" => 1,
+				"name" => "Projekt zespołowy",
+				"field" => "INF/SSK",
+				"semester_no" => "VII",
+				"form" => "projekt",
 			]);
 
 		return $this->renderResponse();

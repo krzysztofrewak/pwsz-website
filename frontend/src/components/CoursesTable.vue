@@ -14,7 +14,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="course in courses">
+				<tr v-for="course in courses" v-bind:class="{ inactive: !course.active }">
 					<td>{{ course.index }}</td>
 					<td>{{ course.name }}</td>
 					<td>{{ course.field }}</td>
@@ -22,10 +22,10 @@
 					<td>{{ course.semester_name }}</td>
 					<td>{{ course.form }}</td>
 					<td>
-						<a href="#" class="ui tiny icon labeled button">
+						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui tiny icon labeled button">
 							przejdź
 							<i class="copy icon"></i>
-						</a>
+						</router-link>
 					</td>
 				</tr>
 			</tbody>
@@ -56,7 +56,7 @@
 
 				self.$http.get(this.apiUrl + "courses").then(function(response) {
 					self.courses = response.body.data
-					setTimeout(function() { self.toggleFetchedStatus() }, 500)
+					self.toggleFetchedStatus()
 
 				})
 			},
