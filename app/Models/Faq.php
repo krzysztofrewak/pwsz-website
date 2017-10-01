@@ -2,14 +2,14 @@
 
 namespace PWSZ\Models;
 
-class User extends Model {
+class Faq extends Model {
 
 	public $id;
-	public $login;
-	public $email;
+	public $question;
+	public $answer;
 
 	public function initialize(): void {
-		$this->setSource("users");
+		$this->setSource("faqs");
 	}
 	
 }

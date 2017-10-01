@@ -2,14 +2,14 @@
 
 namespace PWSZ\Models;
 
-class User extends Model {
+class Field extends Model {
 
 	public $id;
-	public $login;
-	public $email;
+	public $index;
+	public $name;
 
 	public function initialize(): void {
-		$this->setSource("users");
+		$this->setSource("fields");
 	}
 	
 }

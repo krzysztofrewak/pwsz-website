@@ -6,7 +6,7 @@
 			<tbody>
 				<tr>
 					<td class="collapsing single line">
-						Wybierz semestr:
+						Wybierz semestr z opcji po prawej:
 					</td>
 					<td>
 						<span class="ui tiny semester button"
@@ -22,11 +22,22 @@
 					<td>
 						<span class="ui tiny button"
 							v-for="course in courses"
-							v-on:click="chooseCourse(course.id)"
+							v-on:click="fetchGroups(course.id)"
 							v-bind:class="{ primary: course.id == formData.courseId }">{{ course.label }}</span>
 					</td>
 				</tr>
 				<tr v-if="step > 1">
+					<td class="collapsing single line">
+						Wybierz grupę:
+					</td>
+					<td>
+						<span class="ui tiny button"
+							v-for="group in groups"
+							v-on:click="chooseGroup(group.id)"
+							v-bind:class="{ primary: group.id == formData.groupId }">{{ group.label }}</span>
+					</td>
+				</tr>
+				<tr v-if="step > 2">
 					<td class="collapsing single line">
 						Podaj swój numer indeksu:
 					</td>
@@ -41,7 +52,7 @@
 			</tbody>
 		</table>
 
-		<div class="ui positive icon message" v-if="step > 2">
+		<div class="ui negative icon message" v-if="step > 3">
 			<i class="warning circle icon"></i>
 			<div class="content">
 				<div class="header">
@@ -53,7 +64,7 @@
 			</div>
 		</div>
 
-		<div v-if="step > 3">
+		<div v-if="step > 4">
 <!-- 			<table class="ui very basic very compact table">
 				<thead>
 					<tr>
@@ -79,14 +90,16 @@
 		data() {
 			return {
 				formData: {
-					semesterId: null,
 					courseId: null,
+					groupId: null,
+					semesterId: null,
 					studentId: null,
 				},
 				grades: {
 					grades: [],
 					students: [],
 				},
+				groups: [],
 				semesters: [],
 				courses: [],
 				step: 0,
@@ -99,7 +112,7 @@
 			fetchInitialData() {
 				var self = this
 
-				self.$http.get(self.apiUrl + "grades/semesters").then(function(response) {
+				this.$http.post(self.apiUrl + "grades/semesters").then(function(response) {
 					if(response.status) {
 						self.semesters = response.body.data
 					}
@@ -112,28 +125,44 @@
 				this.formData.courseId = null
 				this.courses = []
 
-				self.$http.get(self.apiUrl + "grades/semesters/" + semesterId).then(function(response) {
+				this.formData.semesterId = semesterId
+				this.$http.post(self.apiUrl + "grades/courses", self.formData).then(function(response) {
 					if(response.status) {
-						self.step = 1
-						self.formData.semesterId = semesterId
 						self.courses = response.body.data
+						self.step = 1
 					}
 				})
+			},
+			fetchGroups(courseId) {
+				var self = this
+
+				this.step = 1
+				this.formData.groupId = null
+				this.groups = []
+
+				this.formData.courseId = courseId
+				this.$http.post(self.apiUrl + "grades/groups", self.formData).then(function(response) {
+					if(response.status) {
+						self.groups = response.body.data
+						self.step = 2
+					}
+				})
+			},
+			chooseGroup(groupId) {
+				this.step = 3
+				this.formData.groupId = groupId
+				this.formData.studentId = null
 			},
 			fetchGrades() {
 				var self = this
 
-				self.$http.post(self.apiUrl + "grades", self.formData).then(function(response) {
+				this.$http.post(self.apiUrl + "grades", self.formData).then(function(response) {
 					if(response.status) {
-						self.step = 3
 						self.grades = response.body.data
+						self.step = 4
 					}
 				})
 			},
-			chooseCourse(courseId) {
-				this.step = 2
-				this.formData.courseId = courseId
-			}
 		},
 	} 
 </script>

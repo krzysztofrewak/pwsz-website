@@ -6,36 +6,6 @@ use Phalcon\Http\Response;
 
 class GradesController extends Controller {
 
-	public function getSemestersAction(): Response {
-		$this->responseArray
-			->setSuccessStatus()
-			->setData([
-				[
-					"id" => 1,
-					"label" => "zimowy 2017/18",
-				],
-			]);
-
-		return $this->renderResponse();
-	}
-
-	public function getSemesterCoursesAction($semester_id): Response {
-		$this->responseArray
-			->setSuccessStatus()
-			->setData([
-				[
-					"id" => 1,
-					"label" => "Projekt zespołowy INF/SSK7",
-				],
-				[
-					"id" => 2,
-					"label" => "Projektowanie i programowanie obiektowe INF3",
-				],
-			]);
-
-		return $this->renderResponse();
-	}
-
 	public function getGradesAction(): Response {
 		$this->responseArray
 			->setSuccessStatus()
@@ -43,6 +13,31 @@ class GradesController extends Controller {
 				"grades" => [],
 				"students" => []
 			]);
+
+		return $this->renderResponse();
+	}
+
+	public function getSemestersAction(): Response {
+		$this->responseArray->setData($this->repository->get("semesters")->getAll());
+		$this->responseArray->setSuccessStatus();
+
+		return $this->renderResponse();
+	}
+
+	public function getCoursesAction(): Response {
+		$semester_id = json_decode($this->request->getRawBody())->semesterId;
+
+		$this->responseArray->setData($this->repository->get("semesterCourses")->getCoursesBySemesterId($semester_id));
+		$this->responseArray->setSuccessStatus();
+
+		return $this->renderResponse();
+	}
+
+	public function getGroupsAction(): Response {
+		$course_id = json_decode($this->request->getRawBody())->courseId;
+
+		$this->responseArray->setData($this->repository->get("courseGroups")->getGroupsByCourseId($course_id));
+		$this->responseArray->setSuccessStatus();
 
 		return $this->renderResponse();
 	}

@@ -7,7 +7,6 @@
 					<th>kod</th>
 					<th>nazwa</th>
 					<th>kier./spec.</th>
-					<th>nr semestru</th>
 					<th>semestr</th>
 					<th>forma</th>
 					<th>materiały</th>
@@ -19,7 +18,6 @@
 					<td>{{ course.name }}</td>
 					<td>{{ course.field }}</td>
 					<td>{{ course.semester_no }}</td>
-					<td>{{ course.semester_name }}</td>
 					<td>{{ course.form }}</td>
 					<td>
 						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui tiny icon labeled button">

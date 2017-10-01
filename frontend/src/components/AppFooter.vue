@@ -1,14 +1,14 @@
 <template>
 	<div class="ui inverted vertical footer segment" id="footer">
 		<div class="ui container">
-			<div class="ui stackable inverted divided equal height stackable grid">
-				<div class="eight wide column">
+			<div class="ui inverted divided equal height three column stackable grid">
+				<div class="column">
 					<h4 class="ui inverted header">Informacje</h4>
 					<p>
 						Krzysztof Rewak &copy; 2017
 					</p>
 				</div>
-				<div class="four wide column">
+				<div class="column">
 					<h4 class="ui inverted header">Linki na zewnątrz</h4>
 					<div class="ui horizontal inverted link list">
 						<a href="https://bitbucket.org/krewak/pwsz/" class="item" target="_blank"><i class="bitbucket icon"></i> Bitbucket</a>
@@ -16,7 +16,7 @@
 						<a href="http://rewak.pl/" class="item" target="_blank"><i class="globe icon"></i> rewak.pl</a>
 					</div>
 				</div>
-				<div class="four wide column">
+				<div class="column">
 					<h4 class="ui inverted header">Technologie</h4>
 					<div class="ui horizontal inverted link list">
 						<a href="https://phalconphp.com" class="item" target="_blank">Phalcon</a>
