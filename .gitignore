@@ -8,8 +8,6 @@ dist/
 node_modules/
 node_modules/
 vendor/
-public/index.html
-public/static/
 
 *.njsproj
 *.ntvs*
