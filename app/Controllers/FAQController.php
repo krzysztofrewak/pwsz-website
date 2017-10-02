@@ -4,7 +4,7 @@ namespace PWSZ\Controllers;
 
 use Phalcon\Http\Response;
 
-class FAQController extends Controller {
+class FaqController extends Controller {
 
 	public function getQuestionsAction(): Response {
 		$this->responseArray->setData($this->repository->get("faqs")->getAll());

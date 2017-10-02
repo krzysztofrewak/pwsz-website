@@ -24,7 +24,7 @@ $router->addGet("/api/news/{id}", r("getEntry", "News"));
 $router->addGet("/api/courses", r("getCourses", "Courses"));
 $router->addGet("/api/courses/{id}", r("getEntry", "Courses"));
 
-$router->addGet("/api/faq", r("getQuestions", "FAQ"));
+$router->addGet("/api/faq", r("getQuestions", "Faq"));
 
 $router->addPost("/api/grades", r("getGrades", "Grades"));
 $router->addPost("/api/grades/semesters", r("getSemesters", "Grades"));
