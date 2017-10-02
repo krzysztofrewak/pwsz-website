@@ -1,6 +1,7 @@
 import Vue from "vue"
 import VueCookie from "vue-cookie"
 import VueResource from "vue-resource"
+import VueAnalytics from "vue-analytics"
 
 require("semantic-ui-css/semantic.css")
 require("semantic-ui-css/semantic.js")
@@ -11,6 +12,11 @@ import router from "./router.js"
 
 Vue.use(VueResource)
 Vue.use(VueCookie)
+Vue.use(VueAnalytics, {
+	id: "UA-107302621-1",
+	checkDuplicatedScript: true,
+	router
+})
 
 Vue.mixin(Global)
 
