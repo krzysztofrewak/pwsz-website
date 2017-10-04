@@ -2,7 +2,7 @@
 	<div>
 		<h1>Aktualności i informacje</h1>
 
-		<div class="ui piled segments" v-for="entry in news">
+		<div class="ui segments" v-for="(entry, index) in news" v-bind:class="{ piled: index === 0 }">
 			<div class="ui entry title secondary segment">
 				<span class="ui medium header">{{ entry.title }}</span>
 				<span class="entry timestamp">dodano {{ entry.timestamp }}</span>

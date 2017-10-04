@@ -58,7 +58,7 @@
 				<table class="ui very basic celled very compact table">
 					<thead>
 						<tr>
-							<th class="two wide">indeks</th>
+							<th class="two wide">indeks <i class="sort numeric ascending icon"></i></th>
 							<th class="two wide">inicjały</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass }}</th>
 						</tr>
@@ -180,7 +180,6 @@
 				this.$http.post(self.apiUrl + "grades", self.formData).then(function(response) {
 					if(response.status) {
 						self.grades = response.body.data
-						console.log(self.grades)
 						self.step = 4
 					}
 				})
@@ -195,6 +194,8 @@
 	}
 
 	.student.grades {
+		margin-top: 1em;
+
 		.student {
 			text-align: center;
 		}

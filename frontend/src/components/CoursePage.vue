@@ -1,5 +1,5 @@
 <template>
-	<div v-if="course">
+	<div class="course page" v-if="course">
 		<h1>{{ course.name }}</h1>
 
 		<div class="ui three course informations statistics">
@@ -31,9 +31,7 @@
 
 		<div v-if="course.rules">
 			<h2>Zasady zaliczenia</h2>
-			<blockquote>
-				{{ course.rules }}
-			</blockquote>
+			<blockquote v-html="course.rules"></blockquote>
 		</div>
 
 		<div v-if="course.topics.length">
@@ -87,9 +85,13 @@
 </script>
 
 <style lang="scss">
-	.course.informations {
-		margin: 2em 0 1em !important;
+	.course.page {
+		h2 {
+			margin-top: 2em;
+		}
+
+		.course.informations {
+			margin-top: 3em !important;
+		}
 	}
-
-
 </style>

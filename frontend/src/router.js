@@ -24,7 +24,7 @@ const router = new Router({
 		{ path: "/kursy", meta: { section: "courses" }, name: "courses", component: CoursesTable },
 		{ path: "/kursy/:id", meta: { section: "courses" }, name: "course.page", component: CoursePage },
 
-		{ path: "/grades", meta: { section: "grades" }, name: "grades", component: GradesForm },
+		{ path: "/oceny", meta: { section: "grades" }, name: "grades", component: GradesForm },
 
 		{ path: "/faq", meta: { section: "faq" }, name: "faq", component: FAQ },
 		{ path: "/kontakt", meta: { section: "contact" }, name: "contact", component: ContactPage },

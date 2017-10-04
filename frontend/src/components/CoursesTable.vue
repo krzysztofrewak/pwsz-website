@@ -22,7 +22,7 @@
 					<td>
 						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui tiny icon labeled button">
 							przejdź
-							<i class="copy icon"></i>
+							<i class="chevron right icon"></i>
 						</router-link>
 					</td>
 				</tr>

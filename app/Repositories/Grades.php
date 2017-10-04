@@ -46,6 +46,10 @@ class Grades extends Repository {
 			foreach($course_group->groupStudents as $student) {
 				$result["students"][] = $this->map($student);
 			}
+
+			usort($result["students"], function($a, $b) {
+				return $a["number"] - $b["number"];
+			});
 		}
 		
 		return $result;
