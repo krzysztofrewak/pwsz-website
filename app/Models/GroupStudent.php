@@ -1,6 +1,6 @@
 <?php
 
-namespace Bookeshelf\Models;
+namespace PWSZ\Models;
 
 class GroupStudent extends Model {
 
@@ -11,8 +11,9 @@ class GroupStudent extends Model {
 	public function initialize(): void {
 		$this->setSource("group_students");
 		
-		$this->belongsTo("student_id", Student::class, "id");
-		$this->belongsTo("course_group_id", CourseGroup::class, "id");
+		$this->belongsTo("student_id", Student::class, "id", ["alias" => "Student"]);
+		$this->belongsTo("course_group_id", CourseGroup::class, "id", ["alias" => "Group"]);
+		$this->hasMany("id", StudentClass::class, "group_student_id", ["alias" => "Classes"]);
 	}
 	
 }

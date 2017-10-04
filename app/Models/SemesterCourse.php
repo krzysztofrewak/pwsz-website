@@ -14,6 +14,7 @@ class SemesterCourse extends Model {
 		$this->belongsTo("semester_id", Semester::class, "id");
 		$this->belongsTo("course_id", Course::class, "id");
 		$this->hasMany("id", CourseGroup::class, "semester_course_id", ["alias" => "CourseGroups"]);
+		$this->hasMany("id", SemesterCourseClass::class, "semester_course_id", ["alias" => "Classes"]);
 	}
 	
 }

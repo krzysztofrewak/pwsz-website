@@ -52,35 +52,60 @@
 			</tbody>
 		</table>
 
-		<div class="ui negative icon message" v-if="step > 3">
-			<i class="warning circle icon"></i>
-			<div class="content">
-				<div class="header">
-					Niestety nic nie znaleziono.
-				</div>
-				<p>
-					Dla podanej kombinacji identyfikatorów semestru, kursu i numeru indeksu nie odnaleziono żadnych danych. Sprawdź poprawność podanych informacji. Jeżeli semestr dopiero się rozpoczął, może po prostu jeszcze niczego tu nie ma.
-				</p>
-			</div>
-		</div>
+		<div v-if="step > 3">
+			<div class="student grades" v-if="grades.students">
+				<h3>Arkusz obecności i ocen</h3>
+				<table class="ui very basic celled very compact table">
+					<thead>
+						<tr>
+							<th class="two wide">indeks</th>
+							<th class="two wide">inicjały</th>
+							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass }}</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr v-for="student in grades.students">
+							<td>{{ student.number }}</td>
+							<td>{{ student.initials }}</td>
+							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present === true, absent: grade.present === false }">
+								{{ grade.value }}
+							</td>
+						</tr>
+					</tbody>
+				</table>
 
-		<div v-if="step > 4">
-<!-- 			<table class="ui very basic very compact table">
-				<thead>
-					<tr>
-						<th>indeks</th>
-						<th>inicjały</th>
-						<th v-for="grade in grades.grades">{{ grade }}</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr v-for="student in grades.students">
-						<td>{{ student.id }}</td>
-						<td>{{ student.initials }}</td>
-						<td v-for="grade in grades.grades"></td>
-					</tr>
-				</tbody>
-			</table> -->
+				<h3>Legenda:</h3>
+				<div class="legend">
+					<div class="item">
+						<div class="student present">&nbsp;</div>
+						<div class="content">student obecny</div>
+					</div>
+					<div class="item">
+						<div class="student present">+</div>
+						<div class="content">student aktywny na zajęciach</div>
+					</div>
+					<div class="item">
+						<div class="student present">5</div>
+						<div class="content">student oceniony na zajęciach</div>
+					</div>
+					<div class="item">
+						<div class="student absent">&nbsp;</div>
+						<div class="content">student nieobecny</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="ui negative icon message" v-else>
+				<i class="warning circle icon"></i>
+				<div class="content">
+					<div class="header">
+						Niestety nic nie znaleziono.
+					</div>
+					<p>
+						Dla podanej kombinacji identyfikatorów semestru, kursu i numeru indeksu nie odnaleziono żadnych danych. Sprawdź poprawność podanych informacji. Jeżeli semestr dopiero się rozpoczął, może po prostu jeszcze niczego tu nie ma.
+					</p>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -95,10 +120,7 @@
 					semesterId: null,
 					studentId: null,
 				},
-				grades: {
-					grades: [],
-					students: [],
-				},
+				grades: null,
 				groups: [],
 				semesters: [],
 				courses: [],
@@ -151,7 +173,6 @@
 			chooseGroup(groupId) {
 				this.step = 3
 				this.formData.groupId = groupId
-				this.formData.studentId = null
 			},
 			fetchGrades() {
 				var self = this
@@ -159,6 +180,7 @@
 				this.$http.post(self.apiUrl + "grades", self.formData).then(function(response) {
 					if(response.status) {
 						self.grades = response.body.data
+						console.log(self.grades)
 						self.step = 4
 					}
 				})
@@ -170,5 +192,39 @@
 <style lang="scss">
 	.semester.button {
 		margin: 0.25em;
+	}
+
+	.student.grades {
+		.student {
+			text-align: center;
+		}
+
+		.student.absent {
+			background: #F08080;
+		}
+
+		.student.present {
+			background: #DAF7A6;
+		}
+
+		.legend {
+			.item {
+				display: block;
+				margin: .25em;
+			}
+
+			.student {
+				width: 2em;
+				height: 2em;
+				line-height: 2em;
+				text-align: center;
+				display: inline-block;
+			}
+
+			.content {
+				display: inline-block;
+				padding-left: .5em;
+			}
+		}
 	}
 </style>

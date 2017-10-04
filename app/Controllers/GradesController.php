@@ -7,12 +7,13 @@ use Phalcon\Http\Response;
 class GradesController extends Controller {
 
 	public function getGradesAction(): Response {
-		$this->responseArray
-			->setSuccessStatus()
-			->setData([
-				"grades" => [],
-				"students" => []
-			]);
+		$request = json_decode($this->request->getRawBody());
+
+		$group_id = $request->groupId;
+		$student_id = $request->studentId ?: "";
+
+		$this->responseArray->setData($this->repository->get("grades")->getGrades($group_id, $student_id));
+		$this->responseArray->setSuccessStatus();
 
 		return $this->renderResponse();
 	}
