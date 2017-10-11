@@ -67,7 +67,7 @@
 						<tr v-for="student in grades.students">
 							<td>{{ student.number }}</td>
 							<td>{{ student.initials }}</td>
-							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present === true, absent: grade.present === false }">
+							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present == true, absent: grade.present == false }">
 								{{ grade.value }}
 							</td>
 						</tr>

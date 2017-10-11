@@ -18,7 +18,7 @@ class Grades extends Repository {
 
 		foreach($model->classes as $class) {
 			$classes[] = [
-				"present" => !!$class->was_present,
+				"present" => $class->was_present,
 				"value" => $class->value,
 			];
 		}
