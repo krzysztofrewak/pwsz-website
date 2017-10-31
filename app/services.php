@@ -33,13 +33,6 @@ $di->set("db", function() use($config) {
 	);
 });
 
-$di->set("flash", function() {
-	return new FlashSession([
-		"error" => "error",
-		"debug" => "debug"
-	]);
-});
-
 $di->set("router", function() use($di) {
 	$router = require APP_PATH . "/app/router.php";
 	return $router;

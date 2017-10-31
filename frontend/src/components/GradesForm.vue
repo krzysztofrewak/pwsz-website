@@ -61,6 +61,7 @@
 							<th class="two wide">indeks <i class="sort numeric ascending icon"></i></th>
 							<th class="two wide">inicjały</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass }}</th>
+							<th class="center aligned" v-if="$parent.authenticated"><i class="plus icon"></i></th>
 						</tr>
 					</thead>
 					<tbody>

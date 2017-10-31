@@ -6,12 +6,18 @@ $router = new Router(false);
 $router->removeExtraSlashes(true);
 $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
 
+$authenticated = !is_null($di->get("session")->get("auth"));
+
 function r(string $action, string $controller, string $namespace = "PWSZ\\Controllers"): array {
 	return [
 		"namespace" => $namespace,
 		"controller" => $controller,
 		"action" => $action
 	];
+}
+
+function ac(array $route_array, bool $allowed_for_authenticated): array {
+	return $allowed_for_authenticated ? $route_array : r("noAccess", "Index");
 }
 
 $router->notFound(r("notFound", "Index"));
@@ -30,5 +36,14 @@ $router->addPost("/api/grades", r("getGrades", "Grades"));
 $router->addPost("/api/grades/semesters", r("getSemesters", "Grades"));
 $router->addPost("/api/grades/courses", r("getCourses", "Grades"));
 $router->addPost("/api/grades/groups", r("getGroups", "Grades"));
+
+$router->addGet("/api/auth", r("check", "Authentication"));
+$router->addPost("/api/auth", r("check", "Authentication"));
+$router->addPost("/api/login", ac(r("login", "Authentication"), !$authenticated));
+$router->addPost("/api/logout", ac(r("logout", "Authentication"), $authenticated));
+
+$namespace = "PWSZ\\Controllers\\Management";
+
+$router->addGet("/api/management/field", ac(r("list", "Field", $namespace), $authenticated));
 
 return $router;

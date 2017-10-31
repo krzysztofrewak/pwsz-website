@@ -4,7 +4,9 @@
 
 		<div class="ui vertical stripe segment" id="content">
 			<div class="ui container">
-				<router-view></router-view>
+				<keep-alive>
+					<router-view></router-view>
+				</keep-alive>
 			</div>
 		</div>
 
@@ -15,6 +17,7 @@
 <script>
 	import AppFooter from "./AppFooter"
 	import AppHeader from "./AppHeader"
+	import EventBus from "../eventbus.js"
 
 	export default {
 		name: "app",
@@ -22,6 +25,27 @@
 			AppFooter,
 			AppHeader
 		},
+		data() {
+			return {
+				isAuthenticated: false,
+			}
+		},
+		created() {
+			this.checkAuthentication()
+		},
+		mounted() {
+			var self = this
+			EventBus.$on("authentication_status", function(authenticationStatus) {
+				self.isAuthenticated = authenticationStatus
+			})
+		},
+		methods: {
+			checkAuthentication() {
+				this.$http.post(this.apiUrl + "auth").then(function(response) {
+					EventBus.$emit("authentication_status", response.body.auth_status)
+				})
+			}
+		}
 	}
 </script>
 

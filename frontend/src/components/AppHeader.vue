@@ -7,6 +7,9 @@
 				</router-link>
 
 				<router-link v-for="link in headerLinks" :to="{ name: link.name }" v-bind:key="link.name" class="item" v-bind:class="{ active: isActive(link.name) }">{{ link.label }}</router-link>
+
+				<router-link class="item" v-if="authenticated" :to="{ name: 'dashboard' }" v-bind:class="{ active: isActive('dashboard') }">Zarządzaj</router-link>
+				<router-link class="item" v-else :to="{ name: 'login' }">Logowanie</router-link>
 			</div>
 		</div>
 	</div>
@@ -16,7 +19,6 @@
 	export default {
 		data() {
 			return {
-				authenticated: false,
 				headerLinks: [
 					{ name: "news", label: "Aktualności" },
 					{ name: "courses", label: "Kursy" },

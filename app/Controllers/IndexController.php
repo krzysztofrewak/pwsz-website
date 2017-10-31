@@ -21,4 +21,11 @@ class IndexController extends Controller {
 		return $this->renderResponse();
 	}
 
+	public function noAccessAction(): Response {
+		$this->responseArray
+			->setMessage("URL not allowed");
+
+		return $this->renderResponse();
+	}
+
 }
