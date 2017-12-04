@@ -3,20 +3,22 @@ import Router from "vue-router"
 
 import EventBus from "./eventbus.js";
 
-import ContactPage from "@/components/ContactPage"
-import CoursePage from "@/components/CoursePage"
-import CoursesTable from "@/components/CoursesTable"
-import Dashboard from "@/components/Dashboard"
-import FAQ from "@/components/FAQ"
-import GradesForm from "@/components/GradesForm"
-import Home from "@/components/Home"
-import LoginForm from "@/components/LoginForm"
-import ManagementForm from "@/components/ManagementForm"
-import ManagementList from "@/components/ManagementList"
-import NewsEntry from "@/components/NewsEntry"
-import NewsReel from "@/components/NewsReel"
-import NotAllowed from "@/components/NotAllowed"
-import NotFound from "@/components/NotFound"
+import ContactPage from "@/components/Content/ContactPage"
+import CoursePage from "@/components/Content/CoursePage"
+import CoursesTable from "@/components/Content/CoursesTable"
+import FAQ from "@/components/Content/FAQ"
+import GradesForm from "@/components/Content/GradesForm"
+import Home from "@/components/Content/Home"
+import NewsEntry from "@/components/Content/NewsEntry"
+import NewsReel from "@/components/Content/NewsReel"
+
+import LoginForm from "@/components/System/LoginForm"
+import NotAllowed from "@/components/System/NotAllowed"
+import NotFound from "@/components/System/NotFound"
+
+import Dashboard from "@/components/Dashboard/Dashboard"
+import ManagementForm from "@/components/Dashboard/ManagementForm"
+import ManagementList from "@/components/Dashboard/ManagementList"
 
 Vue.use(Router)
 

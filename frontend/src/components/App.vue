@@ -1,6 +1,7 @@
 <template>
 	<div id="app">
 		<app-header></app-header>
+		<notifications-bar></notifications-bar>
 
 		<div class="ui vertical stripe segment" id="content">
 			<div class="ui container">
@@ -15,15 +16,17 @@
 </template>
 
 <script>
-	import AppFooter from "./AppFooter"
-	import AppHeader from "./AppHeader"
+	import AppFooter from "./Layout/AppFooter"
+	import AppHeader from "./Layout/AppHeader"
+	import NotificationsBar from "./Layout/NotificationsBar"
 	import EventBus from "../eventbus.js"
 
 	export default {
 		name: "app",
 		components: {
 			AppFooter,
-			AppHeader
+			AppHeader,
+			NotificationsBar,
 		},
 		data() {
 			return {
@@ -83,7 +86,7 @@
 	#content {
 		border-bottom: none;
 		flex: 1;
-		padding: 5em 0em;
+		padding: 3em 0em;
 	}
 
 	.clickable {
