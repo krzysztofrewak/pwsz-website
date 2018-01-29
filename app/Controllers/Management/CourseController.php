@@ -2,22 +2,26 @@
 
 namespace PWSZ\Controllers\Management;
 
-class FieldController extends Controller {
+class CourseController extends Controller {
 
-	protected $repository_name = "fields";
+	protected $repository_name = "courses";
 
 	public function getTableTitle(): string {
-		return "Kierunki i specjalności";
+		return "Kursy";
 	}
 	public function getTableColumnHeaders(): array {
 		return [
-			"index" => "skrótowiec", 
+			"index" => "#",
 			"name" => "nazwa",
+			"field" => "kier./spec.",
+			"semester_no" => "semestr",
+			"form" => "forma",
+			"active" => "aktywny?",
 		];
 	}
 
 	public function getFormTitle(): string {
-		return "Edytujesz kierunek/specjalność: " . $this->model->name;
+		return "Edytujesz kurs: " . $this->model->name;
 	}
 
 	public function getFormInputs(): array {
@@ -26,11 +30,6 @@ class FieldController extends Controller {
 				"label" => "ID",
 				"name" => "id",
 				"value" => $this->model->id
-			],
-			[	"type" => "text-input",
-				"label" => "Skrótowiec",
-				"name" => "index",
-				"value" => $this->model->index
 			],
 			[	"type" => "text-input",
 				"label" => "Nazwa",

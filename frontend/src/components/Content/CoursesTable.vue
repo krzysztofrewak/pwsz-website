@@ -1,6 +1,7 @@
 <template>
 	<div v-if="fetched" class="courses table">
 		<h1>Lista prowadzonych przeze mnie kursów</h1>
+		
 		<table class="ui very basic very compact table">
 			<thead>
 				<tr>
@@ -50,12 +51,9 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				self.$http.get(this.apiUrl + "courses").then(function(response) {
-					self.courses = response.body.data
-					self.toggleFetchedStatus()
-
+				this.$http.get("courses").then(function(response) {
+					this.courses = response.body.data
+					this.toggleFetchedStatus()
 				})
 			},
 			toggleFetchedStatus() {

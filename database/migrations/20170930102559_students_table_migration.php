@@ -8,7 +8,7 @@ class StudentsTableMigration extends Migration {
 		$table = $this->table("students");
 
 		$table->addColumn("student_no", "string");
-		$table->addColumn("initials", "string");
+		$table->addColumn("name", "string");
 
 		$table->addColumn("created_at", "timestamp", ["default" => "CURRENT_TIMESTAMP"]);
 		$table->addColumn("updated_at", "timestamp", ["default" => "CURRENT_TIMESTAMP", "update" => "CURRENT_TIMESTAMP"]);

@@ -44,6 +44,18 @@ $router->addPost("/api/logout", ac(r("logout", "Authentication"), $authenticated
 
 $namespace = "PWSZ\\Controllers\\Management";
 
-$router->addGet("/api/management/field", ac(r("list", "Field", $namespace), $authenticated));
+$router->addPost("/api/management", ac(r("update", "Update", $namespace), $authenticated));
+
+$modules = [
+	"fields" => "Field",
+	"forms" => "Form",
+	"semesters" => "Semester",
+	"courses" => "Course",
+];
+
+foreach($modules as $url => $controller) {
+	$router->addGet("/api/management/". $url, ac(r("list", $controller, $namespace), $authenticated));
+	$router->addGet("/api/management/". $url ."/{id}", ac(r("form", $controller, $namespace), $authenticated));
+}
 
 return $router;

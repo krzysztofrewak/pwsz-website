@@ -19,7 +19,6 @@
 	import AppFooter from "./Layout/AppFooter"
 	import AppHeader from "./Layout/AppHeader"
 	import NotificationsBar from "./Layout/NotificationsBar"
-	import EventBus from "../eventbus.js"
 
 	export default {
 		name: "app",
@@ -31,22 +30,20 @@
 		data() {
 			return {
 				isAuthenticated: false,
+				systemNotifications: [],
 			}
 		},
 		created() {
 			this.checkAuthentication()
 		},
-		mounted() {
-			var self = this
-			EventBus.$on("authentication_status", function(authenticationStatus) {
-				self.isAuthenticated = authenticationStatus
-			})
+		mounted() {			
+			this.$bus.$on("authenticate", status => this.isAuthenticated = status)
+			this.$bus.$on("show-notification", notification => this.systemNotifications.push(notification))
+			this.$bus.$on("close-notification", notification => this.systemNotifications = this.systemNotifications.filter(e => e !== notification))
 		},
 		methods: {
 			checkAuthentication() {
-				this.$http.post(this.apiUrl + "auth").then(function(response) {
-					EventBus.$emit("authentication_status", response.body.auth_status)
-				})
+				this.$http.post("auth").then(response => this.$bus.$emit("authenticate", response.body.auth_status))
 			}
 		}
 	}

@@ -74,10 +74,8 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				self.$http.get(this.apiUrl + "courses/" + self.$route.params.id).then(function(response) {
-					self.course = response.body.data
+				this.$http.get("courses/" + this.$route.params.id).then(function(response) {
+					this.course = response.body.data
 				})
 			},
 		},

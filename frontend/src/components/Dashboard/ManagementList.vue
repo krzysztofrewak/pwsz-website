@@ -5,19 +5,24 @@
 		<table class="ui dashboard very basic very compact table">
 			<thead>
 				<tr>
-					<th>id</th>
-					<th>skrótowiec</th>
-					<th>nazwa</th>
+					<th v-for="column in columns">{{ column }}</th>
 					<th class="right aligned">akcje</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="data in dataset">
-					<td>{{ data.id }}</td>
-					<td>{{ data.index }}</td>
-					<td>{{ data.name }}</td>
+					<td v-for="(column, index) in columns">
+						<span v-if="typeof(data[index]) !== typeof(true)">
+							{{ data[index] }}
+						</span>
+						<span v-else>
+							<i class="green check icon" v-if="data[index]"></i>
+							<i class="red close icon" v-else></i>
+						</span>
+					</td>
+
 					<td class="right aligned">
-						<router-link class="ui tiny green icon labeled button" :to="{ name: repositoryName, params: { id: data.id } }">
+						<router-link class="ui tiny green icon labeled button" :to="{ name: formRoute, params: { id: data.id } }">
 							<i class="pencil icon"></i> edytuj
 						</router-link>
 						<button class="ui tiny red icon labeled button">
@@ -43,13 +48,19 @@
 			return {
 				fetched: false,
 				title: "",
+				columns: [],
 				dataset: [],
-				repository: "field",
 			}
 		},
 		computed: {
-			repositoryName: function() {
-				return "dashboard." + this.repository
+			repository: function() {
+				return this.$route.meta.repository
+			},
+			apiRepositoryUrl: function() {
+				return "management/" + this.repository
+			},
+			formRoute: function() {
+				return "dashboard." + this.repository + ".form"
 			}
 		},
 		created() {
@@ -57,18 +68,20 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				self.$http.get(self.apiUrl + "management/field").then(function(response) {
-					self.dataset = response.body.data.data
-					self.title = response.body.data.title
-					self.toggleFetchedStatus()
+				this.fetched = false
+				this.$http.get(this.apiRepositoryUrl).then(function(response) {
+					this.dataset = response.body.data.data
+					this.title = response.body.data.title
+					this.columns = response.body.data.columns
+					this.fetched = true
 				})
 			},
-			toggleFetchedStatus() {
-				this.fetched = !this.fetched
-			}
 		},
+		watch: {
+			"$route"(from, to) {
+				this.fetchInitialData()
+			}
+		}
 	}
 </script>
 

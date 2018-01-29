@@ -27,7 +27,7 @@
 						</div>
 					</div>
 					<div class="column">
-						<button class="ui fluid green ok inverted button" v-bind:class="{ loading: loading }" v-on:click="login">
+						<button class="ui fluid green ok inverted button" v-bind:class="{ loading: loading }">
 							<i class="sign in icon"></i>
 							Zaloguj się
 						</button>
@@ -41,8 +41,6 @@
 </template>
 
 <script type="text/javascript">
-	import EventBus from "../../eventbus.js"
-
 	export default {
 		data() {
 			return {
@@ -60,9 +58,10 @@
 				var parameters = this.credentials === undefined ? [] : this.credentials
 
 				this.toggleLoading()
-				this.$http.post(this.apiUrl + "login", parameters).then(function(response) {
+				this.$http.post("login", parameters).then(function(response) {
 					if(response.data.success) {
-						EventBus.$emit("authentication_status", true)
+						this.$bus.$emit("authenticate", true)
+						this.notifySuccess("Zalogowano poprawnie.")
 						this.$router.push({ name: "home" })
 						this.toggleLoading()
 					} else {

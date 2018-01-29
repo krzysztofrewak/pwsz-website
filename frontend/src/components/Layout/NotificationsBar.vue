@@ -1,18 +1,23 @@
 <template>
 	<div id="notifications" class="ui center aligned segment">
 		<div class="ui container">
-			<div class="ui negative message" v-for="n in EventBus.notifications">
-				<strong>Wystąpił błąd:</strong>
-				Test
+			<div class="ui message" v-for="n in notifications" :class="n.type">
+				<i class="close icon" @click="close(n)"></i>
+				<strong v-if="n.type == 'negative'">Wystąpił błąd:</strong>
+				{{ n.message }}
 			</div>
 		</div>
 	</div>
 </template>
 
 <script type="text/javascript">
-	import EventBus from "../../eventbus.js"
-
-	export default {} 
+	export default {
+		methods: {
+			close(notification) {
+				this.$bus.$emit("close-notification", notification)
+			}
+		}
+	} 
 </script>
 
 <style lang="scss" scoped>

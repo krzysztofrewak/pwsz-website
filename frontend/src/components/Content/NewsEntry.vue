@@ -23,13 +23,11 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				self.$http.get(this.apiUrl + "news/" + self.$route.params.id).then(function(response) {
+				this.$http.get("news/" + this.$route.params.id).then(function(response) {
 					if(response.body.success) {
-						self.entry = response.body.data
+						this.entry = response.body.data
 					} else {
-						self.$router.replace({ name: "not-found" })
+						this.$router.replace({ name: "not-found" })
 					}
 				})
 			},

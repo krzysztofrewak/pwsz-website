@@ -24,10 +24,8 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				self.$http.get(this.apiUrl + "faq").then(function(response) {
-					self.questions = response.body.data
+				this.$http.get("faq").then(function(response) {
+					this.questions = response.body.data
 				})
 			},
 		},

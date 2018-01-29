@@ -2,17 +2,18 @@
 
 namespace PWSZ\Repositories;
 
-use PWSZ\Models\Semester;
+use PWSZ\Models\Form;
 
-class Semesters extends Repository {
+class Forms extends Repository {
 
 	public function getModelClass(): string {
-		return Semester::class;
+		return Form::class;
 	}
 
 	public function map($model): array {
 		return [
 			"id" => $model->id,
+			"index" => $model->index,
 			"name" => $model->name,
 		];
 	}

@@ -20,6 +20,8 @@ Vue.use(VueAnalytics, {
 
 Vue.mixin(Global)
 
+Vue.http.options.root = "/api/"
+
 new Vue({
 	el: "#app",
 	router,

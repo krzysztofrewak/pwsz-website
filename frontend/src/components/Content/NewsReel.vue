@@ -30,10 +30,8 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				self.$http.get(this.apiUrl + "news").then(function(response) {
-					self.news = response.body.data
+				this.$http.get("news").then(function(response) {
+					this.news = response.body.data
 				})
 			},
 		},

@@ -8,12 +8,13 @@
 					<td class="collapsing single line">
 						Wybierz semestr z opcji po prawej:
 					</td>
-					<td>
+					<td v-if="semesters.length > 0">
 						<span class="ui tiny semester button"
 							v-for="semester in semesters"
 							v-on:click="fetchCourses(semester.id)"
 							v-bind:class="{ primary: semester.id == formData.semesterId }">{{ semester.label }}</span>
 					</td>
+					<td v-else><i class="spinner loading icon"></i></td>
 				</tr>
 				<tr v-if="step > 0">
 					<td class="collapsing single line">
@@ -133,41 +134,35 @@
 		},
 		methods: {
 			fetchInitialData() {
-				var self = this
-
-				this.$http.post(self.apiUrl + "grades/semesters").then(function(response) {
+				this.$http.post("grades/semesters").then(function(response) {
 					if(response.status) {
-						self.semesters = response.body.data
+						this.semesters = response.body.data
 					}
 				})
 			},
 			fetchCourses(semesterId) {
-				var self = this
-
 				this.step = 0
 				this.formData.courseId = null
 				this.courses = []
 
 				this.formData.semesterId = semesterId
-				this.$http.post(self.apiUrl + "grades/courses", self.formData).then(function(response) {
+				this.$http.post("grades/courses", this.formData).then(function(response) {
 					if(response.status) {
-						self.courses = response.body.data
-						self.step = 1
+						this.courses = response.body.data
+						this.step = 1
 					}
 				})
 			},
 			fetchGroups(courseId) {
-				var self = this
-
 				this.step = 1
 				this.formData.groupId = null
 				this.groups = []
 
 				this.formData.courseId = courseId
-				this.$http.post(self.apiUrl + "grades/groups", self.formData).then(function(response) {
+				this.$http.post("grades/groups", this.formData).then(function(response) {
 					if(response.status) {
-						self.groups = response.body.data
-						self.step = 2
+						this.groups = response.body.data
+						this.step = 2
 					}
 				})
 			},
@@ -176,12 +171,10 @@
 				this.formData.groupId = groupId
 			},
 			fetchGrades() {
-				var self = this
-
-				this.$http.post(self.apiUrl + "grades", self.formData).then(function(response) {
+				this.$http.post("grades", this.formData).then(function(response) {
 					if(response.status) {
-						self.grades = response.body.data
-						self.step = 4
+						this.grades = response.body.data
+						this.step = 4
 					}
 				})
 			},
