@@ -1,14 +1,22 @@
 <template>
 	<div class="field">
 		<label>{{ label }}</label>
-		<div class="ui icon input">
-			<textarea type="text" :placeholder="label" :value="value" @input="$emit('input', $event.target.value)"></textarea>
-		</div>
+		<vue-editor v-model="html" @input="$emit('input', html)"></vue-editor>
 	</div>
 </template>
 
 <script>
+	import { VueEditor } from "vue2-editor"
+
 	export default {
+		components: {
+			VueEditor
+		},
+		data() {
+			return {
+				html: ""
+			}
+		},
 		props: {
 			label: {
 				type: String,
@@ -21,6 +29,13 @@
 			value: {
 				type: String
 			}
-		}
+		},
+		mounted() {
+			this.html = this.value
+		},
 	}
 </script>
+
+<style>
+	#quill-container { padding: 1em; }	
+</style>

@@ -7,7 +7,7 @@
 			<h3 class="ui header">
 				{{ question.question }}
 			</h3>
-			<blockquote>{{ question.answer }}</blockquote>
+			<blockquote v-html="question.answer"></blockquote>
 		</div>
 	</div>
 </template>

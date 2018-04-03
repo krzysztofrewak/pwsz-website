@@ -1,7 +1,7 @@
 <template>
 	<div id="notifications" class="ui center aligned segment">
 		<div class="ui container">
-			<div class="ui message" v-for="n in notifications" :class="n.type">
+			<div class="ui message" v-for="n in notifications" :class="n.type" @click="close(n)">
 				<i class="close icon" @click="close(n)"></i>
 				<strong v-if="n.type == 'negative'">Wystąpił błąd:</strong>
 				{{ n.message }}

@@ -6,10 +6,17 @@
 			<component v-for="(input, index) in inputs" :key="index" v-bind:is="input.type" :label="input.label" :name="input.name" v-model="input.value"></component>
 		</form>
 
-		<button class="ui fluid icon button" @click="post()" :class="{ loading: loading }">
-			<i class="save icon"></i>
-			Zapisz
-		</button>
+		<div class="ui fluid buttons">
+			<router-link class="ui icon button" :to="{ name: listRoute }">
+				<i class="chevron left icon"></i>
+				Wróć do listy
+			</router-link>
+			<div class="or" data-text="||"></div>
+			<button class="ui icon primary button" @click="post()" :class="{ loading: loading }">
+				<i class="save icon"></i>
+				Zapisz
+			</button>
+		</div>
 	</div>
 	<div class="ui" v-else>
 		<div class="ui active inverted dimmer">
@@ -19,14 +26,20 @@
 </template>
 
 <script type="text/javascript">
+	import BooleanInput from "./Forms/BooleanInput.vue"
 	import DescriptionInput from "./Forms/DescriptionInput.vue"
 	import DisabledInput from "./Forms/DisabledInput.vue"
+	import SelectInput from "./Forms/SelectInput.vue"
+	import StudentsInput from "./Forms/StudentsInput.vue"
 	import TextInput from "./Forms/TextInput.vue"
 
 	export default {
 		components: {
+			BooleanInput,
 			DescriptionInput,
 			DisabledInput,
+			SelectInput,
+			StudentsInput,
 			TextInput,
 		},
 		data() {
@@ -38,14 +51,29 @@
 				inputs: []
 			}
 		},
+		computed: {
+			listRoute: function() {
+				return "dashboard." + this.repository + ".list"
+			}
+		},
 		created() {
 			this.fetchInitialData()
 		},
 		methods: {
 			fetchInitialData() {
+				if(!(this.$route.params.id > 0) && this.$route.meta.createForm === undefined) {
+					return
+				}
+
 				this.fetched = false
 				this.repository = this.$route.meta.repository
-				let url = this.repository + "/" + this.$route.params.id
+				this.title = ""
+				this.inputs = []
+
+				let url = this.repository + "/form"
+				if(this.$route.params.id) {
+					url += "/" + this.$route.params.id
+				}
 
 				this.$http.get("management/" + url).then(response => {
 					this.fetched = true
@@ -64,11 +92,13 @@
 			},
 			post() {
 				let parameters = this.prepareParameters()
+				
 				this.loading = true
 
 				this.$http.post("management", { repository: this.repository, request: parameters }).then(response => {
 					this.loading = false
 					this.notifySuccess("Zapytanie zakończono sukcesem.")
+					this.$router.push({ name: this.listRoute })
 				}).catch(error => {
 					this.loading = false
 					this.notifyError("Wystąpił błąd.")
@@ -86,6 +116,6 @@
 <style lang="scss" scoped>
 	.dashboard.form {
 		margin-top: 2em;
-		margin-bottom: 2em;
+		margin-bottom: 4em;
 	}
 </style>

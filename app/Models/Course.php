@@ -8,7 +8,7 @@ class Course extends Model {
 	public $index;
 	public $name;
 	public $field_id;
-	public $semestr_no;
+	public $semester_no;
 	public $form_id;
 	public $rules;
 	public $is_active;

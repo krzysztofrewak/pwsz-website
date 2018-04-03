@@ -3,12 +3,13 @@
 namespace PWSZ\Controllers\Management;
 
 use Phalcon\Http\Response;
-use PWSZ\Controllers\Controller as BaseController;
-use PWSZ\Interfaces\ManagementControllerInterface;
+use PWSZ\Controllers\Controller;
+use PWSZ\Interfaces\CRUDControllerInterface;
 
-abstract class Controller extends BaseController implements ManagementControllerInterface {
+abstract class CRUDController extends Controller implements CRUDControllerInterface {
 
 	protected $model = null;
+	protected $repository_name = "";
 
 	protected function prepareListResponse(): void {
 		$response = [
@@ -40,8 +41,17 @@ abstract class Controller extends BaseController implements ManagementController
 		return $this->renderResponse();
 	}
 
-	public function formAction(int $id): Response {
-		$this->model = $this->repository->get($this->repository_name)->getModelClass()::findFirst($id);
+	public function addFormAction(): Response {
+		$this->model = $this->repository->get($this->repository_name)->getRaw();
+
+		$this->prepareFormResponse();
+		$this->responseArray->setSuccessStatus();
+
+		return $this->renderResponse();
+	}
+
+	public function editFormAction(int $id): Response {
+		$this->model = $this->repository->get($this->repository_name)->getRaw($id);
 
 		$this->prepareFormResponse();
 		$this->responseArray->setSuccessStatus();

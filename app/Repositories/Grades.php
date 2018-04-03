@@ -30,15 +30,19 @@ class Grades extends Repository {
 		];
 	}
 
-	public function getGrades(int $semester_course_group_id, string $student_no): array {
-		$course_group = $this->getModelClass()::findFirst($semester_course_group_id);
-		$validation_guard = $course_group->getStudents(["student_no = :no:", "bind" => ["no" => $student_no]])->count();
+	public function getGrades(int $semester_course_group_id, string $student_no, bool $force_result = false): array {
+        $course_group = $this->getModelClass()::findFirst($semester_course_group_id);
 
 		$result = [];
+		$validation_guard = false;
+		
+		if(!$force_result) {
+			$validation_guard = $course_group->getStudents(["student_no = :no:", "bind" => ["no" => $student_no]])->count();
+		}
 
-		if($validation_guard) {
+		if($force_result || $validation_guard) {
 			$result["classes"] = [];
-			foreach($course_group->semesterCourse->classes as $class) {
+			foreach($course_group->classes as $class) {
 				$result["classes"][] = $class->name;
 			}
 

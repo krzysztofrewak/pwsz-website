@@ -12,7 +12,7 @@
 						<span class="ui tiny semester button"
 							v-for="semester in semesters"
 							v-on:click="fetchCourses(semester.id)"
-							v-bind:class="{ primary: semester.id == formData.semesterId }">{{ semester.label }}</span>
+							v-bind:class="{ primary: semester.id == formData.semesterId }">{{ semester.name }}</span>
 					</td>
 					<td v-else><i class="spinner loading icon"></i></td>
 				</tr>
@@ -24,7 +24,7 @@
 						<span class="ui tiny button"
 							v-for="course in courses"
 							v-on:click="fetchGroups(course.id)"
-							v-bind:class="{ primary: course.id == formData.courseId }">{{ course.label }}</span>
+							v-bind:class="{ primary: course.id == formData.courseId }">{{ course.name }}</span>
 					</td>
 				</tr>
 				<tr v-if="step > 1">
@@ -35,7 +35,7 @@
 						<span class="ui tiny button"
 							v-for="group in groups"
 							v-on:click="chooseGroup(group.id)"
-							v-bind:class="{ primary: group.id == formData.groupId }">{{ group.label }}</span>
+							v-bind:class="{ primary: group.id == formData.groupId }">{{ group.name }}</span>
 					</td>
 				</tr>
 				<tr v-if="step > 2">
@@ -44,9 +44,9 @@
 					</td>
 					<td>
 						<input class="ui tiny button" v-model="formData.studentId" v-on:keyup.enter="fetchGrades">
-						<button class="ui tiny icon labeled primary button" v-on:click="fetchGrades">
-							<i class="chevron right icon"></i>
+						<button class="ui tiny icon right labeled primary check button" v-on:click="fetchGrades">
 							zobacz
+							<i class="search icon"></i>
 						</button>
 					</td>
 				</tr>
@@ -56,11 +56,11 @@
 		<div v-if="step > 3">
 			<div class="student grades" v-if="grades.students">
 				<h3>Arkusz obecności i ocen</h3>
-				<table class="ui very basic celled very compact table">
+				<table class="ui very basic celled very compact unstackable table">
 					<thead>
 						<tr>
-							<th class="two wide">indeks <i class="sort numeric ascending icon"></i></th>
-							<th class="two wide">inicjały</th>
+							<th class="one wide single line">indeks <i class="sort numeric ascending icon"></i></th>
+							<th class="one wide">inicjały</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass }}</th>
 							<th class="center aligned" v-if="$parent.authenticated"><i class="plus icon"></i></th>
 						</tr>
@@ -182,13 +182,21 @@
 	} 
 </script>
 
-<style lang="scss">
-	.semester.button {
+<style lang="scss" scoped>
+
+	.button {
 		margin: 0.25em;
+		padding: 1.25em;
+	}
+
+	.check.button {
+		line-height: 1.75em;
 	}
 
 	.student.grades {
 		margin-top: 1em;
+
+		tr td:last-child { font-weight: bold; }
 
 		.student {
 			text-align: center;

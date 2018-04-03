@@ -1,17 +1,17 @@
 <template>
 	<div>
-		<h1>Panel administracyjny</h1>
-
 		<div class="ui basic segment" v-for="section in sections">
 			<h3>{{ section.label }}</h3>
-			<span v-for="link in section.links" v-bind:key="link.label">
-				<router-link class="ui button" :to="{ name: link.target }" v-if="link.target">
-					<i class="user icon"></i> {{ link.label }}
-				</router-link>
-				<button class="ui red button" v-on:click="run(link.action)" v-else>
-					<i class="user icon"></i> {{ link.label }}
-				</button>
-			</span>
+			<div class="ui item labeled icon menu" v-bind:class="section.elements">
+					<router-link class="item" :to="{ name: link.target }" v-if="link.target" v-for="link in section.links" v-bind:key="link.label">
+						<i class="icon" v-bind:class="link.icon"></i>
+						{{ link.label }}
+					</router-link>
+					<a class="item" v-on:click="run(link.action)" v-else>
+						<i class="icon" v-bind:class="link.icon"></i>
+						{{ link.label }}
+					</a>
+			</div>
 		</div>
 	</div>
 </template>
@@ -23,36 +23,43 @@
 				sections: [
 					{
 						label: "Treści statyczne",
+						elements: "five",
 						links: [
-							{ label: "Strona główna", target: "dashboard" },
-							{ label: "Aktualności", target: "dashboard" },
-							{ label: "FAQ", target: "dashboard" },
-							{ label: "Formy kontaktu", target: "dashboard" },
-							{ label: "Konsulatcje", target: "dashboard" },
+							{ label: "Strona główna", target: "dashboard", icon: "home" },
+							{ label: "Aktualności", target: "dashboard.news.list", icon: "newspaper" },
+							{ label: "FAQ", target: "dashboard.faqs.list", icon: "question circle" },
+							{ label: "Formy kontaktu", target: "dashboard", icon: "envelope" },
+							{ label: "Terminy konsultacji", target: "dashboard", icon: "calendar" },
 						]
 					},
 					{
 						label: "Uczelnia",
+						elements: "five",
 						links: [
-							{ label: "Kierunki i specjalności", target: "dashboard.fields.list" },
-							{ label: "Formy zajęć", target: "dashboard.forms.list" },
-							{ label: "Semestry", target: "dashboard.semesters.list" },
-							{ label: "Kursy", target: "dashboard.courses.list" },
+							{ label: "Kierunki i specjalności", target: "dashboard.fields.list", icon: "tasks" },
+							{ label: "Formy zajęć", target: "dashboard.forms.list", icon: "tasks" },
+							{ label: "Semestry", target: "dashboard.semesters.list", icon: "tasks" },
+							{ label: "Kursy", target: "dashboard.courses.list", icon: "tasks" },
+							{ label: "Studenci", target: "dashboard.students.list", icon: "tasks" },
 						]
 					},
 					{
-						label: "Studenci",
+						label: "Zajęcia",
+						elements: "three",
 						links: [
-							{ label: "Studenci", target: "dashboard" },
-							{ label: "Grupy zajęciowe", target: "dashboard" },
-							{ label: "Oceny", target: "dashboard" },
+							{ label: "Kursy w semestrze", target: "dashboard.semestercourses.list", icon: "graduation cap" },
+							{ label: "Grupy zajęciowe", target: "dashboard.coursegroups.list", icon: "users" },
+							{ label: "Oceny", target: "dashboard", icon: "star" },
 						]
 					},
 					{
 						label: "Ustawienia",
+						elements: "four",
 						links: [
-							{ label: "Konto użytkownika", target: "dashboard" },
-							{ label: "Wyloguj się", action: "logout" },
+							{ label: "Konto użytkownika", target: "dashboard", icon: "address book outline" },
+							{ label: "Ustawienia", target: "dashboard", icon: "cogs" },
+							{ label: "Analityki", action: "google", icon: "google" },
+							{ label: "Wyloguj się", action: "logout", icon: "window close" },
 						]
 					},
 				],

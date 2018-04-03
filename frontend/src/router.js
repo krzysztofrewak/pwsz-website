@@ -22,13 +22,6 @@ import ManagementList from "@/components/Dashboard/ManagementList"
 
 Vue.use(Router)
 
-let managementModules = [
-	{ repository: "fields", url: "kierunki" },
-	{ repository: "forms", url: "formy" },
-	{ repository: "semesters", url: "semestry" },
-	{ repository: "courses", url: "kursy" },
-]
-
 let routes = [
 	{ path: "/", meta: { section: "home" }, name: "home", component: Home },
 
@@ -44,11 +37,22 @@ let routes = [
 	{ path: "/kontakt", meta: { section: "contact" }, name: "contact", component: ContactPage },
 
 	{ path: "/logowanie", meta: { section: "dashboard", requiresGuest: true }, name: "login", component: LoginForm, },
-
 	{ path: "/zarzadzaj", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard", component: Dashboard, },
 
 	{ path: "/brak-dostepu", meta: { section: "error" }, name: "not-allowed", component: NotAllowed },
 	{ path: "*", meta: { section: "error" }, name: "not-found", component: NotFound },
+]
+
+let managementModules = [
+	{ repository: "news", url: "aktualnosci" },
+	{ repository: "faqs", url: "faq" },
+	{ repository: "fields", url: "kierunki" },
+	{ repository: "forms", url: "formy" },
+	{ repository: "semestercourses", url: "semestry/kursy" },
+	{ repository: "semesters", url: "semestry" },
+	{ repository: "courses", url: "kursy" },
+	{ repository: "students", url: "studenci" },
+	{ repository: "coursegroups", url: "grupy" },
 ]
 
 for(let module of managementModules) {
@@ -58,6 +62,12 @@ for(let module of managementModules) {
 			meta: { section: "dashboard", repository: module.repository, requiresAuth: true },
 			name: "dashboard." + module.repository +".list",
 			component: ManagementList,
+		},
+		{ 
+			path: "/zarzadzaj/" + module.url + "/dodaj",
+			meta: { section: "dashboard", repository: module.repository, createForm: true, requiresAuth: true },
+			name: "dashboard." + module.repository +".add",
+			component: ManagementForm,
 		},
 		{ 
 			path: "/zarzadzaj/" + module.url + "/:id",

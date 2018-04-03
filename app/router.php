@@ -45,17 +45,28 @@ $router->addPost("/api/logout", ac(r("logout", "Authentication"), $authenticated
 $namespace = "PWSZ\\Controllers\\Management";
 
 $router->addPost("/api/management", ac(r("update", "Update", $namespace), $authenticated));
+$router->addDelete("/api/management/{repository_name}/{id}", ac(r("delete", "Delete", $namespace), $authenticated));
+
+$router->addPost("/api/management/coursegroups/students", ac(r("updateStudentsInGroupAction", "CourseGroup", $namespace), $authenticated));
+
+$namespace = "PWSZ\\Controllers\\Management\\CRUD";
 
 $modules = [
+	"news" => "News",
+	"faqs" => "Faq",
 	"fields" => "Field",
 	"forms" => "Form",
 	"semesters" => "Semester",
 	"courses" => "Course",
+	"students" => "Student",
+	"semestercourses" => "SemesterCourse",
+	"coursegroups" => "CourseGroup",
 ];
 
 foreach($modules as $url => $controller) {
 	$router->addGet("/api/management/". $url, ac(r("list", $controller, $namespace), $authenticated));
-	$router->addGet("/api/management/". $url ."/{id}", ac(r("form", $controller, $namespace), $authenticated));
+	$router->addGet("/api/management/". $url ."/form", ac(r("addForm", $controller, $namespace), $authenticated));
+	$router->addGet("/api/management/". $url ."/form/{id}", ac(r("editForm", $controller, $namespace), $authenticated));
 }
 
 return $router;

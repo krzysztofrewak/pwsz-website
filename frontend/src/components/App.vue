@@ -6,7 +6,9 @@
 		<div class="ui vertical stripe segment" id="content">
 			<div class="ui container">
 				<keep-alive>
-					<router-view></router-view>
+					<transition name="page" mode="out-in">
+						<router-view></router-view>
+					</transition>
 				</keep-alive>
 			</div>
 		</div>
@@ -53,6 +55,10 @@
 	* {
 		outline: 0px;
 	}
+
+	body {
+		overflow-y: scroll;
+	}
 	
 	.clear {
 		clear: both;
@@ -83,7 +89,7 @@
 	#content {
 		border-bottom: none;
 		flex: 1;
-		padding: 3em 0em;
+		padding: 2em 0em 3em;
 	}
 
 	.clickable {
@@ -101,5 +107,19 @@
 	.subheader {
 		color: rgba(0, 0, 0, 0.5);
 		font-weight: initial;
+	}
+
+	.page-enter-active, .page-leave-active {
+		transition: opacity .25s, transform .25s;
+	}
+	
+	.page-leave-to {
+		opacity: 0;
+		transform: translateX(50%);
+	}
+	
+	.page-enter {
+		opacity: 0;
+		transform: translateX(-50%);
 	}
 </style>

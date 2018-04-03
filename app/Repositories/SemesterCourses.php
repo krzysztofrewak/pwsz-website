@@ -2,28 +2,38 @@
 
 namespace PWSZ\Repositories;
 
-use PWSZ\Models\Semester;
+use PWSZ\Models\SemesterCourse;
 
 class SemesterCourses extends Repository {
 
 	public function getModelClass(): string {
-		return Semester::class;
+		return SemesterCourse::class;
 	}
 
 	public function map($model): array {
 		return [
 			"id" => $model->id,
-			"label" => $model->name,
+			"semester" => $model->semester->name,
+			"course" => $model->course->name,
+			"index" => $model->course->form->index,
+		];
+	}
+
+	protected function mapCourses($model): array {
+		return [
+			"id" => $model->id,
+			"name" => $model->index . " / " . $model->form->index,
 		];
 	}
 
 	public function getCoursesBySemesterId(int $id): array {
-		$semester = $this->getModelClass()::findFirst($id);
-		$objects = $semester->courses;
+		$repository = new Semesters();
+		$semester = $repository->getModelClass()::findFirst($id);
+
 		$result = [];
 
-		foreach($objects as $object) {
-			$result[] = $this->mapSimple($object);
+		foreach($semester->courses as $object) {
+			$result[] = $this->mapCourses($object);
 		}
 		
 		return $result;

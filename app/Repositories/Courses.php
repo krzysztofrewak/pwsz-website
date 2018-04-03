@@ -2,10 +2,15 @@
 
 namespace PWSZ\Repositories;
 
+use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Helpers\NumberToRoman;
 use PWSZ\Models\Course;
 
 class Courses extends Repository {
+
+	protected function getObjects(): Simple {
+		return $this->getModelClass()::find(["order" => "is_active DESC, semester_no ASC, name ASC"]);
+	}
 
 	public function getModelClass(): string {
 		return Course::class;

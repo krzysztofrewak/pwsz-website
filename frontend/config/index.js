@@ -20,7 +20,7 @@ module.exports = {
 		assetsPublicPath: "/",
 		proxyTable: {
 			"/api": {
-				target: "http://pwsz.dev",
+				target: "http://pwsz.local",
 				changeOrigin: true,
 				partRewrite: {
 					"^/": ""

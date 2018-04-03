@@ -20,7 +20,8 @@ class News extends Repository {
 		return [
 			"id" => $model->id,
 			"title" => $model->title,
-			"timestamp" => DateTimeTranslator::getDateForHuman($model->created_at),
+			"timestamp" => $model->created_at,
+			"publication" => DateTimeTranslator::getDateForHuman($model->created_at),
 			"content" => $model->content
 		];
 	}

@@ -20,7 +20,7 @@
 			return {
 				headerLinks: [
 					{ name: "news", label: "Aktualności" },
-					{ name: "courses", label: "Kursy" },
+					{ name: "courses", label: "Kursy i materiały" },
 					{ name: "grades", label: "Oceny" },
 					{ name: "faq", label: "FAQ" },
 					{ name: "contact", label: "Kontakt" },

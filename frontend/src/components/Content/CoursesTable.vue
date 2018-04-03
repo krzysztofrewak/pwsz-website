@@ -1,6 +1,8 @@
 <template>
 	<div v-if="fetched" class="courses table">
-		<h1>Lista prowadzonych przeze mnie kursów</h1>
+		<h1>Lista kursów</h1>
+
+		<p class="description">Poniżej znajduje się tabela z prowadzonymi przeze mnie kursami. Każdy kurs jest dostępny z poziomu własnej podstrony ze szczegółowymi informacjami, zasadami zaliczenia, wykazem tematów i istotnymi plikami. Wyszarzone kursy to te, które nie są prowadzone w obecnym semestrze.</p>
 		
 		<table class="ui very basic very compact table">
 			<thead>
@@ -15,8 +17,16 @@
 			</thead>
 			<tbody>
 				<tr v-for="course in courses" v-bind:class="{ inactive: !course.active }">
-					<td>{{ course.index }}</td>
-					<td>{{ course.name }}</td>
+					<td>
+						<router-link :to="{ name: 'course.page', params: { id: course.id } }">
+						{{ course.index }}
+						</router-link>
+					</td>
+					<td>
+						<router-link :to="{ name: 'course.page', params: { id: course.id } }">
+						{{ course.name }}
+						</router-link>
+					</td>
 					<td>{{ course.field }}</td>
 					<td>{{ course.semester_no }}</td>
 					<td>{{ course.form }}</td>
@@ -62,3 +72,9 @@
 		},
 	}
 </script>
+
+<style lang="scss" scoped>
+	.description {
+		margin: 3em;
+	}
+</style>

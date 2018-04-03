@@ -11,7 +11,6 @@ use Phalcon\Mvc\View;
 use Phalcon\Security;
 use Phalcon\Session\Adapter\Files as Session;
 use PWSZ\Helpers\RepositoryDispatcher;
-use PWSZ\Helpers\ResponseArray;
 
 $di = new FactoryDefault();
 
@@ -58,10 +57,6 @@ $di->set("url", function() use($config) {
 
 $di->set("view", function() use($config) {
 	return new View();
-});
-
-$di->set("responseArray", function() {
-	return new ResponseArray();
 });
 
 $di->set("repository", function() {

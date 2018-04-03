@@ -12,5 +12,8 @@
 		"psr-4": {
 			"PWSZ\\": "app/"
 		}
+	},
+	"require-dev": {
+		"behat/behat": "^3.4"
 	}
 }
