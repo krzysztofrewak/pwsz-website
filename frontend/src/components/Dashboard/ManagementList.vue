@@ -17,7 +17,10 @@
 		<table class="ui dashboard very basic very compact table">
 			<thead>
 				<tr>
-					<th v-for="column in columns">{{ column }}</th>
+					<th v-for="(label, name) in columns" class="header" v-on:click="sortBy(name)">
+						{{ label }}
+						<i class="caret icon" v-bind:class="getSortingClass(name)"></i>
+					</th>
 					<th class="collapsing right aligned">
 						<router-link class="ui tiny green icon labeled fluid button" :to="{ name: addRoute }">
 							<i class="plus icon"></i>
@@ -69,6 +72,8 @@
 				dataset: [],
 				deletingItem: null,
 				searchPhrase: "",
+				sortingKey: "",
+				sortingAsc: true,
 			}
 		},
 		computed: {
@@ -91,8 +96,19 @@
 					})
 				}
 
-				return this.dataset
-			}
+				if(!this.sortingKey) {
+					return this.dataset
+				}
+
+				let directionFactor = this.sortingAsc ? 1 : -1
+				return this.dataset.sort((a, b) => {
+					if(typeof a[this.sortingKey] != "string") {
+						return directionFactor * (a[this.sortingKey] - b[this.sortingKey])
+					}
+
+					return directionFactor * (a[this.sortingKey].localeCompare(b[this.sortingKey]))
+				})
+			},
 		},
 		created() {
 			this.fetchInitialData()
@@ -125,7 +141,22 @@
 					item.event.target.classList.remove("loading")
 					this.notifyError("Wystąpił błąd.")
 				})
-			}
+			},
+			sortBy: function(name) {
+				if(this.sortingKey == name) {
+					this.sortingAsc = !this.sortingAsc
+				} else {
+					this.sortingKey = name
+					this.sortingAsc = true
+				}
+			},
+			getSortingClass: function(name) {
+				if(this.sortingKey == name) {
+					return this.sortingAsc ? "up" : "down"
+				} 
+
+				return ""
+			},
 		},
 		watch: {
 			"$route"(from, to) {
@@ -142,5 +173,9 @@
 
 	.search.input {
 		margin: 3em auto 2em;
+	}
+
+	th.header {
+		cursor: pointer !important;
 	}
 </style>

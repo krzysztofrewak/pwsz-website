@@ -56,7 +56,7 @@
 						label: "Ustawienia",
 						elements: "four",
 						links: [
-							{ label: "Konto użytkownika", target: "dashboard", icon: "address book outline" },
+							{ label: "Konto użytkownika", target: "dashboard.account", icon: "address book outline" },
 							{ label: "Ustawienia", target: "dashboard", icon: "cogs" },
 							{ label: "Analityki", action: "google", icon: "google" },
 							{ label: "Wyloguj się", action: "logout", icon: "window close" },

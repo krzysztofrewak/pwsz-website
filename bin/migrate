@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Undoing all migrations..."
+../vendor/bin/phinx rollback -e database -t 0
+
+echo "Migrating..."
+../vendor/bin/phinx migrate -e database
+
+echo "Seeding..."
+../vendor/bin/phinx seed:run -e database

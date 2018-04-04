@@ -25,26 +25,5 @@ export default {
 				message: message,
 			})
 		},
-		checkAuthorization() {
-			// console.log(this.$route.matched[0])
-			// let route = this.$route.matched[0]
-
-			// if(route.meta.requiresAuth) {
-			// 	if(!this.authenticated) {
-			// 		this.$router.push({ name: "not-allowed" })
-			// 	}
-			// }
-
-			// if(route.meta.requiresGuest) {
-			// 	if(this.authenticated) {
-			// 		this.$router.push({ name: "not-allowed" })
-			// 	}
-			// }
-		}
 	},
-	watch: {
-		"$route"(from, to) {
-			this.checkAuthorization()
-		}
-	}
 }

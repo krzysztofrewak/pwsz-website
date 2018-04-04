@@ -8,8 +8,13 @@ use Phalcon\Http\Response;
 class AuthenticationController extends Controller {
 
 	public function checkAction(): Response {
-		$this->response->setJsonContent(["auth_status" => !is_null($this->session->auth)]);
-		return $this->response;
+		$user = $this->session->auth;
+
+		if(!is_null($this->session->auth)) {
+			$this->responseArray->setSuccessStatus();
+		}
+
+		return $this->renderResponse();
 	}
 
 	public function loginAction(): Response {
@@ -28,23 +33,29 @@ class AuthenticationController extends Controller {
 		if($user) {
 			if($this->security->checkHash($password, $user->password)) {
 				$this->registerSession($user);
-				$this->response->setJsonContent(["success" => "Zalogowano poprawnie."]);
-				
-				return $this->response;
+
+				$this->responseArray
+					->setMessage("Zalogowano poprawnie.")
+					->setSuccessStatus();
+
+				return $this->renderResponse();
 			}
 		}
 
 		$this->security->hash(rand());
-		$this->response->setJsonContent(["error" => "Podano błędny login lub hasło."]);
+		$this->responseArray->setMessage("Podano błędny login lub hasło.");
 
-		return $this->response;
+		return $this->renderResponse();
 	}
 
 	public function logoutAction(): Response {
 		$this->session->remove("auth");
-		$this->response->setJsonContent(["success" => "Wylogowano poprawnie."]);
 
-		return $this->response;
+		$this->responseArray
+			->setMessage("Wylogowano poprawnie.")
+			->setSuccessStatus();
+
+		return $this->renderResponse();
 	}
 
 	private function registerSession(User $user): void {

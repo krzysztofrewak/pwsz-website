@@ -25,12 +25,10 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("news/" + this.$route.params.id).then(function(response) {
-					if(response.body.success) {
-						this.entry = response.body.data
-					} else {
-						this.$router.replace({ name: "not-found" })
-					}
+				this.$http.get("news/" + this.$route.params.id).then(response => {
+					this.entry = response.body.data
+				}).catch(error => {
+					this.$router.replace({ name: "not-found" })
 				})
 			},
 		},

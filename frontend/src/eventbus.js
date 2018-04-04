@@ -3,7 +3,7 @@ import Vue from "vue"
 const EventBus = new Vue({
 	data() {
 		return {
-			isAuthenticated: false
+			isAuthenticated: null
 		}
 	},
 	created() {

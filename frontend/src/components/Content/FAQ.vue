@@ -5,6 +5,7 @@
 		<div class="question" v-for="question in questions">
 			<div class="ui divider"></div>
 			<h3 class="ui header">
+				<i class="question circle outline icon"></i>
 				{{ question.question }}
 			</h3>
 			<blockquote v-html="question.answer"></blockquote>
@@ -32,8 +33,8 @@
 	}
 </script>
 
-<style>
-	.question:first-of-type > .ui.divider {
-		display: none;
-	}
+<style scoped>
+	blockquote { padding: .5em; }
+	.question:first-of-type > .ui.divider { display: none; }
+	.question { padding: .5em 0; }
 </style>

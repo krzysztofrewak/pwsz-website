@@ -3,10 +3,11 @@
 		<div class="ui container">
 			<div class="ui inverted divided equal height three column stackable grid">
 				<div class="column">
-					<h4 class="ui inverted header">Informacje</h4>
-					<p>
-						Krzysztof Rewak &copy; 2017
-					</p>
+					<h4 class="ui inverted header">
+						Informacje
+						<router-link v-if="!authenticated" :to="{ name: 'login' }" class="latent">| Logowanie</router-link>
+					</h4>
+					<p>Krzysztof Rewak &copy; 2017</p>
 				</div>
 				<div class="column">
 					<h4 class="ui inverted header">Linki na zewnątrz</h4>
@@ -33,4 +34,6 @@
 	.footer.segment {
 		padding: 2em 0em;
 	}
+
+	.latent { opacity: 0; }
 </style>

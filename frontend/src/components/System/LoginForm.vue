@@ -62,7 +62,7 @@
 					if(response.data.success) {
 						this.$bus.$emit("authenticate", true)
 						this.notifySuccess("Zalogowano poprawnie.")
-						this.$router.push({ name: "home" })
+						this.$router.push({ name: "dashboard" })
 						this.toggleLoading()
 					} else {
 						this.reloadAuthButton(response.data.error)

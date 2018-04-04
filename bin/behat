@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Running behat..."
+./vendor/bin/behat --format pretty --format progress

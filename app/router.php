@@ -42,6 +42,8 @@ $router->addPost("/api/auth", r("check", "Authentication"));
 $router->addPost("/api/login", ac(r("login", "Authentication"), !$authenticated));
 $router->addPost("/api/logout", ac(r("logout", "Authentication"), $authenticated));
 
+$router->addGet("/api/user", ac(r("user", "User"), $authenticated));
+
 $namespace = "PWSZ\\Controllers\\Management";
 
 $router->addPost("/api/management", ac(r("update", "Update", $namespace), $authenticated));

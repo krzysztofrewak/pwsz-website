@@ -38,14 +38,14 @@
 		created() {
 			this.checkAuthentication()
 		},
-		mounted() {			
+		mounted() {
 			this.$bus.$on("authenticate", status => this.isAuthenticated = status)
 			this.$bus.$on("show-notification", notification => this.systemNotifications.push(notification))
 			this.$bus.$on("close-notification", notification => this.systemNotifications = this.systemNotifications.filter(e => e !== notification))
 		},
 		methods: {
 			checkAuthentication() {
-				this.$http.post("auth").then(response => this.$bus.$emit("authenticate", response.body.auth_status))
+				this.$http.post("auth").then(response => this.$bus.$emit("authenticate", true)).catch(error => this.$bus.$emit("authenticate", false))
 			}
 		}
 	}
