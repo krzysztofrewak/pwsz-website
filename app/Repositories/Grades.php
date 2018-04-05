@@ -2,9 +2,11 @@
 
 namespace PWSZ\Repositories;
 
+use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\CourseGroup;
 use PWSZ\Models\StudentClass;
 use PWSZ\Models\Student;
+use PWSZ\Models\SemesterCourseClass;
 
 class Grades extends Repository {
 
@@ -12,7 +14,7 @@ class Grades extends Repository {
 		return CourseGroup::class;
 	}
 
-	public function map($model): array {
+	public function map(Model $model, bool $show_full_names = false): array {
 		$student = $model->student;
 		$classes = [];
 
@@ -25,7 +27,7 @@ class Grades extends Repository {
 
 		return [
 			"number" => $student->student_no,
-			"initials" => $student->initials,
+			"initials" => $show_full_names ? $student->name : $student->initials,
 			"classes" => $classes,
 		];
 	}
@@ -43,20 +45,30 @@ class Grades extends Repository {
 		if($force_result || $validation_guard) {
 			$result["classes"] = [];
 			foreach($course_group->classes as $class) {
-				$result["classes"][] = $class->name;
+				$result["classes"][] = $this->mapClasses($class);
 			}
 
 			$result["students"] = [];
 			foreach($course_group->groupStudents as $student) {
-				$result["students"][] = $this->map($student);
+				$result["students"][] = $this->map($student, $force_result);
 			}
 
-			usort($result["students"], function($a, $b) {
-				return $a["number"] - $b["number"];
-			});
+			$result["students"] = $this->sortStudents($result["students"]);
 		}
 		
 		return $result;
+	}
+
+	protected function mapClasses(Model $class): array {
+		return ["name" => $class->name];
+	}
+
+	protected function sortStudents(array $students): array {
+		usort($students, function($a, $b) {
+			return $a["number"] - $b["number"];
+		});
+
+		return $students;
 	}
 
 }

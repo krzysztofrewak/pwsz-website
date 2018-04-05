@@ -4,6 +4,7 @@ namespace PWSZ\Repositories;
 
 use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Helpers\DateTimeTranslator;
+use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\News as NewsModel;
 
 class News extends Repository {
@@ -16,7 +17,7 @@ class News extends Repository {
 		return NewsModel::class;
 	}
 
-	public function map($model): array {
+	public function map(Model $model): array {
 		return [
 			"id" => $model->id,
 			"title" => $model->title,

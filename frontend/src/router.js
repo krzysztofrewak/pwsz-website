@@ -20,6 +20,7 @@ import Dashboard from "@/components/Dashboard/Dashboard"
 import ManagementForm from "@/components/Dashboard/ManagementForm"
 import ManagementList from "@/components/Dashboard/ManagementList"
 import AccountPage from "@/components/Dashboard/AccountPage"
+import ManagementGradesForm from "@/components/Dashboard/GradesForm"
 
 Vue.use(Router)
 
@@ -40,6 +41,7 @@ let routes = [
 	{ path: "/logowanie", meta: { section: "dashboard", requiresGuest: true }, name: "login", component: LoginForm, },
 	{ path: "/zarzadzaj", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard", component: Dashboard, },
 	{ path: "/zarzadzaj/konto", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard.account", component: AccountPage },
+	{ path: "/zarzadzaj/oceny", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard.grades", component: ManagementGradesForm },
 
 	{ path: "/brak-dostepu", meta: { section: "error" }, name: "not-allowed", component: NotAllowed },
 	{ path: "*", meta: { section: "error" }, name: "not-found", component: NotFound },

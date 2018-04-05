@@ -1,7 +1,5 @@
 <template>
 	<div>
-		<h1>Sprawdź swoje oceny</h1>
-
 		<table class="ui very basic celled table">
 			<tbody>
 				<tr>
@@ -20,93 +18,55 @@
 					<td class="collapsing single line">
 						Wybierz kurs:
 					</td>
-					<td>
+					<td v-if="courses.length > 0">
 						<span class="ui tiny button"
 							v-for="course in courses"
 							v-on:click="fetchGroups(course.id)"
 							v-bind:class="{ primary: course.id == formData.courseId }">{{ course.name }}</span>
 					</td>
+					<td v-else><i class="spinner loading icon"></i></td>
 				</tr>
 				<tr v-if="step > 1">
 					<td class="collapsing single line">
 						Wybierz grupę:
 					</td>
-					<td>
+					<td v-if="groups.length > 0">
 						<span class="ui tiny button"
 							v-for="group in groups"
 							v-on:click="chooseGroup(group.id)"
 							v-bind:class="{ primary: group.id == formData.groupId }">{{ group.name }}</span>
 					</td>
-				</tr>
-				<tr v-if="step > 2">
-					<td class="collapsing single line">
-						Podaj swój numer indeksu:
-					</td>
-					<td>
-						<input class="ui tiny button" v-model="formData.studentId" v-on:keyup.enter="fetchGrades">
-						<button class="ui tiny icon right labeled primary check button" v-on:click="fetchGrades">
-							zobacz
-							<i class="search icon"></i>
-						</button>
-					</td>
+					<td v-else><i class="spinner loading icon"></i></td>
 				</tr>
 			</tbody>
 		</table>
 
 		<div v-if="step > 3">
 			<div class="student grades" v-if="grades.students">
-				<h3>Arkusz obecności i ocen</h3>
 				<table class="ui very basic celled very compact unstackable table">
 					<thead>
 						<tr>
-							<th class="one wide single line">indeks <i class="sort numeric ascending icon"></i></th>
-							<th class="one wide">inicjały</th>
-							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass.name }}</th>
-							<th class="center aligned" v-if="$parent.authenticated"><i class="plus icon"></i></th>
+							<th class="one wide single line"></th>
+							<th v-for="studentClass in grades.classes" class="center aligned">
+								<input class="student grade" :value="studentClass.name" v-on:keyup.enter="updateClass(studentClass)">
+							</th>
+							<th class="center aligned">
+								<button class="ui circular tiny icon button" v-on:click="addColumn()">
+									<i class="plus icon"></i>
+								</button>
+							</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr v-for="student in grades.students">
-							<td>{{ student.number }}</td>
 							<td>{{ student.initials }}</td>
-							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present == true, absent: grade.present == false }">
-								{{ grade.value }}
+							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present == true, absent: grade.present == false }" v-on:dblclick="toggleGrade(grade)">
+								<input class="student grade" :value="grade.value" v-on:keyup.enter="updateGrade(grade.id)">
 							</td>
+							<td></td>
 						</tr>
 					</tbody>
 				</table>
-
-				<h3>Legenda:</h3>
-				<div class="legend">
-					<div class="item">
-						<div class="student present">&nbsp;</div>
-						<div class="content">student obecny</div>
-					</div>
-					<div class="item">
-						<div class="student present">+</div>
-						<div class="content">student aktywny na zajęciach</div>
-					</div>
-					<div class="item">
-						<div class="student present">5</div>
-						<div class="content">student oceniony na zajęciach</div>
-					</div>
-					<div class="item">
-						<div class="student absent">&nbsp;</div>
-						<div class="content">student nieobecny</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="ui negative icon message" v-else>
-				<i class="warning circle icon"></i>
-				<div class="content">
-					<div class="header">
-						Niestety nic nie znaleziono.
-					</div>
-					<p>
-						Dla podanej kombinacji identyfikatorów semestru, kursu i numeru indeksu nie odnaleziono żadnych danych. Sprawdź poprawność podanych informacji. Jeżeli semestr dopiero się rozpoczął, może po prostu jeszcze niczego tu nie ma.
-					</p>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -133,23 +93,26 @@
 			this.fetchInitialData()
 		},
 		methods: {
+			moveStep() {
+				this.step++
+			},
 			fetchInitialData() {
-				this.$http.post("grades/semesters").then(function(response) {
+				this.step = 0
+				this.$http.post("management/grades/semesters").then((response) => {
 					if(response.status) {
 						this.semesters = response.body.data
 					}
 				})
 			},
 			fetchCourses(semesterId) {
-				this.step = 0
 				this.formData.courseId = null
 				this.courses = []
 
 				this.formData.semesterId = semesterId
-				this.$http.post("grades/courses", this.formData).then(function(response) {
+				this.$http.post("management/grades/courses", this.formData).then((response) => {
 					if(response.status) {
 						this.courses = response.body.data
-						this.step = 1
+						this.moveStep()
 					}
 				})
 			},
@@ -159,25 +122,41 @@
 				this.groups = []
 
 				this.formData.courseId = courseId
-				this.$http.post("grades/groups", this.formData).then(function(response) {
+				this.$http.post("management/grades/groups", this.formData).then((response) => {
 					if(response.status) {
 						this.groups = response.body.data
-						this.step = 2
+						this.moveStep()
 					}
 				})
 			},
 			chooseGroup(groupId) {
-				this.step = 3
 				this.formData.groupId = groupId
+				this.moveStep()
+				this.fetchGrades()
 			},
 			fetchGrades() {
-				this.$http.post("grades", this.formData).then(function(response) {
-					if(response.status) {
-						this.grades = response.body.data
-						this.step = 4
-					}
+				this.grades = null
+				this.$http.post("management/grades", this.formData).then((response) => {
+					this.grades = response.body.data
+					this.moveStep()
 				})
 			},
+			toggleGrade(grade) {
+				if(grade.present === null) grade.present = "1"
+				else if(grade.present === "1") grade.present = "0"
+				else if(grade.present === "0") grade.present = null
+
+				// ajax na zmianę stanu
+			},
+			addColumn() {
+				this.fetchGrades()
+			},
+			updateClass(id) {
+				this.fetchGrades()
+			},
+			updateGrade(id) {
+				this.fetchGrades()
+			}
 		},
 	} 
 </script>
@@ -229,5 +208,12 @@
 				padding-left: .5em;
 			}
 		}
+	}
+
+	.student.grade {
+		width: 100%;
+		background: none;
+		border: none;
+		font-family: "Lato";
 	}
 </style>

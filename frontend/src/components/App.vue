@@ -58,6 +58,7 @@
 
 	body {
 		overflow-y: scroll;
+		overflow-x: auto;
 	}
 	
 	.clear {

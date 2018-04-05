@@ -3,6 +3,7 @@
 namespace PWSZ\Repositories;
 
 use Phalcon\Mvc\Model\Resultset\Simple;
+use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\Student;
 
 class Students extends Repository {
@@ -15,7 +16,7 @@ class Students extends Repository {
 		return Student::class;
 	}
 
-	public function map($model): array {
+	public function map(Model $model): array {
 		return [
 			"id" => $model->id,
 			"name" => $model->name,

@@ -3,22 +3,9 @@
 namespace PWSZ\Controllers;
 
 use Phalcon\Http\Response;
+use PWSZ\Interfaces\RepositoryInterface;
 
 class GradesController extends Controller {
-
-	public function getGradesAction(): Response {
-		$request = json_decode($this->request->getRawBody());
-
-		$group_id = $request->groupId;
-		$student_id = $request->studentId ?: "";
-
-		$grades = $this->repository->get("grades")->getGrades($group_id, $student_id, !is_null($this->session->get("auth")));
-
-		$this->responseArray->setData($grades);
-		$this->responseArray->setSuccessStatus();
-
-		return $this->renderResponse();
-	}
 
 	public function getSemestersAction(): Response {
 		$semesters = $this->repository->get("semesters")->getAll();
@@ -49,6 +36,24 @@ class GradesController extends Controller {
 		$this->responseArray->setSuccessStatus();
 
 		return $this->renderResponse();
+	}
+
+	public function getGradesAction(): Response {
+		$request = json_decode($this->request->getRawBody());
+
+		$group_id = $request->groupId;
+		$student_id = $request->studentId ?: "";
+
+		$grades = $this->getGradesRepository()->getGrades($group_id, $student_id, !is_null($this->session->get("auth")));
+
+		$this->responseArray->setData($grades);
+		$this->responseArray->setSuccessStatus();
+
+		return $this->renderResponse();
+	}
+
+	protected function getGradesRepository(): RepositoryInterface {
+		return $this->repository->get("grades");
 	}
 
 }

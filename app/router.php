@@ -50,6 +50,10 @@ $router->addPost("/api/management", ac(r("update", "Update", $namespace), $authe
 $router->addDelete("/api/management/{repository_name}/{id}", ac(r("delete", "Delete", $namespace), $authenticated));
 
 $router->addPost("/api/management/coursegroups/students", ac(r("updateStudentsInGroupAction", "CourseGroup", $namespace), $authenticated));
+$router->addPost("/api/management/grades", ac(r("getGrades", "Grades", $namespace), $authenticated));
+$router->addPost("/api/management/grades/semesters", ac(r("getSemesters", "Grades", $namespace), $authenticated));
+$router->addPost("/api/management/grades/courses", ac(r("getCourses", "Grades", $namespace), $authenticated));
+$router->addPost("/api/management/grades/groups", ac(r("getGroups", "Grades", $namespace), $authenticated));
 
 $namespace = "PWSZ\\Controllers\\Management\\CRUD";
 

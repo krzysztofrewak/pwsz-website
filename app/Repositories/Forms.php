@@ -2,6 +2,7 @@
 
 namespace PWSZ\Repositories;
 
+use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\Form;
 
 class Forms extends Repository {
@@ -10,7 +11,7 @@ class Forms extends Repository {
 		return Form::class;
 	}
 
-	public function map($model): array {
+	public function map(Model $model): array {
 		return [
 			"id" => $model->id,
 			"index" => $model->index,

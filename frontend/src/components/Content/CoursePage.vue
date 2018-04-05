@@ -41,7 +41,6 @@
 					<tr>
 						<th>#</th>
 						<th>temat zajęć</th>
-						<th>język progr.</th>
 						<th>pliki</th>
 					</tr>
 				</thead>
@@ -49,7 +48,6 @@
 					<tr v-for="topic in course.topics">
 						<td class="collapsing">{{ topic.no }}</td>
 						<td>{{ topic.title }}</td>
-						<td>{{ topic.language }}</td>
 						<td>
 							<a target="_blank" v-for="file in topic.files" v-bind:href="file.url">
 								<i class="big file outline icon" v-bind:class="file.icon"></i>

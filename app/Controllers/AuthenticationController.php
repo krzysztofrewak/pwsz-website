@@ -12,6 +12,8 @@ class AuthenticationController extends Controller {
 
 		if(!is_null($this->session->auth)) {
 			$this->responseArray->setSuccessStatus();
+		} else {
+			$this->responseArray->setStatusCode(401);
 		}
 
 		return $this->renderResponse();

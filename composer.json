@@ -1,8 +1,13 @@
 {
 	"require": {
-		"vlucas/phpdotenv": "^2.4",
-		"robmorgan/phinx": "^0.8.0",
 		"nesbot/carbon": "^1.22",
+		"robmorgan/phinx": "^0.8.0",
+		"vlucas/phpdotenv": "^2.4"
+	},
+	"require-dev": {
+		"behat/behat": "^3.4",
+		"guzzlehttp/guzzle": "~6.0",
+		"phpunit/phpunit": "6.5",
 		"whoops/phalcon": "^2.0"
 	},
 	"autoload": {
@@ -10,10 +15,8 @@
 			"database"
 		],
 		"psr-4": {
-			"PWSZ\\": "app/"
+			"PWSZ\\": "app/",
+			"PWSZ\\Behat\\": "features/contexts/"
 		}
-	},
-	"require-dev": {
-		"behat/behat": "^3.4"
 	}
 }

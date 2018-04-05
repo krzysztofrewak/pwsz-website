@@ -49,7 +49,7 @@
 						links: [
 							{ label: "Kursy w semestrze", target: "dashboard.semestercourses.list", icon: "graduation cap" },
 							{ label: "Grupy zajęciowe", target: "dashboard.coursegroups.list", icon: "users" },
-							{ label: "Oceny", target: "dashboard", icon: "star" },
+							{ label: "Oceny", target: "dashboard.grades", icon: "star" },
 						]
 					},
 					{

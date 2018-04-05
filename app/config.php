@@ -13,7 +13,7 @@ Carbon::setLocale("pl");
 
 return new Config([
 	"application" => [
-		"environment" => strtolower(getenv("ENV")),
+		"environment" => strtolower(getenv("APP_ENV")),
 		"publicDir" => APP_PATH . "/public/",
 		"baseUri" => "/",
 		"imagesUri" => "/images/",

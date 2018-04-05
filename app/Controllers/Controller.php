@@ -16,7 +16,7 @@ abstract class Controller extends BaseController {
 
 	public function renderResponse(): Response {
 		$this->response->setJsonContent($this->responseArray);
-		$this->response->setStatusCode($this->responseArray->success ? "200" : "500");
+		$this->response->setStatusCode($this->responseArray->getStatusCode());
 		return $this->response;
 	}
 

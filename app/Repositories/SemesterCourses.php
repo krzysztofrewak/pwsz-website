@@ -2,6 +2,7 @@
 
 namespace PWSZ\Repositories;
 
+use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\SemesterCourse;
 
 class SemesterCourses extends Repository {
@@ -10,7 +11,7 @@ class SemesterCourses extends Repository {
 		return SemesterCourse::class;
 	}
 
-	public function map($model): array {
+	public function map(Model $model): array {
 		return [
 			"id" => $model->id,
 			"semester" => $model->semester->name,
@@ -19,7 +20,7 @@ class SemesterCourses extends Repository {
 		];
 	}
 
-	protected function mapCourses($model): array {
+	protected function mapCourses(Model $model): array {
 		return [
 			"id" => $model->id,
 			"name" => $model->index . " / " . $model->form->index,

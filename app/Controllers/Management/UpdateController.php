@@ -17,9 +17,13 @@ class UpdateController extends Controller {
 		$id = $request->id;
 		$request = $this->mapValues((array) $request);
 
-		$this->repository->get($repositoryName)->updateById($id, $request);
-		$this->responseArray->setSuccessStatus();
+		if($id) {
+			$this->repository->get($repositoryName)->updateById($request, $id);
+		} else {
+			$this->repository->get($repositoryName)->create($request);
+		}
 
+		$this->responseArray->setSuccessStatus();
 		return $this->renderResponse();
 	}
 

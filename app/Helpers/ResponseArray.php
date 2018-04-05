@@ -4,6 +4,7 @@ namespace PWSZ\Helpers;
 
 class ResponseArray {
 
+	protected $status;
 	public $success = false;
 	public $message = "";
 	public $redirect = null;
@@ -50,6 +51,19 @@ class ResponseArray {
 	public function setData(array $data): self {
 		$this->data = $data;
 		return $this;
+	}
+
+	public function setStatusCode(int $status): self {
+		$this->status = $status;
+		return $this;
+	}
+
+	public function getStatusCode(): int {
+		if($this->status) {
+			return $this->status;
+		}
+
+		return $this->success ? 200 : 500;
 	}
 
 }

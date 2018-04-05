@@ -16,14 +16,16 @@ class IndexController extends Controller {
 
 	public function notFoundAction(): Response {
 		$this->responseArray
-			->setMessage("URL not found");
+			->setMessage("URL not found")
+			->setStatusCode(404);
 
 		return $this->renderResponse();
 	}
 
 	public function noAccessAction(): Response {
 		$this->responseArray
-			->setMessage("URL not allowed");
+			->setMessage("URL not allowed")
+			->setStatusCode(401);
 
 		return $this->renderResponse();
 	}

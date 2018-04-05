@@ -1,0 +1,9 @@
+# behat.yml
+
+default:
+    suites:
+        default:
+            bootstrap: 
+                - features/bootstrap/bootstrap.php
+            contexts:
+                - PWSZ\Behat\AccessContext

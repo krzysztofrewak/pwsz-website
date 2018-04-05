@@ -4,6 +4,7 @@ namespace PWSZ\Repositories;
 
 use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Helpers\NumberToRoman;
+use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\Course;
 
 class Courses extends Repository {
@@ -16,7 +17,7 @@ class Courses extends Repository {
 		return Course::class;
 	}
 
-	public function map($model): array {
+	public function map(Model $model): array {
 		return [
 			"id" => $model->id,
 			"active" => (bool) $model->is_active,
