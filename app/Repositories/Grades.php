@@ -32,8 +32,8 @@ class Grades extends Repository {
 		];
 	}
 
-	public function getGrades(int $semester_course_group_id, string $student_no, bool $force_result = false): array {
-        $course_group = $this->getModelClass()::findFirst($semester_course_group_id);
+	public function getGrades(int $course_group_id, string $student_no, bool $force_result = false): array {
+        $course_group = $this->getModelClass()::findFirst($course_group_id);
 
 		$result = [];
 		$validation_guard = false;

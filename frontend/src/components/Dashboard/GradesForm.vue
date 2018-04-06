@@ -149,7 +149,9 @@
 				// ajax na zmianę stanu
 			},
 			addColumn() {
-				this.fetchGrades()
+				this.$http.post("management/grades/column", { groupId: this.formData.groupId }).then((response) => {
+					this.fetchGrades()
+				})
 			},
 			updateClass(id) {
 				this.fetchGrades()
