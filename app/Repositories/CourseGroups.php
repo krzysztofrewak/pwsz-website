@@ -31,7 +31,7 @@ class CourseGroups extends Repository {
 
 	public function getGroupsByCourseId(int $id): array {
 		$semester_course = SemesterCourse::findFirst($id);
-		$objects = $semester_course->courseGroups;
+		$objects = $semester_course->groups;
 		$result = [];
 
 		foreach($objects as $object) {

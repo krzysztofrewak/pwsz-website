@@ -11,8 +11,8 @@ class Student extends Model {
 	public function initialize(): void {
 		$this->setSource("students");
 
-		$this->hasMany("id", GroupStudent::class, "student_id", ["alias" => "GroupStudents"]);
-		$this->hasManyToMany("id", GroupStudent::class, "student_id", "course_group_id", CourseGroup::class, "id", ["alias" => "CourseGroups"]);
+		$this->hasMany("id", CourseGroupStudent::class, "student_id", ["alias" => "GroupStudents"]);
+		$this->hasManyToMany("id", CourseGroupStudent::class, "student_id", "course_group_id", CourseGroup::class, "id", ["alias" => "Group"]);
 	}
 
 	public function getInitials(): string {

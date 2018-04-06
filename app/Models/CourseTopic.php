@@ -2,7 +2,7 @@
 
 namespace PWSZ\Models;
 
-class Topic extends Model {
+class CourseTopic extends Model {
 
 	public $id;
 	public $title;
@@ -11,10 +11,10 @@ class Topic extends Model {
 	public $course_id;
 
 	public function initialize(): void {
-		$this->setSource("topics");
+		$this->setSource("course_topics");
 
 		$this->belongsTo("course_id", Course::class, "id", ["alias" => "Course"]);
-		$this->hasMany("id", File::class, "topic_id", ["alias" => "Files"]);
+		$this->hasMany("id", CourseTopicFile::class, "course_topic_id", ["alias" => "Files"]);
 	}
 	
 }

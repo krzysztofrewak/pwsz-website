@@ -1,1 +1,1 @@
-bash.exe migrate
+bash.exe bin/migrate

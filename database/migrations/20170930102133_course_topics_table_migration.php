@@ -2,14 +2,13 @@
 
 use Phinx\Migration\AbstractMigration as Migration;
 
-class TopicsTableMigration extends Migration {
+class CourseTopicsTableMigration extends Migration {
 
 	public function change() {
-		$table = $this->table("topics");
+		$table = $this->table("course_topics");
 
 		$table->addColumn("title", "string");
 		$table->addColumn("no", "string");
-		$table->addColumn("language", "string");
 
 		$table->addColumn("course_id", "integer");
 		$table->addForeignKey("course_id", "courses", "id", ["delete" => "CASCADE", "update" => "NO_ACTION"]);

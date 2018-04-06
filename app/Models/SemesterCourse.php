@@ -13,8 +13,7 @@ class SemesterCourse extends Model {
 		
 		$this->belongsTo("semester_id", Semester::class, "id", ["alias" => "Semester"]);
 		$this->belongsTo("course_id", Course::class, "id", ["alias" => "Course"]);
-		$this->hasMany("id", CourseGroup::class, "semester_course_id", ["alias" => "CourseGroups"]);
-		$this->hasMany("id", SemesterCourseClass::class, "semester_course_id", ["alias" => "Classes"]);
+		$this->hasMany("id", CourseGroup::class, "semester_course_id", ["alias" => "Groups"]);
 	}
 	
 }

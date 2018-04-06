@@ -46,7 +46,11 @@
 				<table class="ui very basic celled very compact unstackable table">
 					<thead>
 						<tr>
-							<th class="one wide single line"></th>
+							<th class="one wide single line center aligned">
+								<button class="ui circular tiny icon button" v-on:click="fetchGrades()">
+									<i class="icon" v-bind:class="getIcon"></i>
+								</button>
+							</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">
 								<input class="student grade" :value="studentClass.name" v-on:keyup.enter="updateClass(studentClass)">
 							</th>
@@ -59,9 +63,9 @@
 					</thead>
 					<tbody>
 						<tr v-for="student in grades.students">
-							<td>{{ student.initials }}</td>
-							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present == true, absent: grade.present == false }" v-on:dblclick="toggleGrade(grade)">
-								<input class="student grade" :value="grade.value" v-on:keyup.enter="updateGrade(grade.id)">
+							<td>{{ student.name }}</td>
+							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.was_present == true, absent: grade.was_present == false }" v-on:dblclick="toggleGrade(grade)">
+								<input class="student grade" v-model="grade.value" v-on:keyup.enter="updateGrade(grade)">
 							</td>
 							<td></td>
 						</tr>
@@ -82,15 +86,21 @@
 					semesterId: null,
 					studentId: null,
 				},
-				grades: null,
+				grades: [],
 				groups: [],
 				semesters: [],
 				courses: [],
 				step: 0,
+				successStatus: false,
 			}
 		},
 		created() {
 			this.fetchInitialData()
+		},
+		computed: {
+			getIcon: function() {
+				return !this.successStatus ? "refresh" : "green check"
+			}
 		},
 		methods: {
 			moveStep() {
@@ -135,29 +145,34 @@
 				this.fetchGrades()
 			},
 			fetchGrades() {
-				this.grades = null
+				this.grades = []
 				this.$http.post("management/grades", this.formData).then((response) => {
 					this.grades = response.body.data
 					this.moveStep()
 				})
 			},
 			toggleGrade(grade) {
-				if(grade.present === null) grade.present = "1"
-				else if(grade.present === "1") grade.present = "0"
-				else if(grade.present === "0") grade.present = null
+				if(grade.was_present === null) grade.was_present = "1"
+				else if(grade.was_present === "1") grade.was_present = "0"
+				else if(grade.was_present === "0") grade.was_present = null
 
-				// ajax na zmianę stanu
+				this.updateGrade(grade)
 			},
 			addColumn() {
 				this.$http.post("management/grades/column", { groupId: this.formData.groupId }).then((response) => {
 					this.fetchGrades()
 				})
 			},
-			updateClass(id) {
+			updateClass(grade) {
 				this.fetchGrades()
 			},
-			updateGrade(id) {
-				this.fetchGrades()
+			updateGrade(grade) {
+				this.$http.post("management", { repository: "grades", request: grade }).then((response) => {
+					this.successStatus = true
+					setTimeout(() => {
+						this.successStatus = false;
+					}, 1000);
+				})
 			}
 		},
 	} 
@@ -175,7 +190,7 @@
 	}
 
 	.student.grades {
-		margin-top: 1em;
+		margin-top: 5em;
 
 		tr td:last-child { font-weight: bold; }
 

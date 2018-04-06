@@ -60,7 +60,7 @@
 					<thead>
 						<tr>
 							<th class="one wide single line">indeks <i class="sort numeric ascending icon"></i></th>
-							<th class="one wide">inicjały</th>
+							<th class="one wide">student</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass.name }}</th>
 							<th class="center aligned" v-if="$parent.authenticated"><i class="plus icon"></i></th>
 						</tr>
@@ -68,8 +68,8 @@
 					<tbody>
 						<tr v-for="student in grades.students">
 							<td>{{ student.number }}</td>
-							<td>{{ student.initials }}</td>
-							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.present == true, absent: grade.present == false }">
+							<td class="student name">{{ student.initials }}</td>
+							<td v-for="grade in student.classes" class="student grade" v-bind:class="{ present: grade.present == true, absent: grade.present == false }">
 								{{ grade.value }}
 							</td>
 						</tr>
@@ -79,19 +79,19 @@
 				<h3>Legenda:</h3>
 				<div class="legend">
 					<div class="item">
-						<div class="student present">&nbsp;</div>
+						<div class="student grade present">&nbsp;</div>
 						<div class="content">student obecny</div>
 					</div>
 					<div class="item">
-						<div class="student present">+</div>
+						<div class="student grade present">+</div>
 						<div class="content">student aktywny na zajęciach</div>
 					</div>
 					<div class="item">
-						<div class="student present">5</div>
+						<div class="student grade present">5</div>
 						<div class="content">student oceniony na zajęciach</div>
 					</div>
 					<div class="item">
-						<div class="student absent">&nbsp;</div>
+						<div class="student grade absent">&nbsp;</div>
 						<div class="content">student nieobecny</div>
 					</div>
 				</div>
@@ -193,20 +193,25 @@
 		line-height: 1.75em;
 	}
 
+	.student.name {
+		word-spacing: 100vw;
+		text-align: left !important;
+	}
+
 	.student.grades {
 		margin-top: 1em;
 
-		tr td:last-child { font-weight: bold; }
+		tr td:last-child { font-weight: bold; width: 10%; }
 
-		.student {
+		.student.grade {
 			text-align: center;
 		}
 
-		.student.absent {
+		.student.grade.absent {
 			background: #F08080;
 		}
 
-		.student.present {
+		.student.grade.present {
 			background: #DAF7A6;
 		}
 

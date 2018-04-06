@@ -2,10 +2,10 @@
 
 use Phinx\Migration\AbstractMigration as Migration;
 
-class GroupStudentsTableMigration extends Migration {
+class CourseGroupStudentsTableMigration extends Migration {
 
 	public function change() {
-		$table = $this->table("group_students");
+		$table = $this->table("course_group_students");
 
 		$table->addColumn("student_id", "integer");
 		$table->addForeignKey("student_id", "students", "id", ["delete"=> "CASCADE", "update"=> "NO_ACTION"]);
