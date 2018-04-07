@@ -68,15 +68,6 @@ class CourseGroupController extends CRUDController {
 		return $form;
 	}
 
-	public function updateStudentsInGroupAction(): Response {
-		$request = json_decode($this->request->getRawBody());
-
-		$this->responseArray
-			->setSuccessStatus();
-
-		return $this->renderResponse();
-	}
-
 	protected function buildSemesterCoursesValues(?int $semester_course_id): array {
 		return array_map(function($value) use($semester_course_id) {
 			return [

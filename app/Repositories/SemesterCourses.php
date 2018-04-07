@@ -23,7 +23,7 @@ class SemesterCourses extends Repository {
 	protected function mapCourses(Model $model): array {
 		return [
 			"id" => $model->id,
-			"name" => $model->index . " / " . $model->form->index,
+			"name" => $model->name . " | " . $model->form->name,
 		];
 	}
 

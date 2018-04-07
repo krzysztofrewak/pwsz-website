@@ -14,7 +14,7 @@ class UpdateController extends Controller {
 
 		$request = $request->request;
 
-		$id = $request->id;
+		$id = isset($request->id) ? $request->id : null;
 		$request = $this->mapValues((array) $request);
 
 		if($id) {

@@ -24,7 +24,9 @@
 						<span class="ui tiny button"
 							v-for="course in courses"
 							v-on:click="fetchGroups(course.id)"
-							v-bind:class="{ primary: course.id == formData.courseId }">{{ course.name }}</span>
+							v-bind:class="{ primary: course.id == formData.courseId }">
+							{{ course.name }}
+						</span>
 					</td>
 				</tr>
 				<tr v-if="step > 1">

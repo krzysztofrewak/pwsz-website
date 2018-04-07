@@ -59,8 +59,9 @@
 		},
 		methods: {
 			update: function() {
-				console.log("management/coursegroups/students")
-				console.log(this.dataset)
+				this.$http.post("management/coursegroups/students", { group: this.$route.params.id, students: this.dataset }).then(function(response) {
+					console.log("success")
+				})
 			}
 		}
 	}

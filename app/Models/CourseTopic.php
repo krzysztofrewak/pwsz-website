@@ -7,7 +7,6 @@ class CourseTopic extends Model {
 	public $id;
 	public $title;
 	public $no;
-	public $language;
 	public $course_id;
 
 	public function initialize(): void {

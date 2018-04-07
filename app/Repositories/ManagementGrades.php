@@ -37,6 +37,7 @@ class ManagementGrades extends Grades {
 		return [
 			"id" => $class->id,
 			"name" => $class->name,
+			"course_group_id" => $class->course_group_id,
 		];
 	}
 

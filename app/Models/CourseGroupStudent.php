@@ -16,5 +16,16 @@ class CourseGroupStudent extends Model {
 		
 		$this->hasMany("id", Grade::class, "course_group_student_id", ["alias" => "Grades"]);
 	}
+
+	public function afterCreate() {
+		$classes = $this->group->classes;
+		foreach($classes as $class) {
+			$grade = new Grade();
+			$grade->save([
+				"course_group_class_id" => $class->id,
+				"course_group_student_id" => $this->id,
+			]);
+		}
+	}
 	
 }

@@ -52,7 +52,7 @@
 								</button>
 							</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">
-								<input class="student grade" :value="studentClass.name" v-on:keyup.enter="updateClass(studentClass)">
+								<input class="student grade" v-model="studentClass.name" v-on:keyup.enter="updateClass(studentClass)">
 							</th>
 							<th class="center aligned">
 								<button class="ui circular tiny icon button" v-on:click="addColumn()">
@@ -103,11 +103,9 @@
 			}
 		},
 		methods: {
-			moveStep() {
-				this.step++
-			},
 			fetchInitialData() {
 				this.step = 0
+
 				this.$http.post("management/grades/semesters").then((response) => {
 					if(response.status) {
 						this.semesters = response.body.data
@@ -122,7 +120,7 @@
 				this.$http.post("management/grades/courses", this.formData).then((response) => {
 					if(response.status) {
 						this.courses = response.body.data
-						this.moveStep()
+						this.step = 1
 					}
 				})
 			},
@@ -135,20 +133,20 @@
 				this.$http.post("management/grades/groups", this.formData).then((response) => {
 					if(response.status) {
 						this.groups = response.body.data
-						this.moveStep()
+						this.step = 2
 					}
 				})
 			},
 			chooseGroup(groupId) {
 				this.formData.groupId = groupId
-				this.moveStep()
+				this.step = 3
 				this.fetchGrades()
 			},
 			fetchGrades() {
 				this.grades = []
 				this.$http.post("management/grades", this.formData).then((response) => {
 					this.grades = response.body.data
-					this.moveStep()
+					this.step = 4
 				})
 			},
 			toggleGrade(grade) {
@@ -159,12 +157,25 @@
 				this.updateGrade(grade)
 			},
 			addColumn() {
-				this.$http.post("management/grades/column", { groupId: this.formData.groupId }).then((response) => {
+				let groupClass = {
+					name: "?",
+					course_group_id: this.formData.groupId
+				}
+
+				this.$http.post("management", { repository: "courseGroupClasses", request: groupClass }).then((response) => {
 					this.fetchGrades()
 				})
 			},
 			updateClass(grade) {
-				this.fetchGrades()
+				let groupClass = {
+					id: grade.id,
+					name: grade.name,
+					course_group_id: this.formData.groupId
+				}
+
+				this.$http.post("management", { repository: "courseGroupClasses", request: groupClass }).then((response) => {
+					this.fetchGrades()
+				})
 			},
 			updateGrade(grade) {
 				this.$http.post("management", { repository: "grades", request: grade }).then((response) => {
