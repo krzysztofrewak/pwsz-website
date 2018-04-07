@@ -45,7 +45,6 @@ class Courses extends Repository {
 			$topics[] = [
 				"no" => $topic->no,
 				"title" => $topic->title,
-				"language" => $topic->language,
 				"files" => $files,
 			];
 		}
