@@ -16,7 +16,7 @@
 		],
 		"psr-4": {
 			"PWSZ\\": "app/",
-			"PWSZ\\Behat\\": "features/contexts/"
+			"PWSZ\\Tests\\": "features/contexts/"
 		}
 	}
 }

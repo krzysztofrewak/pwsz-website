@@ -52,7 +52,7 @@
 								</button>
 							</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">
-								<input class="student grade" v-model="studentClass.name" v-on:keyup.enter="updateClass(studentClass)">
+								<input class="class" v-model="studentClass.name" v-on:keyup.enter="updateClass(studentClass)">
 							</th>
 							<th class="center aligned">
 								<button class="ui circular tiny icon button" v-on:click="addColumn()">
@@ -63,7 +63,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="student in grades.students">
-							<td>{{ student.name }}</td>
+							<td class="student name">{{ student.name }}</td>
 							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.was_present == true, absent: grade.was_present == false }" v-on:dblclick="toggleGrade(grade)">
 								<input class="student grade" v-model="grade.value" v-on:keyup.enter="updateGrade(grade)">
 							</td>
@@ -106,7 +106,7 @@
 			fetchInitialData() {
 				this.step = 0
 
-				this.$http.post("management/grades/semesters").then((response) => {
+				this.$http.get("management/grades/semesters").then((response) => {
 					if(response.status) {
 						this.semesters = response.body.data
 					}
@@ -117,7 +117,7 @@
 				this.courses = []
 
 				this.formData.semesterId = semesterId
-				this.$http.post("management/grades/courses", this.formData).then((response) => {
+				this.$http.get("management/grades/courses", { params: this.formData }).then((response) => {
 					if(response.status) {
 						this.courses = response.body.data
 						this.step = 1
@@ -130,7 +130,7 @@
 				this.groups = []
 
 				this.formData.courseId = courseId
-				this.$http.post("management/grades/groups", this.formData).then((response) => {
+				this.$http.get("management/grades/groups", { params: this.formData }).then((response) => {
 					if(response.status) {
 						this.groups = response.body.data
 						this.step = 2
@@ -144,7 +144,7 @@
 			},
 			fetchGrades() {
 				this.grades = []
-				this.$http.post("management/grades", this.formData).then((response) => {
+				this.$http.get("management/grades", { params: this.formData }).then((response) => {
 					this.grades = response.body.data
 					this.step = 4
 				})
@@ -200,14 +200,14 @@
 		line-height: 1.75em;
 	}
 
+	.student.name {
+		word-spacing: 48px;
+	}
+
 	.student.grades {
 		margin-top: 5em;
 
 		tr td:last-child { font-weight: bold; }
-
-		.student {
-			text-align: center;
-		}
 
 		.student.absent {
 			background: #F08080;
@@ -238,10 +238,11 @@
 		}
 	}
 
-	.student.grade {
+	.student.grade, .class {
 		width: 100%;
 		background: none;
 		border: none;
 		font-family: "Lato";
+		text-align: center;
 	}
 </style>

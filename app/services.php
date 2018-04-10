@@ -32,6 +32,11 @@ $di->set("db", function() use($config) {
 	);
 });
 
+$di->Set("dispatcher", function() {
+	$dispatcher = new Dispatcher();
+	return $dispatcher;
+}, true);
+
 $di->set("router", function() use($di) {
 	$router = require APP_PATH . "/app/router.php";
 	return $router;

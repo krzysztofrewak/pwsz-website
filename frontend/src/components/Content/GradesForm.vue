@@ -136,7 +136,7 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.post("grades/semesters").then(function(response) {
+				this.$http.get("grades/semesters").then(function(response) {
 					if(response.status) {
 						this.semesters = response.body.data
 					}
@@ -148,7 +148,7 @@
 				this.courses = []
 
 				this.formData.semesterId = semesterId
-				this.$http.post("grades/courses", this.formData).then(function(response) {
+				this.$http.get("grades/courses", { params: this.formData }).then(function(response) {
 					if(response.status) {
 						this.courses = response.body.data
 						this.step = 1
@@ -161,7 +161,7 @@
 				this.groups = []
 
 				this.formData.courseId = courseId
-				this.$http.post("grades/groups", this.formData).then(function(response) {
+				this.$http.get("grades/groups", { params: this.formData }).then(function(response) {
 					if(response.status) {
 						this.groups = response.body.data
 						this.step = 2
@@ -173,7 +173,7 @@
 				this.formData.groupId = groupId
 			},
 			fetchGrades() {
-				this.$http.post("grades", this.formData).then(function(response) {
+				this.$http.get("grades", { params: this.formData }).then(function(response) {
 					if(response.status) {
 						this.grades = response.body.data
 						this.step = 4

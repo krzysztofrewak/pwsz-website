@@ -17,7 +17,7 @@ class GradesController extends Controller {
 	}
 
 	public function getCoursesAction(): Response {
-		$semester_id = json_decode($this->request->getRawBody())->semesterId;
+		$semester_id = $this->request->get("semesterId");
 
 		$semesterCourses = $this->repository->get("semesterCourses")->getCoursesBySemesterId($semester_id);
 
@@ -28,7 +28,7 @@ class GradesController extends Controller {
 	}
 
 	public function getGroupsAction(): Response {
-		$course_id = json_decode($this->request->getRawBody())->courseId;
+		$course_id = (int) $this->request->get("courseId");
 
 		$courseGroups = $this->repository->get("courseGroups")->getGroupsByCourseId($course_id);
 
@@ -39,10 +39,8 @@ class GradesController extends Controller {
 	}
 
 	public function getGradesAction(): Response {
-		$request = json_decode($this->request->getRawBody());
-
-		$group_id = $request->groupId;
-		$student_id = $request->studentId ?: "";
+		$group_id = (int) $this->request->get("groupId");
+		$student_id = (int) $this->request->get("studentId") ?: "";
 
 		$grades = $this->getGradesRepository()->getGrades($group_id, $student_id, !is_null($this->session->get("auth")));
 

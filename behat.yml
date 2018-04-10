@@ -6,4 +6,4 @@ default:
             bootstrap: 
                 - features/bootstrap/bootstrap.php
             contexts:
-                - PWSZ\Behat\AccessContext
+                - PWSZ\Tests\AccessContext

@@ -1,8 +1,9 @@
 <?php
 
-namespace PWSZ\Controllers;
+namespace PWSZ\Controllers\Management;
 
 use Phalcon\Http\Response;
+use PWSZ\Controllers\Controller;
 
 class UserController extends Controller {
 

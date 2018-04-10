@@ -1,6 +1,6 @@
 <?php
 
-namespace PWSZ\Behat;
+namespace PWSZ\Tests;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
@@ -11,11 +11,26 @@ class AccessContext extends Context {
 	private $response;
 	private $responseArray = [];
 
-	/** @When the Guzzle client requests :arg1 with :arg2 method */
-	public function theGuzzleClientRequestsWithMethod(string $path, string $method = "GET"): void {
-		$client = new Client(["http_errors" => false]);
-		$this->response = $client->request($method, getenv("APP_URL") . $path);
-		$this->responseArray = json_decode($this->response->getBody()->getContents());
+	/** 
+	 * @When a client requests :arg1
+	 * @When a client requests :arg1 with :arg2 method
+	 */
+	public function aClientRequestsWithMethod(string $path, string $method = "GET"): void {
+		$_SERVER['REQUEST_METHOD'] = $method;
+		
+		$router = self::$di->get("router");
+		$router->handle($path);
+
+		$dispatcher = self::$di->get("dispatcher");
+
+		$dispatcher->setControllerName($router->getControllerName());
+		$dispatcher->setActionName($router->getActionName());
+		$dispatcher->setNamespaceName($router->getNamespaceName());
+
+		$dispatcher->dispatch();
+
+		$this->response = $dispatcher->getReturnedValue();
+		$this->responseArray = json_decode($this->response->getContent());
 	}
 
 	/** @Then :arg1 status code should be received */
