@@ -5,8 +5,9 @@ use Dotenv\Dotenv;
 use Phalcon\Config;
 
 defined("APP_PATH") || define("APP_PATH", realpath("."));
+defined("ENV_FILENAME") || define("ENV_FILENAME", ".env");
 
-$dotenv = new Dotenv(APP_PATH);
+$dotenv = new Dotenv(APP_PATH, ENV_FILENAME);
 $dotenv->load();
 
 Carbon::setLocale("pl");

@@ -1,4 +1,4 @@
-@auth
+@database @auth
 Feature: Check application API
 	When requested by Guzzle client
 	And requested by authenticated user

@@ -15,9 +15,9 @@ class Seed000UsersSeeder extends AbstractSeeder {
 		return [
 			[
 				"id" => "1",
-				"login" => "krewak",
-				"email" => "krzysztof@rewak.pl",
-				"password" => $security->hash("secret"),
+				"login" => "admin",
+				"email" => "admin@example.com",
+				"password" => $security->hash("password"),
 			],
 		];
 	}

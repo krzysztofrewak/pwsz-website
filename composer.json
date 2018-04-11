@@ -6,7 +6,6 @@
 	},
 	"require-dev": {
 		"behat/behat": "^3.4",
-		"guzzlehttp/guzzle": "~6.0",
 		"phpunit/phpunit": "6.5",
 		"whoops/phalcon": "^2.0"
 	},
