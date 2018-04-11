@@ -2,6 +2,7 @@
 
 namespace PWSZ\Repositories;
 
+use Exception;
 use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Interfaces\RepositoryInterface;
@@ -52,7 +53,13 @@ abstract class Repository implements RepositoryInterface {
 	}
 
 	protected function getObjectById($id): Model {
-		return $this->getModelClass()::findFirst($id);
+		$model = $this->getModelClass()::findFirst($id);
+
+		if(!$model) {
+			throw new Exception();
+		}
+
+		return $model;
 	}
 
 	protected function getObjects(): Simple {

@@ -14,6 +14,10 @@ abstract class Controller extends BaseController {
 		$this->responseArray = new ResponseArray();
 	}
 
+	public function beforeExecuteRoute() {
+		$this->responseArray = new ResponseArray();
+	}
+
 	public function renderResponse(): Response {
 		$this->response->setJsonContent($this->responseArray);
 		$this->response->setStatusCode($this->responseArray->getStatusCode());

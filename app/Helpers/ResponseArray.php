@@ -7,7 +7,6 @@ class ResponseArray {
 	protected $status;
 	public $success = false;
 	public $message = "";
-	public $redirect = null;
 	public $data = [];
 
 	public function __toString(): string {
@@ -18,28 +17,24 @@ class ResponseArray {
 		return [
 			"success" => $this->success,
 			"message" => $this->message,
-			"redirect" => $this->redirect,
 			"data" => $this->data
 		];
 	}
 
 	public function setSuccessStatus(): self {
 		$this->success = true;
+		$this->status = 200;
 		return $this;
 	}
 
 	public function setFailureStatus(): self {
 		$this->success = false;
+		$this->status = 500;
 		return $this;
 	}
 
 	public function setMessage(string $message): self {
 		$this->message = $message;
-		return $this;
-	}
-
-	public function setRedirect(string $url): self {
-		$this->redirect = $url;
 		return $this;
 	}
 

@@ -25,7 +25,7 @@ class IndexController extends Controller {
 	public function noAccessAction(): Response {
 		$this->responseArray
 			->setMessage("URL not allowed")
-			->setStatusCode(401);
+			->setStatusCode(403);
 
 		return $this->renderResponse();
 	}
