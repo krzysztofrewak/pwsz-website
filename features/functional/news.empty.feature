@@ -1,7 +1,9 @@
 @database @news
-Feature: Check news retrieving functions when there's no news in databasae
+Feature: Check news retrieving functions when there's no news in database
 
-	Scenario: Checking if empty newsreel is received correctly
+	# Happy path scenarios
+
+	Scenario: Checking if retrieving empty newsreel returns correct result
 		When a client requests "/api/news" with "GET" method
 		Then "200" status code should be received
 		And proper response array should be received
@@ -9,7 +11,7 @@ Feature: Check news retrieving functions when there's no news in databasae
 		And response array should have empty message
 		And response array should have empty data array
 
-	Scenario: Checking if non-existing news is received correctly
+	Scenario: Checking if retrieving non-existing news returns correct result
 		When a client requests "/api/news/1" with "GET" method
 		Then "400" status code should be received
 		And proper response array should be received
@@ -17,7 +19,7 @@ Feature: Check news retrieving functions when there's no news in databasae
 		And response array should have message
 		And response array should have empty data array
 
-	Scenario: Checking if non-existing news is received correctly
+	Scenario: Checking if retrieving non-existing news returns correct result
 		When a client requests "/api/news/a" with "GET" method
 		Then "400" status code should be received
 		And proper response array should be received

@@ -10,10 +10,14 @@ use Symfony\Component\Console\Output\NullOutput;
 
 trait BeforeFeatures {
 
+	/** @BeforeFeature */
+	public static function setServiceContainer(): void {
+		self::$di = self::getDI();
+		echo "setting service container";
+	}
+
 	/** @BeforeFeature @database */
 	public static function rebuildTestingDatabase(): void {
-		self::$di = self::getDI();
-
 		$db = self::$di->get("db");
 		$db->execute("SET foreign_key_checks = 0");
 		foreach($db->fetchAll("SHOW TABLES") as $table) {
@@ -44,17 +48,13 @@ trait BeforeFeatures {
 
 	/** @BeforeFeature @auth */
 	public static function setAuthenticatedSession(): void {
-		self::$di = self::getDI();
 		self::$di->get("session")->set("auth", new User());
-
 		echo "setting authenticated session";
 	}
 
 	/** @BeforeFeature @guest */
 	public static function setUnauthenticatedSession(): void {
-		self::$di = self::getDI();
 		self::$di->get("session")->remove("auth");
-
 		echo "setting unauthenticated session";
 	}
 

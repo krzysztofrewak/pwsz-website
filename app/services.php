@@ -1,25 +1,25 @@
 <?php
 
 use Phalcon\Config;
-use Phalcon\Db\Adapter\Pdo\Mysql as DatabaseAdapter;
-use Phalcon\Di\FactoryDefault;
+use Phalcon\Db\Adapter\Pdo\Mysql as MySQLDatabaseAdapter;
+use Phalcon\Di\FactoryDefault as ServiceContainer;
 use Phalcon\Flash\Direct as FlashDirect;
 use Phalcon\Flash\Session as FlashSession;
 use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
 use Phalcon\Security;
-use Phalcon\Session\Adapter\Files as Session;
+use Phalcon\Session\Adapter\Files as SessionFileAdapter;
 use PWSZ\Helpers\RepositoryDispatcher;
 
-$di = new FactoryDefault();
+$di = new ServiceContainer();
 
 $di->set("config", function() use($config) {
 	return $config;
 }, true);
 
 $di->set("db", function() use($config) {
-	return new DatabaseAdapter(
+	return new MySQLDatabaseAdapter(
 		[
 			"host" => $config->database->host,
 			"username" => $config->database->username,
@@ -49,7 +49,7 @@ $di->set("security", function() {
 }, true);
 
 $di->set("session", function() {
-	$session = new Session();
+	$session = new SessionFileAdapter();
 	$session->start();
 	return $session;
 });

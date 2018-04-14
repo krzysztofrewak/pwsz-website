@@ -99,6 +99,7 @@ class AccessContext extends Context {
 	/** @Given a set of existing news in database: */
 	public function aSetOfExistingNewsInDatabase(TableNode $table): void {
 		$hash = $table->getHash();
+		
 		foreach($hash as $row) {
 			$news = new News();
 			$news->id = $row["id"];
