@@ -1,7 +1,10 @@
 <template>
 	<div class="field">
 		<label>{{ label }}</label>
-		<input type="text" :placeholder="label" :value="value" disabled="disabled">
+		<div class="ui left icon input">
+			<i class="align left icon"></i>
+			<input type="text" :placeholder="label" :value="value" disabled="disabled">
+		</div>
 	</div>
 </template>
 

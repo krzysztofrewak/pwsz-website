@@ -36,9 +36,9 @@
 						label: "Uczelnia",
 						elements: "five",
 						links: [
-							{ label: "Kierunki i specjalności", target: "dashboard.fields.list", icon: "tasks" },
 							{ label: "Formy zajęć", target: "dashboard.forms.list", icon: "tasks" },
 							{ label: "Semestry", target: "dashboard.semesters.list", icon: "tasks" },
+							{ label: "Kierunki i specjalności", target: "dashboard.fields.list", icon: "tasks" },
 							{ label: "Kursy", target: "dashboard.courses.list", icon: "tasks" },
 							{ label: "Studenci", target: "dashboard.students.list", icon: "tasks" },
 						]

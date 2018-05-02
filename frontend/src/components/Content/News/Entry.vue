@@ -3,7 +3,7 @@
 		<div class="ui piled segments">
 			<div class="ui entry title secondary segment">
 				<span class="ui medium header">{{ entry.title }}</span>
-				<span class="entry timestamp">
+				<span class="entry timestamp" data-inverted="" :data-tooltip="entry.timestamp" data-position="top center">
 					dodano <time v-bind:datetime="entry.timestamp" v-bind:title="entry.timestamp">{{ entry.publication }}</time>
 				</span>
 			</div>

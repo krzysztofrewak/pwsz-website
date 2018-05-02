@@ -17,6 +17,7 @@ Feature: Check news retrieving functions when there's some news in databasae
 		And response array should have success status
 		And response array should have empty message
 		And response array should not have empty data array
+		And there should be "3" news entries
 		And received news should be arranged in chronological order
 
 	Scenario: Checking if retrieving existing news returns correct result

@@ -9,19 +9,18 @@
 						Wybierz semestr z opcji po prawej:
 					</td>
 					<td v-if="semesters.length > 0">
-						<span class="ui tiny semester button"
+						<span class="ui basic tiny semester button"
 							v-for="semester in semesters"
 							v-on:click="fetchCourses(semester.id)"
 							v-bind:class="{ primary: semester.id == formData.semesterId }">{{ semester.name }}</span>
 					</td>
-					<td v-else><i class="spinner loading icon"></i></td>
 				</tr>
 				<tr v-if="step > 0">
 					<td class="collapsing single line">
 						Wybierz kurs:
 					</td>
 					<td>
-						<span class="ui tiny button"
+						<span class="ui basic tiny button"
 							v-for="course in courses"
 							v-on:click="fetchGroups(course.id)"
 							v-bind:class="{ primary: course.id == formData.courseId }">
@@ -34,7 +33,7 @@
 						Wybierz grupę:
 					</td>
 					<td>
-						<span class="ui tiny button"
+						<span class="ui basic tiny button"
 							v-for="group in groups"
 							v-on:click="chooseGroup(group.id)"
 							v-bind:class="{ primary: group.id == formData.groupId }">{{ group.name }}</span>
@@ -45,9 +44,8 @@
 						Podaj swój numer indeksu:
 					</td>
 					<td>
-						<input class="ui tiny button" v-model="formData.studentId" v-on:keyup.enter="fetchGrades">
-						<button class="ui tiny icon right labeled primary check button" v-on:click="fetchGrades">
-							zobacz
+						<input class="ui basic tiny button" v-model="formData.studentId" v-on:keyup.enter="fetchGrades">
+						<button class="ui primary circular icon button" v-on:click="fetchGrades">
 							<i class="search icon"></i>
 						</button>
 					</td>
@@ -202,6 +200,7 @@
 
 	.student.grades {
 		margin-top: 1em;
+		overflow-x: auto;
 
 		tr td:last-child { font-weight: bold; width: 10%; }
 

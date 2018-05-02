@@ -2,9 +2,11 @@
 
 namespace PWSZ\Controllers\Management\CRUD;
 
+use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
 use PWSZ\Helpers\NumberToRoman;
+use PWSZ\Models\Semester;
 
 class CourseController extends CRUDController {
 
@@ -35,8 +37,9 @@ class CourseController extends CRUDController {
 		$fields = $this->buildFieldsValues($model->field_id);
 		$forms = $this->buildFormsValues($model->form_id);
 		$semesters = $this->buildSemestersValues($model->semester_no);
+		$topics = $this->buildTopicsTable($model->topics);
 
-		return [
+		$form = [
 			FormInput::setType("disabled-input")
 				->setLabel("ID")
 				->setName("id")
@@ -78,6 +81,16 @@ class CourseController extends CRUDController {
 				->setValue(function() use($model) { return $model->rules; })
 				->get(),
 		];
+
+		if($model->id) {
+			$form[] = FormInput::setType("course-topics-input")
+				->setLabel("Tematy")
+				->setName("topics")
+				->setValue(function() use($topics) { return $topics; })
+				->get();
+		}
+
+		return $form;
 	}
 
 	protected function buildSemestersValues(?int $semester_no): array {
@@ -87,7 +100,7 @@ class CourseController extends CRUDController {
 				"value" => $value,
 				"selected" => $value == $semester_no
 			];
-		}, range(1, 7));
+		}, range(Semester::FIRST_SEMESTER_NO, Semester::LASt_SEMESTER_NO));
 	}
 
 	protected function buildFormsValues(?int $form_id): array {
@@ -108,6 +121,30 @@ class CourseController extends CRUDController {
 				"selected" => $value["id"] == $field_id
 			];
 		}, $this->repository->get("fields")->getAll());
+	}
+
+	protected function buildTopicsTable(?Simple $topics): array {
+		$result = [];
+
+		foreach($topics as $topic) {
+			$files = [];
+			
+			foreach($topic->files as $file) {
+				$files[] = [
+					"id" => $file->id,
+					"icon" => $file->icon,
+					"url" => $file->url,
+				];
+			}
+
+			$result[] = [
+				"no" => $topic->no,
+				"title" => $topic->title,
+				"files" => $files,
+			];
+		}
+
+		return $result;
 	}
 
 }

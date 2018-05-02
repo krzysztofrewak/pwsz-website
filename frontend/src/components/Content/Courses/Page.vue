@@ -2,6 +2,8 @@
 	<div class="course page" v-if="course">
 		<h1>{{ course.name }}</h1>
 
+		<div class="ui divider"></div>
+
 		<div class="ui three course informations statistics">
 			<div class="statistic">
 				<div class="value">
@@ -29,13 +31,22 @@
 			</div>
 		</div>
 
-		<div v-if="course.rules">
-			<h2>Zasady zaliczenia</h2>
-			<blockquote v-html="course.rules"></blockquote>
+		<div v-if="course.description">
+			<div class="ui divider"></div>
+
+			<h2>Opis kursu</h2>
+			<blockquote v-html="course.description"></blockquote>
 		</div>
 
 		<div v-if="course.topics.length">
-			<h2>Wykaz tematów</h2>
+			<div class="ui divider"></div>
+
+			<h2>
+				Wykaz tematów
+				<span data-inverted="" :data-tooltip="'ostatnia zmiana: ' + course.last_updated" data-position="right center">
+					<i class="question circle outline icon"></i>
+				</span>
+			</h2>
 			<table class="ui very basic celled table">
 				<thead>
 					<tr>
@@ -80,7 +91,7 @@
 	}
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.course.page {
 		h2 {
 			margin-top: 2em;
@@ -88,6 +99,10 @@
 
 		.course.informations {
 			margin-top: 3em !important;
+		}
+
+		.divider {
+			margin-top: 3em;
 		}
 	}
 </style>

@@ -15,7 +15,7 @@
 				</li>
 			</transition-group>
 			<div class="ui secondary clearing segment">
-				<span class="ui primary right floated button" v-on:click="update">Aktualizuj</span>
+				<span class="ui primary right floated button" v-on:click="update" v-bind:class="{ loading: updating }">Aktualizuj</span>
 			</div>
 		</div>
 	</div>
@@ -25,7 +25,8 @@
 	export default {
 		data() {
 			return {
-				searchPhrase: ""
+				searchPhrase: "",
+				updating: false,
 			}
 		},
 		computed: {
@@ -59,8 +60,9 @@
 		},
 		methods: {
 			update: function() {
+				this.updating = true
 				this.$http.post("management/coursegroups/students", { group: this.$route.params.id, students: this.dataset }).then(function(response) {
-					console.log("success")
+					this.updating = false
 				})
 			}
 		}

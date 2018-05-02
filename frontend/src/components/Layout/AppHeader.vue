@@ -37,6 +37,8 @@
 
 <style lang="scss">
 	.superheader {
+		z-index: 99;
+
 		a.item.active {
 			border: 0px !important;
 			margin: 0px !important;

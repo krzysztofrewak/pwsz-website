@@ -18,7 +18,7 @@ class CoursesTableMigration extends Migration {
 		$table->addColumn("form_id", "integer");
 		$table->addForeignKey("form_id", "forms", "id", ["delete" => "CASCADE", "update" => "NO_ACTION"]);
 
-		$table->addColumn("rules", "text");
+		$table->addColumn("description", "text");
 		$table->addColumn("is_active", "boolean", ["default" => false]);
 
 		$table->addColumn("created_at", "timestamp", ["default" => "CURRENT_TIMESTAMP"]);

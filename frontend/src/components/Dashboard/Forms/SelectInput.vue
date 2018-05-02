@@ -1,7 +1,7 @@
 <template>
 	<div class="field">
 		<label>{{ label }}</label>
-		<span class="ui tiny button" v-for="v in dataset" v-bind:class="{ primary: v.selected }" @click="select(v)">{{ v.label }}</span>
+		<span class="ui basic button" v-for="v in dataset" v-bind:class="{ primary: v.selected }" @click="select(v)">{{ v.label }}</span>
 	</div>
 </template>
 

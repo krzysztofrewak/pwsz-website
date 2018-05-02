@@ -1,10 +1,10 @@
 <template>
-	<div v-if="fetched" class="courses table">
+	<div class="courses table">
 		<h1>Lista kursów</h1>
 
 		<p class="description">Poniżej znajduje się tabela z prowadzonymi przeze mnie kursami. Każdy kurs jest dostępny z poziomu własnej podstrony ze szczegółowymi informacjami, zasadami zaliczenia, wykazem tematów i istotnymi plikami. Wyszarzone kursy to te, które nie są prowadzone w obecnym semestrze.</p>
 		
-		<table class="ui very basic very compact table">
+		<table class="ui very basic very compact table" v-if="fetched">
 			<thead>
 				<tr>
 					<th>kod</th>
@@ -31,20 +31,13 @@
 					<td>{{ course.semester_no }}</td>
 					<td>{{ course.form }}</td>
 					<td>
-						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui tiny icon labeled button">
-							przejdź
+						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui primary circular tiny icon button" data-inverted="" data-tooltip="zobacz materiały" data-position="right center">
 							<i class="chevron right icon"></i>
 						</router-link>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-	</div>
-
-	<div class="ui" v-else>
-		<div class="ui active inverted dimmer">
-			<div class="ui text loader">Ładowanie...</div>
-		</div>
 	</div>
 </template>
 

@@ -22,9 +22,8 @@
 						<i class="caret icon" v-bind:class="getSortingClass(name)"></i>
 					</th>
 					<th class="collapsing right aligned">
-						<router-link class="ui tiny green icon labeled fluid button" :to="{ name: addRoute }">
+						<router-link class="ui green circular icon button" :to="{ name: addRoute }" data-inverted="" data-tooltip="dodaj nowy" data-position="top right">
 							<i class="plus icon"></i>
-							dodaj
 						</router-link>
 					</th>
 				</tr>
@@ -42,11 +41,11 @@
 					</td>
 
 					<td class="collapsing right aligned">
-						<router-link class="ui tiny green icon labeled button" :to="{ name: formRoute, params: { id: data.id } }">
-							<i class="pencil icon"></i> edytuj
+						<router-link class="ui green circular icon button" :to="{ name: formRoute, params: { id: data.id } }" data-inverted="" data-tooltip="edytuj" data-position="top right">
+							<i class="pencil icon"></i>
 						</router-link>
-						<button class="ui tiny red icon labeled button" v-on:click="confirmDelete(data, $event)">
-							<i class="trash icon"></i> usuń
+						<button class="ui red circular icon button" v-on:click="confirmDelete(data, $event)" v-bind:class="{ disabled: deletingItem }" data-inverted="" data-tooltip="usuń" data-position="top right">
+							<i class="close icon"></i>
 						</button>
 					</td>
 				</tr>

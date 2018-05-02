@@ -1,5 +1,4 @@
 #!/bin/bash
 
 echo "Running behat..."
-./vendor/bin/behat --format pretty --tags "@faq"
-# ./vendor/bin/behat --format pretty
+./vendor/bin/behat --format pretty --tags "news"

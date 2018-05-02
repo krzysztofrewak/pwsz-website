@@ -3,14 +3,14 @@ import Router from "vue-router"
 
 import EventBus from "./eventbus.js";
 
-import ContactPage from "@/components/Content/ContactPage"
-import CoursePage from "@/components/Content/CoursePage"
-import CoursesTable from "@/components/Content/CoursesTable"
+import Home from "@/components/Content/Home"
+import ContactPage from "@/components/Content/Contact/Contact"
+import CoursePage from "@/components/Content/Courses/Page"
+import CoursesTable from "@/components/Content/Courses/Table"
+import NewsEntry from "@/components/Content/News/Entry"
+import NewsReel from "@/components/Content/News/Reel"
 import FAQ from "@/components/Content/FAQ"
 import GradesForm from "@/components/Content/GradesForm"
-import Home from "@/components/Content/Home"
-import NewsEntry from "@/components/Content/NewsEntry"
-import NewsReel from "@/components/Content/NewsReel"
 
 import LoginForm from "@/components/System/LoginForm"
 import NotAllowed from "@/components/System/NotAllowed"
@@ -36,7 +36,10 @@ let routes = [
 	{ path: "/oceny", meta: { section: "grades" }, name: "grades", component: GradesForm },
 
 	{ path: "/faq", meta: { section: "faq" }, name: "faq", component: FAQ },
+
 	{ path: "/kontakt", meta: { section: "contact" }, name: "contact", component: ContactPage },
+	{ path: "/kontakt/formularz", meta: { section: "contact" }, name: "contact.form", component: ContactPage },
+	{ path: "/kontakt/konsultacje", meta: { section: "contact" }, name: "contact.consultations", component: ContactPage },
 
 	{ path: "/logowanie", meta: { section: "dashboard", requiresGuest: true }, name: "login", component: LoginForm, },
 	{ path: "/zarzadzaj", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard", component: Dashboard, },

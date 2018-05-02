@@ -3,6 +3,7 @@
 namespace PWSZ\Repositories;
 
 use Phalcon\Mvc\Model\Resultset\Simple;
+use PWSZ\Helpers\DateTimeTranslator;
 use PWSZ\Helpers\NumberToRoman;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\Course;
@@ -31,6 +32,7 @@ class Courses extends Repository {
 
 	protected function mapExtended($model): array {
 		$topics = [];
+		$last_updated = null;
 
 		foreach($model->topics as $topic) {
 			$files = [];
@@ -40,6 +42,10 @@ class Courses extends Repository {
 					"icon" => $file->icon,
 					"url" => $file->url,
 				];
+
+				if($file->updated_at > $last_updated) {
+					$last_updated = $file->updated_at;
+				}
 			}
 
 			$topics[] = [
@@ -47,6 +53,10 @@ class Courses extends Repository {
 				"title" => $topic->title,
 				"files" => $files,
 			];
+
+			if($topic->updated_at > $last_updated) {
+				$last_updated = $topic->updated_at;
+			}
 		}
 
 		return [
@@ -55,7 +65,8 @@ class Courses extends Repository {
 			"field" => $model->field->index,
 			"semester_no" => NumberToRoman::transform($model->semester_no),
 			"form" => $model->form->index,
-			"rules" => $model->rules,
+			"description" => $model->description,
+			"last_updated" => DateTimeTranslator::getDateForHuman($last_updated),
 			"topics" => $topics,
 		];
 	}

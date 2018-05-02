@@ -10,7 +10,7 @@ class Course extends Model {
 	public $field_id;
 	public $semester_no;
 	public $form_id;
-	public $rules;
+	public $description;
 	public $is_active;
 
 	public function initialize(): void {

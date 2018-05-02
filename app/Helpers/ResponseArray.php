@@ -38,11 +38,6 @@ class ResponseArray {
 		return $this;
 	}
 
-	public function pushData(string $key, $value): self {
-		$this->data[$key] = $value;
-		return $this;
-	}
-
 	public function setData(array $data): self {
 		$this->data = $data;
 		return $this;

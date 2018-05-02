@@ -110,7 +110,12 @@ class AccessContext extends Context {
 		}
 	}
 
-	/**  @Then received news should be arranged in chronological order */
+	/** @Then there should be :arg1 news entries */
+	public function thereShouldBeNewsEntries(int $expectedNumberOfNews): void {
+		PHPUnit::assertGreaterThanOrEqual(count($this->responseArray->data), $expectedNumberOfNews);
+	}
+
+	/** @Then received news should be arranged in chronological order */
 	public function receivedNewsShouldBeArrangedInChronologicalOrder(): void {
 		$comparer = null;
 

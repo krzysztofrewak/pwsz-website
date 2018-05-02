@@ -27,6 +27,7 @@
 
 <script type="text/javascript">
 	import BooleanInput from "./Forms/BooleanInput.vue"
+	import CourseTopicsInput from "./Forms/CourseTopicsInput.vue"
 	import DescriptionInput from "./Forms/DescriptionInput.vue"
 	import DisabledInput from "./Forms/DisabledInput.vue"
 	import SelectInput from "./Forms/SelectInput.vue"
@@ -36,6 +37,7 @@
 	export default {
 		components: {
 			BooleanInput,
+			CourseTopicsInput,
 			DescriptionInput,
 			DisabledInput,
 			SelectInput,

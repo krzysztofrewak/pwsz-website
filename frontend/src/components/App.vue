@@ -58,7 +58,7 @@
 
 	body {
 		overflow-y: scroll;
-		overflow-x: auto;
+		overflow-x: none;
 	}
 	
 	.clear {
@@ -111,7 +111,7 @@
 	}
 
 	.page-enter-active, .page-leave-active {
-		transition: opacity .25s, transform .25s;
+		// transition: opacity .25s, transform .25s;
 	}
 	
 	.page-leave-to {
