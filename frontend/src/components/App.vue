@@ -124,7 +124,7 @@
 	}
 
 	.page-enter-active, .page-leave-active {
-		transition: opacity .25s, transform .25s;
+		transition: opacity .1s, transform .1s;
 	}
 	
 	.page-leave-to {
