@@ -80,19 +80,11 @@
 				<div class="legend">
 					<div class="item">
 						<div class="student grade present">&nbsp;</div>
-						<div class="content">student obecny</div>
-					</div>
-					<div class="item">
-						<div class="student grade present">+</div>
-						<div class="content">student aktywny na zajęciach</div>
-					</div>
-					<div class="item">
-						<div class="student grade present">5</div>
-						<div class="content">student oceniony na zajęciach</div>
+						<div class="content">student obecny lub ocena pozytywna</div>
 					</div>
 					<div class="item">
 						<div class="student grade absent">&nbsp;</div>
-						<div class="content">student nieobecny</div>
+						<div class="content">student nieobecny lub ocena niedostateczna</div>
 					</div>
 				</div>
 			</div>
@@ -218,7 +210,7 @@
 
 		.legend {
 			.item {
-				display: block;
+				display: inline;
 				margin: .25em;
 			}
 

@@ -23,6 +23,7 @@ export default {
 			this.$bus.$emit("show-notification", {
 				type: type,
 				message: message,
+				lifespan: 5,
 			})
 		},
 	},

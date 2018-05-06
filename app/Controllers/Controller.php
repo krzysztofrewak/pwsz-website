@@ -10,17 +10,22 @@ abstract class Controller extends BaseController {
 
 	protected $responseArray;
 
-	public function initialize() {
+	protected function buildResponseArray(): void {
 		$this->responseArray = new ResponseArray();
 	}
 
-	public function beforeExecuteRoute() {
-		$this->responseArray = new ResponseArray();
+	public function initialize(): void {
+		$this->buildResponseArray();
+	}
+
+	public function beforeExecuteRoute(): void {
+		$this->buildResponseArray();
 	}
 
 	public function renderResponse(): Response {
-		$this->response->setJsonContent($this->responseArray);
 		$this->response->setStatusCode($this->responseArray->getStatusCode());
+		$this->response->setJsonContent($this->responseArray);
+		
 		return $this->response;
 	}
 

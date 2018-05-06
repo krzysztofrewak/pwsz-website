@@ -3,11 +3,32 @@
 		<div class="ui piled segments">
 			<div class="ui entry title secondary segment">
 				<span class="ui medium header">{{ entry.title }}</span>
-				<span class="entry timestamp" data-inverted="" :data-tooltip="entry.timestamp" data-position="top center">
-					dodano <time v-bind:datetime="entry.timestamp" v-bind:title="entry.timestamp">{{ entry.publication }}</time>
-				</span>
 			</div>
 			<div class="ui segment" v-html="entry.content">
+			</div>
+		</div>
+
+		<div class="ui relaxed horizontal list">
+			<div class="item">
+				<i class="large user middle aligned icon"></i>
+				<div class="content">
+					<span class="header">autor</span>
+					<div class="description">Krzysztof Rewak</div>
+				</div>
+			</div>
+			<div class="item">
+				<i class="large calendar middle aligned icon"></i>
+				<div class="content">
+					<span class="header">dodano</span>
+					<div class="description">{{ entry.publication }}</div>
+				</div>
+			</div>
+			<div class="item">
+				<i class="large clock middle aligned icon"></i>
+				<div class="content">
+					<span class="header">data publikacji</span>
+					<div class="description">{{ entry.timestamp }}</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -35,8 +56,12 @@
 	}
 </script>
 
-<style lang="scss">
-	.entry.timestamp {
-		padding-left: 10px;
+<style scoped>
+	.segments {
+		margin-bottom: 1.5em !important;
+	}
+
+	.list {
+		float: right;
 	}
 </style>

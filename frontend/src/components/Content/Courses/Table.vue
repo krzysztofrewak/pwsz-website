@@ -12,7 +12,8 @@
 					<th>kier./spec.</th>
 					<th>semestr</th>
 					<th>forma</th>
-					<th>materiały</th>
+					<th>tryb</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,6 +31,7 @@
 					<td>{{ course.field }}</td>
 					<td>{{ course.semester_no }}</td>
 					<td>{{ course.form }}</td>
+					<td>stacjonarny</td>
 					<td>
 						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui primary circular tiny icon button" data-inverted="" data-tooltip="zobacz materiały" data-position="right center">
 							<i class="chevron right icon"></i>

@@ -34,7 +34,7 @@ class AuthenticationController extends Controller {
 
 		if($user) {
 			if($this->security->checkHash($password, $user->password)) {
-				$this->registerSession($user);
+				$this->session->set("auth", $user);
 
 				$this->responseArray
 					->setMessage("Zalogowano poprawnie.")
@@ -58,10 +58,6 @@ class AuthenticationController extends Controller {
 			->setSuccessStatus();
 
 		return $this->renderResponse();
-	}
-
-	private function registerSession(User $user): void {
-		$this->session->set("auth", $user);
 	}
 	
 }

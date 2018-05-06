@@ -76,16 +76,16 @@ class CourseController extends CRUDController {
 				->setValue(function() use($forms) { return $forms; })
 				->get(),
 			FormInput::setType("description-input")
-				->setLabel("Zasady zaliczenia")
-				->setName("rules")
-				->setValue(function() use($model) { return $model->rules; })
+				->setLabel("Opis")
+				->setName("description")
+				->setValue(function() use($model) { return $model->description; })
 				->get(),
 		];
 
 		if($model->id) {
 			$form[] = FormInput::setType("course-topics-input")
 				->setLabel("Tematy")
-				->setName("topics")
+				->setName("_topics")
 				->setValue(function() use($topics) { return $topics; })
 				->get();
 		}
@@ -100,7 +100,7 @@ class CourseController extends CRUDController {
 				"value" => $value,
 				"selected" => $value == $semester_no
 			];
-		}, range(Semester::FIRST_SEMESTER_NO, Semester::LASt_SEMESTER_NO));
+		}, range(Semester::FIRST_SEMESTER_NO, Semester::LAST_SEMESTER_NO));
 	}
 
 	protected function buildFormsValues(?int $form_id): array {

@@ -28,7 +28,11 @@ class UpdateController extends Controller {
 	}
 
 	protected function mapValues(array $request): array {
-		return array_map(function($value) {
+		$filtered = array_filter($request, function($key) {
+			return $key[0] !== "_";
+		}, ARRAY_FILTER_USE_KEY);
+
+		$mapped = array_map(function($value) {
 			if(is_array($value)) {
 				foreach($value as $item) {
 					if($item->selected) {
@@ -38,7 +42,9 @@ class UpdateController extends Controller {
 			}
 
 			return $value;
-		}, $request);
+		}, $filtered);
+
+		return $mapped;
 	}
 
 }

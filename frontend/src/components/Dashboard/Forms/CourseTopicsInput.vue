@@ -20,11 +20,14 @@
 							<input type="text" v-model="editedFile.url">
 						</div>
 					</div>
-					<div class="two wide field right aligned">
+					<div class="two wide field file actions">
+						<span class="ui green circular tiny icon button" v-on:click="resetEditedFile()" data-inverted="" data-tooltip="zapisz plik" data-position="top right">
+							<i class="check icon"></i>
+						</span>
 						<span class="ui red circular tiny icon button" v-on:click="deleteFile()" data-inverted="" data-tooltip="usuń plik" data-position="top right">
 							<i class="close icon"></i>
 						</span>
-						<span class="ui circular tiny icon button" data-inverted="" data-tooltip="zamknij okno edycji" data-position="top right">
+						<span class="ui primary circular tiny icon button" v-on:click="resetEditedFile()" data-inverted="" data-tooltip="zamknij okno edycji" data-position="top right">
 							<i class="chevron down icon"></i>
 						</span>
 					</div>
@@ -84,7 +87,7 @@
 				</div>
 			</div>
 			<div class="ui secondary clearing segment">
-				<span class="ui green right floated button" v-on:click="addNewTopic">Dodaj nowy temat</span>
+				<span class="ui green right floated button" v-on:click="addNewTopic()">Dodaj nowy temat</span>
 			</div>
 		</div>
 	</div>
@@ -148,11 +151,14 @@
 				this.editedFile.icon = icon
 			},
 			addNewTopic: function() {
-				// this.$http.post("management/coursegroups/students", { group: this.$route.params.id, students: this.dataset }).then(function(response) {
-				// 	console.log("success")
-				// })
+				this.$http.post("management/topics", { course: this.$route.params.id }).then(function(response) {
+					console.log("success")
+				})
 			},
 			deleteFile: function() {
+				this.editedFile = null
+			},
+			resetEditedFile: function() {
 				this.editedFile = null
 			}
 		}
@@ -174,5 +180,9 @@
 
 	.active {
 		cursor: pointer;
+	}
+
+	.file.actions span {
+		margin: .25em !important;
 	}
 </style>

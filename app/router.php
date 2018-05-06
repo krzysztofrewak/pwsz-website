@@ -43,7 +43,8 @@ $namespace = "PWSZ\\Controllers\\Management";
 	$router->addPost("/api/management", R::get("update", "Update", $namespace, $auth_status));
 	$router->addDelete("/api/management/{repository_name}/{id}", R::get("delete", "Delete", $namespace, $auth_status));
 
-	$router->addGet("/api/management/user", R::get("user", "User", $namespace, $auth_status));
+	$router->addGet("/api/management/user", R::get("get", "User", $namespace, $auth_status));
+	$router->addPost("/api/management/user", R::get("update", "User", $namespace, $auth_status));
 
 	$router->addGet("/api/management/grades", R::get("getGrades", "Grades", $namespace, $auth_status));
 	$router->addGet("/api/management/grades/semesters", R::get("getSemesters", "Grades", $namespace, $auth_status));

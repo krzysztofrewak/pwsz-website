@@ -32,11 +32,11 @@
 						label: "e-mail kontaktowy",
 						icon: "envelope"
 					},
-					{
-						name: "contact.form",
-						label: "formularz kontaktowy",
-						icon: "comment"
-					},
+					// {
+					// 	name: "contact.form",
+					// 	label: "formularz kontaktowy",
+					// 	icon: "comment"
+					// },
 					{
 						name: "contact.consultations",
 						label: "konsultacje",

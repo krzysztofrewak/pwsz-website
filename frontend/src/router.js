@@ -95,6 +95,7 @@ router.beforeEach((to, from, next) => {
 
 	if(EventBus.isAuthenticated !== null) {
 		checkRoute(isAuthenticated, to, next)
+		return 
 	}
 
 	Vue.http.post("auth").then(response => checkRoute(true, to, next)).catch(response => checkRoute(false, to, next))
@@ -111,7 +112,5 @@ function checkRoute(isAuthenticated, to, next) {
 
 	next()
 }
-
-
 
 export default router

@@ -1,10 +1,18 @@
 <template>
 	<div id="notifications" class="ui center aligned segment">
 		<div class="ui container">
-			<div class="ui message" v-for="n in notifications" :class="n.type" @click="close(n)">
-				<i class="close icon" @click="close(n)"></i>
-				<strong v-if="n.type == 'negative'">Wystąpił błąd:</strong>
-				{{ n.message }}
+			<div class="ui icon message" v-for="n in notifications" :class="n.type" @click="close(n)">
+				<i class="exclamation circle icon"></i>
+				<div class="content">
+					<div class="header">
+						<strong v-if="n.type == 'negative'">Wystąpił błąd:</strong>
+						<strong v-else>Komunikat:</strong>
+					</div>
+					{{ n.message }}
+				</div>
+				<div class="lifespan">
+					<i class="inactive tiny circle icon" v-for="life in n.lifespan"></i>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -25,5 +33,22 @@
 		padding: 0;
 		box-shadow: none;
 		border: none;
+		cursor: pointer;
+
+		.lifespan {
+			position: absolute;
+			top: 2px;
+			right: 5px;
+
+			i {
+				transition: all 1s ease-in-out;
+				display: block;
+				padding: 6px;
+			}
+
+			.inactive {
+				opacity: .75;
+			}
+		}
 	}
 </style>

@@ -8,7 +8,7 @@ class Semester extends Model {
 	public $name;
 
 	const FIRST_SEMESTER_NO = 1;
-	const LASt_SEMESTER_NO = 7;
+	const LAST_SEMESTER_NO = 7;
 
 	public function initialize(): void {
 		$this->setSource("semesters");

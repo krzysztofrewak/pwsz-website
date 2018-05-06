@@ -12,7 +12,7 @@
 			<div class="ui segment" v-html="entry.content">
 			</div>
 			<div class="ui clearing secondary segment">
-				<router-link :to="{ name: 'news.entry', params: { id: entry.id } }" class="ui tiny circular icon right floated button" title="Przejdź do wiadomości" data-inverted="" data-tooltip="przejdź do wiadomości" data-position="top right">
+				<router-link :to="{ name: 'news.entry', params: { id: entry.id } }" class="ui tiny circular icon right floated button" title="Przejdź do wiadomości" data-inverted="" data-tooltip="przejdź do wiadomości" data-position="right center">
 					<i class="share alternate icon"></i>
 				</router-link>
 			</div>

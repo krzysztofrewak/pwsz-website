@@ -40,12 +40,27 @@
 		},
 		mounted() {
 			this.$bus.$on("authenticate", status => this.isAuthenticated = status)
-			this.$bus.$on("show-notification", notification => this.systemNotifications.push(notification))
+			this.$bus.$on("show-notification", notification => {
+				this.systemNotifications.push(notification)
+				this.reduceNotificationLifespan(notification)
+			})
 			this.$bus.$on("close-notification", notification => this.systemNotifications = this.systemNotifications.filter(e => e !== notification))
+
+			this.notifySuccess("Test.")
 		},
 		methods: {
 			checkAuthentication() {
 				this.$http.post("auth").then(response => this.$bus.$emit("authenticate", true)).catch(error => this.$bus.$emit("authenticate", false))
+			},
+			reduceNotificationLifespan(notification) {
+				if(notification.lifespan) {
+					setTimeout(() => { 
+						notification.lifespan--
+						this.reduceNotificationLifespan(notification)
+					}, 1000)
+				} else {
+					this.$bus.$emit("close-notification", notification)
+				}
 			}
 		}
 	}
@@ -111,7 +126,7 @@
 	}
 
 	.page-enter-active, .page-leave-active {
-		// transition: opacity .25s, transform .25s;
+		transition: opacity .25s, transform .25s;
 	}
 	
 	.page-leave-to {

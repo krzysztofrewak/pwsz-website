@@ -17,10 +17,10 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="consultation in consultations" v-bind:class="{ inactive: !consultation.active }">
-					<td>{{ consultation.date }}</td>
-					<td v-html="consultation.time"></td>
-					<td>{{ consultation.place }}</td>
+				<tr v-for="consultation in consultations" v-bind:class="{ inactive: new Date(consultation) < new Date() }">
+					<td>{{ consultation }}</td>
+					<td>14<sup>45</sup></td>
+					<td>A/356</td>
 				</tr>
 			</tbody>
 		</table>
@@ -32,49 +32,22 @@
 		data() {
 			return {
 				consultations: [
-					{
-						date: "19 kwietnia 2018",
-						time: "14<sup>15</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: false,
-					},
-					{
-						date: "26 kwietnia 2018",
-						time: "14<sup>45</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: false,
-					},
-					{
-						date: "10 maja 2018",
-						time: "14<sup>45</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: true,
-					},
-					{
-						date: "17 maja 2018",
-						time: "14<sup>45</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: true,
-					},
-					{
-						date: "24 maja 2018",
-						time: "14<sup>45</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: true,
-					},
-					{
-						date: "7 czerwca 2018",
-						time: "14<sup>45</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: true,
-					},
-					{
-						date: "14 czerwca 2018",
-						time: "14<sup>45</sup>-15<sup>15</sup>",
-						place: "A/356",
-						active: true,
-					},
-				],
+					"2018-02-22",
+					"2018-03-01",
+					"2018-03-08",
+					"2018-03-15",
+					"2018-03-22",
+					"2018-03-29",
+					"2018-04-05",
+					"2018-04-12",
+					"2018-04-19",
+					"2018-04-26",
+					"2018-05-10",
+					"2018-05-17",
+					"2018-05-24",
+					"2018-06-07",
+					"2018-06-14",
+				]
 			}
 		},
 	} 

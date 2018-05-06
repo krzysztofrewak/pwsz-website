@@ -59,14 +59,12 @@
 
 				this.toggleLoading()
 				this.$http.post("login", parameters).then(function(response) {
-					if(response.data.success) {
-						this.$bus.$emit("authenticate", true)
-						this.notifySuccess("Zalogowano poprawnie.")
-						this.$router.push({ name: "dashboard" })
-						this.toggleLoading()
-					} else {
-						this.reloadAuthButton(response.data.error)
-					}
+					this.$bus.$emit("authenticate", true)
+					this.notifySuccess("Zalogowano poprawnie.")
+					this.$router.push({ name: "dashboard" })
+					this.toggleLoading()
+				}).catch(error => {
+					this.reloadAuthButton(error.data.message)
 				})
 			},
 			reloadAuthButton: function(message) {

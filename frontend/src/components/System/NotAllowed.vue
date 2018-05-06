@@ -5,15 +5,4 @@
 	</div>
 </template>
 
-<script type="text/javascript">
-	export default {
-		mounted() {
-			this.reloadAuthStatus()
-		},
-		methods: {
-			reloadAuthStatus: function() {
-				this.$bus.$emit("authenticate", authenticated)
-			},
-		}
-	}
-</script>
+
