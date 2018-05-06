@@ -1,7 +1,7 @@
 <template>
 	<div id="notifications" class="ui center aligned segment">
 		<div class="ui container">
-			<div class="ui icon message" v-for="n in notifications" :class="n.type" @click="close(n)">
+			<div class="ui notification icon message" v-for="n in notifications" :class="n.type" @click="close(n)">
 				<i class="exclamation circle icon"></i>
 				<div class="content">
 					<div class="header">
@@ -30,10 +30,15 @@
 
 <style lang="scss" scoped>
 	#notifications {
-		padding: 0;
-		box-shadow: none;
+		background: none;
 		border: none;
+		bottom: 1em;
+		box-shadow: none;
 		cursor: pointer;
+		padding: 0;
+		position: fixed;
+		width: 100%;
+		z-index: 999;
 
 		.lifespan {
 			position: absolute;

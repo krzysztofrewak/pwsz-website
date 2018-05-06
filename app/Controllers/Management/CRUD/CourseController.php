@@ -138,6 +138,7 @@ class CourseController extends CRUDController {
 			}
 
 			$result[] = [
+				"id" => $topic->id,
 				"no" => $topic->no,
 				"title" => $topic->title,
 				"files" => $files,

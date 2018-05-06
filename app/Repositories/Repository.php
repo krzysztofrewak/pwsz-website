@@ -9,6 +9,9 @@ use PWSZ\Interfaces\RepositoryInterface;
 
 abstract class Repository implements RepositoryInterface {
 
+	protected $actionStatus = false;
+	protected $lastObjectId = "";
+
 	public function getAll(): array {
 		$objects = $this->getObjects();
 		$result = [];
@@ -25,23 +28,33 @@ abstract class Repository implements RepositoryInterface {
 		return $this->mapExtended($object);
 	}
 
-	public function create(array $request): void {
+	public function create(array $request): array {
 		$model = $this->getModelClass();
-		(new $model)->save($request);
+		$instance = (new $model);
+		$this->actionStatus = $instance->save($request);
+
+		return $this->map($instance);
 	}
 
-	public function updateById(array $request, int $id): void {
-		$this->getObjectById($id)->save($request);
+	public function updateById(array $request, int $id): array {
+		$object = $this->getObjectById($id);
+		$this->actionStatus = $object->save($request);
+
+		return $this->map($object);
 	}
 
 	public function deleteById(int $id): void {
-		$this->getObjectById($id)->delete();
+		$this->actionStatus = $this->getObjectById($id)->delete();
 	}
 
 	public function getRaw(int $id = null): Model {
 		$model = $this->getModelClass();
 
 		return $id ? $this->getObjectById($id) : new $model;
+	}
+
+	public function getActionStatus(): bool {
+		return $this->actionStatus;
 	}
 
 	protected function mapSimple($object): array {

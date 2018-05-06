@@ -21,10 +21,10 @@
 						</div>
 					</div>
 					<div class="two wide field file actions">
-						<span class="ui green circular tiny icon button" v-on:click="resetEditedFile()" data-inverted="" data-tooltip="zapisz plik" data-position="top right">
+						<span class="ui green circular tiny icon button" v-on:click="saveFile(editedTopic, editedFile)" data-inverted="" data-tooltip="zapisz plik" data-position="top right">
 							<i class="check icon"></i>
 						</span>
-						<span class="ui red circular tiny icon button" v-on:click="deleteFile()" data-inverted="" data-tooltip="usuń plik" data-position="top right">
+						<span class="ui red circular tiny icon button" v-on:click="deleteFile(editedTopic, editedFile)" data-inverted="" data-tooltip="usuń plik" data-position="top right">
 							<i class="close icon"></i>
 						</span>
 						<span class="ui primary circular tiny icon button" v-on:click="resetEditedFile()" data-inverted="" data-tooltip="zamknij okno edycji" data-position="top right">
@@ -49,7 +49,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="topic in dataset">
+						<tr v-for="topic in topics">
 							<td class="collapsing field">
 								<div class="ui left icon input">
 									<i class="hashtag icon"></i>
@@ -64,14 +64,17 @@
 							</td>
 							<td>
 								<span data-inverted="" data-tooltip="edytuj plik" data-position="top right">
-									<i class="active big file outline icon" v-for="file in topic.files" v-bind:class="[{ huge: editedFile && editedFile.id == file.id }, file.icon]" v-on:click="editFile(file)"></i>
+									<i class="active big file outline icon" v-for="file in topic.files" v-bind:class="[{ huge: editedFile && editedFile.id == file.id }, file.icon]" v-on:click="editFile(topic, file)"></i>
 								</span>
 								<span class="ui green circular tiny icon button" v-on:click="addFile(topic)" data-inverted="" data-tooltip="dodaj nowy plik" data-position="top right">
 									<i class="plus icon"></i>
 								</span>
 							</td>
 							<td class="single line">
-								<span class="ui red circular tiny icon button" data-inverted="" data-tooltip="usuń temat" data-position="top right">
+								<span class="ui green circular tiny icon button" v-on:click="saveTopic(topic)" data-inverted="" data-tooltip="zmień temat" data-position="top right">
+									<i class="check icon"></i>
+								</span>
+								<span class="ui red circular tiny icon button" v-on:click="deleteTopic(topic)" data-inverted="" data-tooltip="usuń temat" data-position="top right">
 									<i class="close icon"></i>
 								</span>
 							</td>
@@ -109,15 +112,13 @@
 					"orange powerpoint",
 				],
 				editedFile: null,
-				searchPhrase: "",
+				editedTopic: null,
+				topics: [],
 			}
 		},
 		computed: {
-			dataset: function() {
-				return this.value
-			},
 			count: function() {
-				return this.dataset.length
+				return this.topics.length
 			}
 		},
 		props: {
@@ -133,34 +134,87 @@
 				type: Array
 			}
 		},
+		mounted() {
+			this.topics = this.value
+		},
 		methods: {
-			addFile: function(topic) {
-				let file = {
-					id: "",
-					icon: "",
-					url: "",
+			getNewTopic: function() {
+				return {
+					title: "Nowy temat",
+					no: "X",
+					course_id: this.$route.params.id
 				}
+			},
+			addNewTopic: function() {
+				this.$http.post("management", { repository: "courseTopics", request: this.getNewTopic() }).then(response => {
+					let topic = response.data.data
+					topic.files = []
+					this.topics.push(topic)
+					this.notifySuccess("Dodano nowy temat.")
+				}).catch(error => {
+					this.notifyError("Wystąpił błąd.")
+				})
+			},
+			saveTopic: function(t) {
+				let topic = JSON.parse(JSON.stringify(t))
+				delete topic.files
 
-				topic.files.push(file)
+				this.$http.post("management", { repository: "courseTopics", request: topic }).then(response => {
+					this.notifySuccess("Zmieniono temat.")
+				}).catch(error => {
+					this.notifyError("Wystąpił błąd.")
+				})
+			},
+			deleteTopic: function(topic) {
+				this.$http.delete("management/coursetopics/" + topic.id).then(function(response) {
+					this.notifySuccess("Usunięto temat.")
+					this.topics = this.topics.filter(t => t.id != topic.id)
+				})
+			},
+
+			getNewFile: function(topicId) {
+				return {
+					id: "",
+					icon: "black",
+					url: "/",
+					course_topic_id: topicId,
+				}
+			},
+			addFile: function(topic) {
+				this.$http.post("management", { repository: "courseTopicFiles", request: this.getNewFile(topic.id) }).then(response => {
+					let file = response.data.data
+					topic.files.push(file)
+					this.editFile(topic, file)
+					this.notifySuccess("Dodano nowy temat.")
+				}).catch(error => {
+					this.notifyError("Wystąpił błąd.")
+				})
+			},
+			editFile: function(topic, file) {
+				this.editedTopic = topic
 				this.editedFile = file
 			},
-			editFile: function(file) {
-				this.editedFile = file
+			saveFile: function(topic, file) {
+				this.$http.post("management", { repository: "courseTopicFiles", request: file }).then(response => {
+					this.notifySuccess("Zmodyfikowano plik.")
+				}).catch(error => {
+					this.notifyError("Wystąpił błąd.")
+				})
+			},
+			deleteFile: function(topic, file) {
+				this.$http.delete("management/coursetopicfiles/" + file.id).then(function(response) {
+					this.notifySuccess("Usunięto plik.")
+					topic.files = topic.files.filter(f => f.id != file.id)
+				}).catch(error => {
+					this.notifyError("Wystąpił błąd.")
+				})
+			},
+			resetEditedFile: function() {
+				this.editedFile = null
 			},
 			setEditedFileIcon(icon) {
 				this.editedFile.icon = icon
 			},
-			addNewTopic: function() {
-				this.$http.post("management/topics", { course: this.$route.params.id }).then(function(response) {
-					console.log("success")
-				})
-			},
-			deleteFile: function() {
-				this.editedFile = null
-			},
-			resetEditedFile: function() {
-				this.editedFile = null
-			}
 		}
 	}
 </script>

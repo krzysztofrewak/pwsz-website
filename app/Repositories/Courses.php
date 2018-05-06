@@ -39,6 +39,7 @@ class Courses extends Repository {
 
 			foreach($topic->files as $file) {
 				$files[] = [
+					"id" => $file->id,
 					"icon" => $file->icon,
 					"url" => $file->url,
 				];
@@ -49,6 +50,7 @@ class Courses extends Repository {
 			}
 
 			$topics[] = [
+				"id" => $topic->id,
 				"no" => $topic->no,
 				"title" => $topic->title,
 				"files" => $files,

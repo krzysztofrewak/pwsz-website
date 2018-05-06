@@ -7,7 +7,7 @@
 						Informacje
 						<router-link v-if="!authenticated" :to="{ name: 'login' }" class="latent">| Logowanie</router-link>
 					</h4>
-					<p>Krzysztof Rewak &copy; 2017</p>
+					<p>Krzysztof Rewak &copy; {{ new Date().getFullYear() }}</p>
 				</div>
 				<div class="column">
 					<h4 class="ui inverted header">Linki na zewnątrz</h4>

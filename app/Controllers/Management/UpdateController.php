@@ -11,18 +11,26 @@ class UpdateController extends Controller {
 	public function updateAction(): Response {
 		$request = json_decode($this->request->getRawBody());
 		$repositoryName = $request->repository;
+		$repository = $this->repository->get($repositoryName);
 
 		$request = $request->request;
 
 		$id = isset($request->id) ? $request->id : null;
 		$request = $this->mapValues((array) $request);
+		$outcome = null;
 
 		if($id) {
-			$this->repository->get($repositoryName)->updateById($request, $id);
+			$outcome = $repository->updateById($request, $id);
 		} else {
-			$this->repository->get($repositoryName)->create($request);
+			$outcome = $repository->create($request);
 		}
 
+		if(!$outcome) {
+			$this->responseArray->setMessage("Wystąpił błąd podczas zapisywania.");
+			return $this->renderResponse();
+		}
+
+		$this->responseArray->setData($outcome);
 		$this->responseArray->setSuccessStatus();
 		return $this->renderResponse();
 	}

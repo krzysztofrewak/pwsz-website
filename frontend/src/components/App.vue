@@ -45,8 +45,6 @@
 				this.reduceNotificationLifespan(notification)
 			})
 			this.$bus.$on("close-notification", notification => this.systemNotifications = this.systemNotifications.filter(e => e !== notification))
-
-			this.notifySuccess("Test.")
 		},
 		methods: {
 			checkAuthentication() {
