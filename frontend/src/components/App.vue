@@ -103,7 +103,7 @@
 	#content {
 		border-bottom: none;
 		flex: 1;
-		padding: 2em 0em 3em;
+		padding: 3em 0em 3em;
 	}
 
 	.clickable {

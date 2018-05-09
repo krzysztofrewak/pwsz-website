@@ -1,4 +1,4 @@
-@database @news
+@database @log @news
 Feature: Check news retrieving functions when there's some news in databasae
 
 	Background: 

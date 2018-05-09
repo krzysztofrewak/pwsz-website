@@ -3,6 +3,7 @@
 namespace PWSZ\Repositories;
 
 use Phalcon\Mvc\Model\Resultset\Simple;
+use PWSZ\Exceptions\NotFound;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\CourseGroup;
 use PWSZ\Models\CourseGroupStudent;
@@ -32,6 +33,11 @@ class CourseGroups extends Repository {
 
 	public function getGroupsByCourseId(int $id): array {
 		$semester_course = SemesterCourse::findFirst($id);
+
+		if(!$semester_course) {
+			throw new NotFound();
+		}
+		
 		$objects = $semester_course->groups;
 		$result = [];
 

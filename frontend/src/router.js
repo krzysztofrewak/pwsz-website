@@ -10,6 +10,7 @@ import CoursesTable from "@/components/Content/Courses/Table"
 import NewsEntry from "@/components/Content/News/Entry"
 import NewsReel from "@/components/Content/News/Reel"
 import FAQ from "@/components/Content/FAQ"
+import Schedule from "@/components/Content/Schedule"
 import GradesForm from "@/components/Content/GradesForm"
 
 import LoginForm from "@/components/System/LoginForm"
@@ -36,6 +37,7 @@ let routes = [
 	{ path: "/oceny", meta: { section: "grades" }, name: "grades", component: GradesForm },
 
 	{ path: "/faq", meta: { section: "faq" }, name: "faq", component: FAQ },
+	{ path: "/plan-zajec", meta: { section: "schedule" }, name: "schedule", component: Schedule },
 
 	{ path: "/kontakt", meta: { section: "contact" }, name: "contact", component: ContactPage },
 	{ path: "/kontakt/formularz", meta: { section: "contact" }, name: "contact.form", component: ContactPage },

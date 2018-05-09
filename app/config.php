@@ -10,7 +10,8 @@ defined("ENV_FILENAME") || define("ENV_FILENAME", ".env");
 $dotenv = new Dotenv(APP_PATH, ENV_FILENAME);
 $dotenv->load();
 
-Carbon::setLocale("pl");
+Carbon::setLocale(getenv("APP_LOCALE", "pl"));
+date_default_timezone_set(getenv("APP_TIMEZONE", "Europe/Warsaw"));
 
 return new Config([
 	"application" => [

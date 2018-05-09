@@ -3,6 +3,7 @@
 namespace PWSZ\Repositories;
 
 use Phalcon\Mvc\Model\Resultset\Simple;
+use PWSZ\Exceptions\NotFound;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\CourseGroup;
 use PWSZ\Models\Grade;
@@ -40,6 +41,10 @@ class Grades extends Repository {
 
 	public function getGrades(int $course_group_id, string $student_no, bool $force_result = false): array {
         $group = CourseGroup::findFirst($course_group_id);
+
+		if(!$group) {
+			throw new NotFound();
+		}
 
 		$result = [];
 		$validation_guard = false;

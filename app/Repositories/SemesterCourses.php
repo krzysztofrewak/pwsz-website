@@ -2,6 +2,7 @@
 
 namespace PWSZ\Repositories;
 
+use PWSZ\Exceptions\NotFound;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\SemesterCourse;
 
@@ -30,6 +31,10 @@ class SemesterCourses extends Repository {
 	public function getCoursesBySemesterId(int $id): array {
 		$repository = new Semesters();
 		$semester = $repository->getModelClass()::findFirst($id);
+
+		if(!$semester) {
+			throw new NotFound();
+		}
 
 		$result = [];
 

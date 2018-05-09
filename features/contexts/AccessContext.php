@@ -126,5 +126,32 @@ class AccessContext extends Context {
 			PHPUnit::assertGreaterThanOrEqual($news->timestamp, $comparer);
 		}
 	}
+
+	/** @Then logger have logged messages: */
+	public function loggerHaveLoggedMessages(TableNode $table): void {
+		$file = file(self::TEST_LOG_FILNAME);
+
+		$logMessages = [];
+		$logMessagesCount = 0;
+		foreach($file as $row) {
+			$type = trim($row);
+			!isset($logMessages[$type]) ? $logMessages[$type] = 1 : $logMessages[$type]++;
+			$logMessagesCount++;
+		}
+
+		$hash = $table->getHash();
+
+		$testMessages = [];
+		$testMessagesCount = 0;
+		foreach($hash as $row) {
+			$type = strtoupper($row["type"]);
+			!isset($testMessages[$type]) ? $testMessages[$type] = $row["count"] : $testMessages[$type] += $row["count"];
+			$testMessagesCount++;
+		}
+
+		PHPUnit::assertEquals($logMessagesCount, $testMessagesCount);
+		PHPUnit::assertEmpty(array_diff_assoc($logMessages, $testMessages));
+	}
+
 	
 }

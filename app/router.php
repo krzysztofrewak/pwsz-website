@@ -13,59 +13,59 @@ $namespace = "PWSZ\\Controllers";
 
 {
 
-	$router->notFound(R::get("notFound", "Index", $namespace));
+	$router->notFound(R::get("notFound", "index", $namespace));
 
-	$router->addGet("/api", R::get("index", "Index", $namespace));
+	$router->addGet("/api", R::get("index", "index", $namespace));
 
-	$router->addGet("/api/news", R::get("getNews", "News", $namespace));
-	$router->addGet("/api/news/{id}", R::get("getEntry", "News", $namespace));
+	$router->addGet("/api/news", R::get("getNews", "news", $namespace));
+	$router->addGet("/api/news/{id}", R::get("getEntry", "news", $namespace));
 
-	$router->addGet("/api/courses", R::get("getCourses", "Courses", $namespace));
-	$router->addGet("/api/courses/{id}", R::get("getEntry", "Courses", $namespace));
+	$router->addGet("/api/courses", R::get("getCourses", "courses", $namespace));
+	$router->addGet("/api/courses/{id}", R::get("getEntry", "courses", $namespace));
 
-	$router->addGet("/api/faq", R::get("getQuestions", "Faq", $namespace));
+	$router->addGet("/api/faq", R::get("getQuestions", "faq", $namespace));
 
-	$router->addGet("/api/grades", R::get("getGrades", "Grades", $namespace));
-	$router->addGet("/api/grades/semesters", R::get("getSemesters", "Grades", $namespace));
-	$router->addGet("/api/grades/courses", R::get("getCourses", "Grades", $namespace));
-	$router->addGet("/api/grades/groups", R::get("getGroups", "Grades", $namespace));
+	$router->addGet("/api/grades", R::get("getGrades", "grades", $namespace));
+	$router->addGet("/api/grades/semesters", R::get("getSemesters", "grades", $namespace));
+	$router->addGet("/api/grades/courses", R::get("getCourses", "grades", $namespace));
+	$router->addGet("/api/grades/groups", R::get("getGroups", "grades", $namespace));
 
-	$router->addGet("/api/auth", R::get("check", "Authentication", $namespace));
-	$router->addPost("/api/auth", R::get("check", "Authentication", $namespace));
-	$router->addPost("/api/login", R::get("login", "Authentication", $namespace, !$auth_status));
-	$router->addPost("/api/logout", R::get("logout", "Authentication", $namespace, $auth_status));
+	$router->addGet("/api/auth", R::get("check", "authentication", $namespace));
+	$router->addPost("/api/auth", R::get("check", "authentication", $namespace));
+	$router->addPost("/api/login", R::get("login", "authentication", $namespace, !$auth_status));
+	$router->addPost("/api/logout", R::get("logout", "authentication", $namespace, $auth_status));
 
 }
 
 $namespace = "PWSZ\\Controllers\\Management";
 
 {
-	$router->addPost("/api/management", R::get("update", "Update", $namespace, $auth_status));
-	$router->addDelete("/api/management/{repository_name}/{id}", R::get("delete", "Delete", $namespace, $auth_status));
+	$router->addPost("/api/management", R::get("update", "update", $namespace, $auth_status));
+	$router->addDelete("/api/management/{repository_name}/{id}", R::get("delete", "delete", $namespace, $auth_status));
 
-	$router->addGet("/api/management/user", R::get("get", "User", $namespace, $auth_status));
-	$router->addPost("/api/management/user", R::get("update", "User", $namespace, $auth_status));
+	$router->addGet("/api/management/user", R::get("get", "user", $namespace, $auth_status));
+	$router->addPost("/api/management/user", R::get("update", "user", $namespace, $auth_status));
 
-	$router->addGet("/api/management/grades", R::get("getGrades", "Grades", $namespace, $auth_status));
-	$router->addGet("/api/management/grades/semesters", R::get("getSemesters", "Grades", $namespace, $auth_status));
-	$router->addGet("/api/management/grades/courses", R::get("getCourses", "Grades", $namespace, $auth_status));
-	$router->addGet("/api/management/grades/groups", R::get("getGroups", "Grades", $namespace, $auth_status));
-	$router->addPost("/api/management/coursegroups/students", R::get("updateStudentsInGroup", "GroupStudents", $namespace, $auth_status));
+	$router->addGet("/api/management/grades", R::get("getGrades", "grades", $namespace, $auth_status));
+	$router->addGet("/api/management/grades/semesters", R::get("getSemesters", "grades", $namespace, $auth_status));
+	$router->addGet("/api/management/grades/courses", R::get("getCourses", "grades", $namespace, $auth_status));
+	$router->addGet("/api/management/grades/groups", R::get("getGroups", "grades", $namespace, $auth_status));
+	$router->addPost("/api/management/coursegroups/students", R::get("updateStudentsInGroup", "groupstudents", $namespace, $auth_status));
 }
 
 $namespace = "PWSZ\\Controllers\\Management\\CRUD";
 
 {
 	$modules = [
-		"news" => "News",
-		"faqs" => "Faq",
-		"fields" => "Field",
-		"forms" => "Form",
-		"semesters" => "Semester",
-		"courses" => "Course",
-		"students" => "Student",
-		"semestercourses" => "SemesterCourse",
-		"coursegroups" => "CourseGroup",
+		"news" => "news",
+		"faqs" => "faq",
+		"fields" => "field",
+		"forms" => "form",
+		"semesters" => "semester",
+		"courses" => "course",
+		"students" => "student",
+		"semestercourses" => "semester-course",
+		"coursegroups" => "course-group",
 	];
 
 	foreach($modules as $url => $controller) {

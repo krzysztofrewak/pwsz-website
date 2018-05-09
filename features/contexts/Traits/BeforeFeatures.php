@@ -46,6 +46,15 @@ trait BeforeFeatures {
 		echo "rebuilding database";
 	}
 
+	/** @BeforeScenario @log */
+	public function rebuildTestingLog(): void {
+		if(file_exists(self::TEST_LOG_FILNAME)) {
+			file_put_contents(self::TEST_LOG_FILNAME, "");
+		}
+
+		echo "rebuilding log";
+	}
+
 	/** @BeforeFeature @auth */
 	public static function setAuthenticatedSession(): void {
 		self::$di->get("session")->set("auth", new User());

@@ -2,8 +2,8 @@
 
 namespace PWSZ\Repositories;
 
-use Exception;
 use Phalcon\Mvc\Model\Resultset\Simple;
+use PWSZ\Exceptions\NotFound;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Interfaces\RepositoryInterface;
 
@@ -69,7 +69,7 @@ abstract class Repository implements RepositoryInterface {
 		$model = $this->getModelClass()::findFirst($id);
 
 		if(!$model) {
-			throw new Exception();
+			throw new NotFound();
 		}
 
 		return $model;

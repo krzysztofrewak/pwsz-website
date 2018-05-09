@@ -10,6 +10,8 @@ class FaqController extends Controller {
 		$this->responseArray->setData($this->repository->get("faqs")->getAll());
 		$this->responseArray->setSuccessStatus();
 
+		$this->logger->info("FAQs requested and delivered.");
+
 		return $this->renderResponse();
 	}
 

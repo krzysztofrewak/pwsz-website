@@ -16,6 +16,8 @@ class AuthenticationController extends Controller {
 			$this->responseArray->setStatusCode(403);
 		}
 
+		$this->logger->info("Authentication status requested and delivered.");
+
 		return $this->renderResponse();
 	}
 
@@ -40,12 +42,16 @@ class AuthenticationController extends Controller {
 					->setMessage("Zalogowano poprawnie.")
 					->setSuccessStatus();
 
+				$this->logger->info("User logged in.");
+
 				return $this->renderResponse();
 			}
 		}
 
 		$this->security->hash(rand());
 		$this->responseArray->setMessage("Podano błędny login lub hasło.");
+
+		$this->logger->warning("User not authenticated.");
 
 		return $this->renderResponse();
 	}
@@ -56,6 +62,8 @@ class AuthenticationController extends Controller {
 		$this->responseArray
 			->setMessage("Wylogowano poprawnie.")
 			->setSuccessStatus();
+
+		$this->logger->info("User logged out.");
 
 		return $this->renderResponse();
 	}

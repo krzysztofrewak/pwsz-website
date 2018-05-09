@@ -1,4 +1,4 @@
-@database @news
+@database @log @news
 Feature: Check news routes exceptions handlers
 
 	Scenario Outline: Checking if retrieving newsreel with forbidden method returns correct result
