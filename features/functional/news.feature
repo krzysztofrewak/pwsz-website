@@ -3,10 +3,10 @@ Feature: Check news retrieving functions when there's some news in databasae
 
 	Background: 
 		Given a set of existing news in database:
-			| id | title | content  | created_at          |
-			| 1  | Test1 | Test 1.  | 2018-01-01 12:00:00 |
-			| 2  | Test2 | Test 2.  | 2018-01-01 15:00:00 |
-			| 3  | Test3 | Test 3.  | 2017-01-01 15:00:00 |
+			| id | title         | content          | created_at          |
+			| 1  | Example title | Example content. | 2018-01-01 12:00:00 |
+			| 2  | Second title  | Example content. | 2018-01-01 15:00:00 |
+			| 3  | Another title | Example content. | 2017-01-01 15:00:00 |
 
 	# Happy path scenarios
 
@@ -28,8 +28,8 @@ Feature: Check news retrieving functions when there's some news in databasae
 		And response array should have empty message
 		And response array should not have empty data array
 		And response array data should have following values:
-			| id | title | content  | timestamp           |
-			| 1  | Test1 | Test 1.  | 2018-01-01 12:00:00 |
+			| id | title         | content           | timestamp           |
+			| 1  | Example title | Example content.  | 2018-01-01 12:00:00 |
 
 	# Fail scenarios
 

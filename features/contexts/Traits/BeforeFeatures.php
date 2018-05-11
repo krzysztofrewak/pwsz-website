@@ -13,7 +13,7 @@ trait BeforeFeatures {
 	/** @BeforeFeature */
 	public static function setServiceContainer(): void {
 		self::$di = self::getDI();
-		echo "setting service container";
+		// echo "setting service container";
 	}
 
 	/** @BeforeFeature @database */
@@ -43,7 +43,7 @@ trait BeforeFeatures {
 		$manager->migrate("testing");
 		$manager->seed("testing");
 
-		echo "rebuilding database";
+		// echo "rebuilding database";
 	}
 
 	/** @BeforeScenario @log */
@@ -52,19 +52,19 @@ trait BeforeFeatures {
 			file_put_contents(self::TEST_LOG_FILNAME, "");
 		}
 
-		echo "rebuilding log";
+		// echo "rebuilding log";
 	}
 
 	/** @BeforeFeature @auth */
 	public static function setAuthenticatedSession(): void {
 		self::$di->get("session")->set("auth", new User());
-		echo "setting authenticated session";
+		// echo "setting authenticated session";
 	}
 
 	/** @BeforeFeature @guest */
 	public static function setUnauthenticatedSession(): void {
 		self::$di->get("session")->remove("auth");
-		echo "setting unauthenticated session";
+		// echo "setting unauthenticated session";
 	}
 
 }
