@@ -13,7 +13,6 @@ trait BeforeFeatures {
 	/** @BeforeFeature */
 	public static function setServiceContainer(): void {
 		self::$di = self::getDI();
-		// echo "setting service container";
 	}
 
 	/** @BeforeFeature @database */
@@ -42,8 +41,6 @@ trait BeforeFeatures {
 		$manager = new Manager(new Config($phinx), new StringInput(" "), new NullOutput());
 		$manager->migrate("testing");
 		$manager->seed("testing");
-
-		// echo "rebuilding database";
 	}
 
 	/** @BeforeScenario @log */
@@ -51,20 +48,16 @@ trait BeforeFeatures {
 		if(file_exists(self::TEST_LOG_FILNAME)) {
 			file_put_contents(self::TEST_LOG_FILNAME, "");
 		}
-
-		// echo "rebuilding log";
 	}
 
 	/** @BeforeFeature @auth */
 	public static function setAuthenticatedSession(): void {
 		self::$di->get("session")->set("auth", new User());
-		// echo "setting authenticated session";
 	}
 
 	/** @BeforeFeature @guest */
 	public static function setUnauthenticatedSession(): void {
 		self::$di->get("session")->remove("auth");
-		// echo "setting unauthenticated session";
 	}
 
 }

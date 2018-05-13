@@ -72,7 +72,7 @@ class GradesController extends Controller {
 		$authenticated = !is_null($this->session->get("auth"));
 
 		try {
-			$grades = $this->repository->get("grades")->getGrades($group_id, $student_id, $authenticated);
+			$grades = $this->getGradesRepository()->getGrades($group_id, $student_id, $authenticated);
 		} catch(NotFound $exception) {
 			$this->responseArray
 				->setMessage("Group not found")
@@ -97,6 +97,10 @@ class GradesController extends Controller {
 		}
 
 		return $this->renderResponse();
+	}
+
+	protected function getGradesRepository(): RepositoryInterface {
+		return $this->repository->get("grades");
 	}
 
 }

@@ -14,8 +14,8 @@ class Grade extends Model {
 	public function initialize(): void {
 		$this->setSource("grades");
 
-		$this->belongsTo("course_group_student_id", CourseGroupStudent::class, "id");
-		$this->belongsTo("course_group_class_id", CourseGroupClass::class, "id");
+		$this->belongsTo("course_group_student_id", CourseGroupStudent::class, "id", ["alias" => "Student"]);
+		$this->belongsTo("course_group_class_id", CourseGroupClass::class, "id", ["alias" => "Class"]);
 	}
 	
 }
