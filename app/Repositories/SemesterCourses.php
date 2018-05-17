@@ -4,33 +4,53 @@ namespace PWSZ\Repositories;
 
 use PWSZ\Exceptions\NotFound;
 use PWSZ\Interfaces\ModelInterface as Model;
+use PWSZ\Models\Course;
+use PWSZ\Models\Semester;
 use PWSZ\Models\SemesterCourse;
 
 class SemesterCourses extends Repository {
 
+	/**
+	 * @return SemesterCourse
+	 */
 	public function getModelClass(): string {
 		return SemesterCourse::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $course
+	 * @return array
+	 */
+	public function map(Model $course): array {
+		/** @var SemesterCourse $course */
 		return [
-			"id" => $model->id,
-			"semester" => $model->semester->name,
-			"course" => $model->course->name,
-			"index" => $model->course->form->index,
+			"id" => $course->id,
+			"semester" => $course->semester->name,
+			"course" => $course->course->name,
+			"index" => $course->course->form->index,
 		];
 	}
 
-	protected function mapCourses(Model $model): array {
+	/**
+	 * @param Model $course
+	 * @return array
+	 */
+	protected function mapCourses(Model $course): array {
+		/** @var Course $course */
 		return [
-			"id" => $model->id,
-			"name" => $model->name . " | " . $model->form->name,
+			"id" => $course->id,
+			"name" => $course->name . " | " . $course->form->name,
 		];
 	}
 
+	/**
+	 * @param int $id
+	 * @return array
+	 * @throws NotFound
+	 */
 	public function getCoursesBySemesterId(int $id): array {
-		$repository = new Semesters();
-		$semester = $repository->getModelClass()::findFirst($id);
+		/** @var Semester $semester */
+		$semester = Semester::findFirst($id);
 
 		if(!$semester) {
 			throw new NotFound();
@@ -38,8 +58,9 @@ class SemesterCourses extends Repository {
 
 		$result = [];
 
-		foreach($semester->courses as $object) {
-			$result[] = $this->mapCourses($object);
+		/** @var Course $course */
+		foreach($semester->courses as $course) {
+			$result[] = $this->mapCourses($course);
 		}
 		
 		return $result;

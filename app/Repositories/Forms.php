@@ -7,15 +7,23 @@ use PWSZ\Models\Form;
 
 class Forms extends Repository {
 
+	/**
+	 * @return Form
+	 */
 	public function getModelClass(): string {
 		return Form::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $form
+	 * @return array
+	 */
+	public function map(Model $form): array {
+		/** @var Form $form */
 		return [
-			"id" => $model->id,
-			"index" => $model->index,
-			"name" => $model->name,
+			"id" => $form->id,
+			"index" => $form->index,
+			"name" => $form->name,
 		];
 	}
 

@@ -7,15 +7,23 @@ use PWSZ\Models\Faq;
 
 class Faqs extends Repository {
 
+	/**
+	 * @return Faq
+	 */
 	public function getModelClass(): string {
 		return Faq::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $faq
+	 * @return array
+	 */
+	public function map(Model $faq): array {
+		/** @var Faq $faq */
 		return [
-			"id" => $model->id,
-			"question" => $model->question,
-			"answer" => $model->answer
+			"id" => $faq->id,
+			"question" => $faq->question,
+			"answer" => $faq->answer
 		];
 	}
 

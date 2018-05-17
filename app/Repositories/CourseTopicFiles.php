@@ -7,16 +7,24 @@ use PWSZ\Models\CourseTopicFile;
 
 class CourseTopicFiles extends Repository {
 
+	/**
+	 * @return CourseTopicFile
+	 */
 	public function getModelClass(): string {
 		return CourseTopicFile::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $file
+	 * @return array
+	 */
+	public function map(Model $file): array {
+		/** @var CourseTopicFile $file */
 		return [
-			"id" => $model->id,
-			"icon" => $model->icon,
-			"url" => $model->url,
-			"course_topic_id" => $model->course_topic_id,
+			"id" => $file->id,
+			"icon" => $file->icon,
+			"url" => $file->url,
+			"course_topic_id" => $file->course_topic_id,
 		];
 	}
 

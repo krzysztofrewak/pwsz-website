@@ -4,20 +4,29 @@ namespace PWSZ\Repositories;
 
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\CourseGroupClass;
+use PWSZ\Models\Grade;
 
 class CourseGroupClasses extends Repository {
 
+	/**
+	 * @return CourseGroupClass
+	 */
 	public function getModelClass(): string {
 		return CourseGroupClass::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $grade
+	 * @return array
+	 */
+	public function map(Model $grade): array {
+		/** @var Grade $grade */
 		return [
-			"course_group_student_id" => $model->course_group_student_id,
-			"course_group_class_id" => $model->course_group_class_id,
-			"was_present" => $model->was_present,
-			"value" => $model->value,
-			"id" => $model->id,
+			"course_group_student_id" => $grade->course_group_student_id,
+			"course_group_class_id" => $grade->course_group_class_id,
+			"was_present" => $grade->was_present,
+			"value" => $grade->value,
+			"id" => $grade->id,
 		];
 	}
 

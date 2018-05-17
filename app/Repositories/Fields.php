@@ -7,15 +7,23 @@ use PWSZ\Models\Field;
 
 class Fields extends Repository {
 
+	/**
+	 * @return Field
+	 */
 	public function getModelClass(): string {
 		return Field::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $field
+	 * @return array
+	 */
+	public function map(Model $field): array {
+		/** @var Field $field */
 		return [
-			"id" => $model->id,
-			"index" => $model->index,
-			"name" => $model->name,
+			"id" => $field->id,
+			"index" => $field->index,
+			"name" => $field->name,
 		];
 	}
 

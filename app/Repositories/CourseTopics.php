@@ -7,16 +7,24 @@ use PWSZ\Models\CourseTopic;
 
 class CourseTopics extends Repository {
 
+	/**
+	 * @return CourseTopic
+	 */
 	public function getModelClass(): string {
 		return CourseTopic::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $topic
+	 * @return array
+	 */
+	public function map(Model $topic): array {
+		/** @var CourseTopic $topic */
 		return [
-			"id" => $model->id,
-			"course_id" => $model->course_id,
-			"no" => $model->no,
-			"title" => $model->title,
+			"id" => $topic->id,
+			"course_id" => $topic->course_id,
+			"no" => $topic->no,
+			"title" => $topic->title,
 		];
 	}
 

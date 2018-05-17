@@ -3,11 +3,19 @@
 namespace PWSZ\Repositories;
 
 use PWSZ\Interfaces\ModelInterface as Model;
-use PWSZ\Models\SemesterCourseClass;
+use PWSZ\Models\CourseGroupClass;
+use PWSZ\Models\CourseGroupStudent;
 
 class ManagementGrades extends Grades {
 
+	/**
+	 * @param Model $student_group
+	 * @param array $class_ids
+	 * @param bool $show_full_names
+	 * @return array
+	 */
 	public function map(Model $student_group, array $class_ids = [], bool $show_full_names = false): array {
+		/** @var CourseGroupStudent $student_group */
 		$student = $student_group->student;
 		$grades = [];
 
@@ -33,7 +41,12 @@ class ManagementGrades extends Grades {
 		];
 	}
 
+	/**
+	 * @param Model $class
+	 * @return array
+	 */
 	protected function mapClasses(Model $class): array {
+		/** @var CourseGroupClass $class */
 		return [
 			"id" => $class->id,
 			"name" => $class->name,
@@ -41,6 +54,10 @@ class ManagementGrades extends Grades {
 		];
 	}
 
+	/**
+	 * @param array $students
+	 * @return array
+	 */
 	protected function sortStudents(array $students): array {
 		usort($students, function($a, $b) {
 			return explode(" ", $a["name"])[1] > explode(" ", $b["name"])[1];

@@ -2,26 +2,37 @@
 
 namespace PWSZ\Repositories;
 
-use Phalcon\Mvc\Model\Resultset\Simple;
+use Phalcon\Mvc\Model\ResultsetInterface;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\Student;
 
 class Students extends Repository {
 
-	protected function getObjects(): Simple {
+	/**
+	 * @return ResultsetInterface
+	 */
+	protected function getObjects(): ResultsetInterface {
 		return $this->getModelClass()::find(["order" => "student_no ASC"]);
 	}
 
+	/**
+	 * @return Student
+	 */
 	public function getModelClass(): string {
 		return Student::class;
 	}
 
-	public function map(Model $model): array {
+	/**
+	 * @param Model $student
+	 * @return array
+	 */
+	public function map(Model $student): array {
+		/** @var Student $student */
 		return [
-			"id" => $model->id,
-			"name" => $model->name,
-			"initials" => $model->getInitials(),
-			"student_no" => $model->student_no,
+			"id" => $student->id,
+			"name" => $student->name,
+			"initials" => $student->getInitials(),
+			"student_no" => $student->student_no,
 		];
 	}
 

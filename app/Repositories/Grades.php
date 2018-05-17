@@ -2,22 +2,31 @@
 
 namespace PWSZ\Repositories;
 
-use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Exceptions\NotFound;
+use PWSZ\Interfaces\GradesRepositoryInterface;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\CourseGroup;
+use PWSZ\Models\CourseGroupClass;
+use PWSZ\Models\CourseGroupStudent;
 use PWSZ\Models\Grade;
-use PWSZ\Models\SemesterCourseClass;
-use PWSZ\Models\Student;
-use PWSZ\Models\StudentClass;
 
-class Grades extends Repository {
+class Grades extends Repository implements GradesRepositoryInterface {
 
+	/**
+	 * @return Grade
+	 */
 	public function getModelClass(): string {
 		return Grade::class;
 	}
 
+	/**
+	 * @param Model $student_group
+	 * @param array $class_ids
+	 * @param bool $show_full_names
+	 * @return array
+	 */
 	public function map(Model $student_group, array $class_ids = [], bool $show_full_names = false): array {
+		/** @var CourseGroupStudent $student_group */
 		$student = $student_group->student;
 		$grades = [];
 
@@ -39,8 +48,16 @@ class Grades extends Repository {
 		];
 	}
 
+	/**
+	 * @param int $course_group_id
+	 * @param string $student_no
+	 * @param bool $force_result
+	 * @return array
+	 * @throws NotFound
+	 */
 	public function getGrades(int $course_group_id, string $student_no, bool $force_result = false): array {
-        $group = CourseGroup::findFirst($course_group_id);
+		/** @var CourseGroup $group */
+		$group = CourseGroup::findFirst($course_group_id);
 
 		if(!$group) {
 			throw new NotFound();
@@ -56,6 +73,8 @@ class Grades extends Repository {
 		if($force_result || $validation_guard) {
 			$result["classes"] = [];
 			$class_ids = [];
+
+			/** @var CourseGroupClass $class */
 			foreach($group->classes as $class) {
 				$result["classes"][] = $this->mapClasses($class);
 				$class_ids[] = $class->id;
@@ -63,6 +82,7 @@ class Grades extends Repository {
 
 			$result["students"] = [];
 
+			/** @var CourseGroupStudent $student */
 			foreach($group->groupStudents as $student) {
 				$result["students"][] = $this->map($student, $class_ids, $force_result);
 			}
@@ -73,10 +93,19 @@ class Grades extends Repository {
 		return $result;
 	}
 
+	/**
+	 * @param Model $class
+	 * @return array
+	 */
 	protected function mapClasses(Model $class): array {
+		/** @var CourseGroupClass $class */
 		return ["name" => $class->name];
 	}
 
+	/**
+	 * @param array $students
+	 * @return array
+	 */
 	protected function sortStudents(array $students): array {
 		usort($students, function($a, $b) {
 			return $a["number"] - $b["number"];
