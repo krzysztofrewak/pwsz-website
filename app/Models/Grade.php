@@ -2,6 +2,10 @@
 
 namespace PWSZ\Models;
 
+/**
+ * @property CourseGroupStudent student
+ * @property CourseGroupClass class
+ */
 class Grade extends Model {
 
 	public $id;
@@ -17,5 +21,5 @@ class Grade extends Model {
 		$this->belongsTo("course_group_student_id", CourseGroupStudent::class, "id", ["alias" => "Student"]);
 		$this->belongsTo("course_group_class_id", CourseGroupClass::class, "id", ["alias" => "Class"]);
 	}
-	
+
 }

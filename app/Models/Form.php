@@ -11,5 +11,5 @@ class Form extends Model {
 	public function initialize(): void {
 		$this->setSource("forms");
 	}
-	
+
 }

@@ -11,5 +11,5 @@ class Faq extends Model {
 	public function initialize(): void {
 		$this->setSource("faqs");
 	}
-	
+
 }

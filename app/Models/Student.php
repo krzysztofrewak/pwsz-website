@@ -2,6 +2,12 @@
 
 namespace PWSZ\Models;
 
+use Phalcon\Mvc\Model\Resultset\Simple;
+
+/**
+ * @property Simple groupStudents
+ * @property Simple group
+ */
 class Student extends Model {
 
 	public $id;
@@ -20,5 +26,5 @@ class Student extends Model {
 			return $word[0];
 		}, explode(" ", $this->name)));
 	}
-	
+
 }

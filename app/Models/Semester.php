@@ -1,7 +1,12 @@
 <?php
 
 namespace PWSZ\Models;
+use Phalcon\Mvc\Model\Resultset\Simple;
 
+/**
+ * @property Simple semesterCourses
+ * @property Simple courses
+ */
 class Semester extends Model {
 
 	public $id;
@@ -16,5 +21,5 @@ class Semester extends Model {
 		$this->hasMany("id", SemesterCourse::class, "semester_id", ["alias" => "SemesterCourses"]);
 		$this->hasManyToMany("id", SemesterCourse::class, "semester_id", "course_id", Course::class, "id", ["alias" => "Courses"]);
 	}
-	
+
 }

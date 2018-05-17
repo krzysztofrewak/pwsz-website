@@ -11,5 +11,5 @@ class Field extends Model {
 	public function initialize(): void {
 		$this->setSource("fields");
 	}
-	
+
 }

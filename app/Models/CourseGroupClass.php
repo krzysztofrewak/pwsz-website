@@ -2,6 +2,9 @@
 
 namespace PWSZ\Models;
 
+/**
+ * @property CourseGroup group
+ */
 class CourseGroupClass extends Model {
 
 	public $id;
@@ -10,11 +13,14 @@ class CourseGroupClass extends Model {
 
 	public function initialize(): void {
 		$this->setSource("course_group_classes");
+
 		$this->belongsTo("course_group_id", CourseGroup::class, "id", ["alias" => "Group"]);
 	}
 
 	public function afterCreate() {
 		$students = $this->group->groupStudents;
+
+		/** @var Student $student */
 		foreach($students as $student) {
 			$grade = new Grade();
 			$grade->save([
@@ -23,5 +29,5 @@ class CourseGroupClass extends Model {
 			]);
 		}
 	}
-	
+
 }

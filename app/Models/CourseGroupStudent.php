@@ -1,7 +1,13 @@
 <?php
 
 namespace PWSZ\Models;
+use Phalcon\Mvc\Model\Resultset\Simple;
 
+/**
+ * @property CourseGroup group
+ * @property Student student
+ * @property Simple grades
+ */
 class CourseGroupStudent extends Model {
 
 	public $id;
@@ -13,12 +19,13 @@ class CourseGroupStudent extends Model {
 		
 		$this->belongsTo("student_id", Student::class, "id", ["alias" => "Student"]);
 		$this->belongsTo("course_group_id", CourseGroup::class, "id", ["alias" => "Group"]);
-		
 		$this->hasMany("id", Grade::class, "course_group_student_id", ["alias" => "Grades"]);
 	}
 
 	public function afterCreate() {
 		$classes = $this->group->classes;
+
+		/** @var CourseGroupClass $class */
 		foreach($classes as $class) {
 			$grade = new Grade();
 			$grade->save([

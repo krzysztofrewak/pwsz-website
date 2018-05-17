@@ -2,6 +2,12 @@
 
 namespace PWSZ\Models;
 
+use Phalcon\Mvc\Model\Resultset\Simple;
+
+/**
+ * @property Course course
+ * @property Simple files
+ */
 class CourseTopic extends Model {
 
 	public $id;

@@ -12,5 +12,5 @@ class News extends Model {
 	public function initialize(): void {
 		$this->setSource("news");
 	}
-	
+
 }

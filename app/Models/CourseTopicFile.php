@@ -2,6 +2,9 @@
 
 namespace PWSZ\Models;
 
+/**
+ * @property CourseTopic topic
+ */
 class CourseTopicFile extends Model {
 
 	public $id;
@@ -14,5 +17,5 @@ class CourseTopicFile extends Model {
 
 		$this->belongsTo("course_topic_id", CourseTopic::class, "id", ["alias" => "Topic"]);
 	}
-	
+
 }
