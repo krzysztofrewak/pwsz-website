@@ -4,6 +4,10 @@ namespace PWSZ\Helpers;
 
 class NumberToRoman {
 
+	/**
+	 * @param int $number
+	 * @return string
+	 */
 	public static function transform(int $number): string {
 		$roman_numbers = [
 			"M" => 1000,
@@ -18,21 +22,21 @@ class NumberToRoman {
 			"IX" => 9,
 			"V" => 5,
 			"IV" => 4,
-			"I" => 1
+			"I" => 1,
 		];
 
-		$result = ""; 
-		while($number > 0) { 
-			foreach($roman_numbers as $roman => $arabic) { 
-				if($number >= $arabic) { 
-					$number -= $arabic; 
-					$result .= $roman; 
-					break; 
+		$result = "";
+		while($number > 0) {
+			foreach($roman_numbers as $roman => $arabic) {
+				if($number >= $arabic) {
+					$number -= $arabic;
+					$result .= $roman;
+					break;
 				}
 			}
 		}
 
-		return $result; 
+		return $result;
 	}
 
 }

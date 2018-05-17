@@ -7,6 +7,13 @@ use Carbon\Carbon;
 
 class LoggerLineFormatter extends Formatter {
 
+	/**
+	 * @param string $message
+	 * @param int $type
+	 * @param int $timestamp
+	 * @param mixed $context
+	 * @return string|array
+	 */
 	public function format($message, $type, $timestamp, $context = null) {
 		$blocks = [
 			Carbon::createFromTimestamp($timestamp)->format("Y-m-d H:i:s"),
