@@ -6,10 +6,14 @@ use Phalcon\Http\Response;
 
 class FaqController extends Controller {
 
+	/**
+	 * @return Response
+	 */
 	public function getQuestionsAction(): Response {
-		$this->responseArray->setData($this->repository->get("faqs")->getAll());
-		$this->responseArray->setSuccessStatus();
+		$faqs = $this->repository->get("faqs")->getAll();
 
+		$this->responseArray->setData($faqs);
+		$this->responseArray->setSuccessStatus();
 		$this->logger->info("FAQs requested and delivered.");
 
 		return $this->renderResponse();
