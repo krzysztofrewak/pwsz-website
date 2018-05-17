@@ -1,11 +1,13 @@
 <?php
 
-use Phalcon\Di;
 use Phinx\Seed\AbstractSeed;
 
 abstract class AbstractSeeder extends AbstractSeed implements Seedable {
 
-	public function run() {
+	/**
+	 * @return void
+	 */
+	public function run(): void {
 		$this->table($this->getTableName())
 			->insert($this->getData())
 			->save();

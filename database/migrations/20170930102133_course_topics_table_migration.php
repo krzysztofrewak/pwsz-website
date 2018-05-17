@@ -4,7 +4,10 @@ use Phinx\Migration\AbstractMigration as Migration;
 
 class CourseTopicsTableMigration extends Migration {
 
-	public function change() {
+	/**
+	 * @return void
+	 */
+	public function change(): void {
 		$table = $this->table("course_topics");
 
 		$table->addColumn("title", "string");

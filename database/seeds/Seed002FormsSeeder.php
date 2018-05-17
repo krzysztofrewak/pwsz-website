@@ -2,10 +2,16 @@
 
 class Seed002FormsSeeder extends AbstractSeeder {
 
+	/**
+	 * @return string
+	 */
 	public function getTableName(): string {
 		return "forms";
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getData(): array {
 		return [
 			[

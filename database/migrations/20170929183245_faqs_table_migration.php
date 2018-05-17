@@ -4,7 +4,10 @@ use Phinx\Migration\AbstractMigration as Migration;
 
 class FaqsTableMigration extends Migration {
 
-	public function change() {
+	/**
+	 * @return void
+	 */
+	public function change(): void {
 		$table = $this->table("faqs");
 
 		$table->addColumn("question", "text");

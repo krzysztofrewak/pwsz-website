@@ -4,10 +4,16 @@ use Phalcon\Security;
 
 class Seed000UsersSeeder extends AbstractSeeder {
 
+	/**
+	 * @return string
+	 */
 	public function getTableName(): string {
 		return "users";
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getData(): array {
 		$security = new Security();
 		$security->setWorkFactor(12);

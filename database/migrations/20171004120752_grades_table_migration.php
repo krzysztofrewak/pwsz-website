@@ -4,7 +4,10 @@ use Phinx\Migration\AbstractMigration as Migration;
 
 class GradesTableMigration extends Migration {
 
-	public function change() {
+	/**
+	 * @return void
+	 */
+	public function change(): void {
 		$table = $this->table("grades");
 
 		$table->addColumn("was_present", "boolean", ["null" => true, "default" => null]);
