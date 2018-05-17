@@ -4,14 +4,28 @@ namespace PWSZ\Controllers\Management\CRUD;
 
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
+use PWSZ\Models\Student;
 
+/**
+ * @property Student $model
+ */
 class StudentController extends CRUDController {
 
+	/**
+	 * @var string
+	 */
 	protected $repository_name = "students";
 
+	/**
+	 * @return string
+	 */
 	public function getTableTitle(): string {
 		return "Studenci";
 	}
+
+	/**
+	 * @return array
+	 */
 	public function getTableColumnHeaders(): array {
 		return [
 			"student_no" => "numer indeksu", 
@@ -20,10 +34,16 @@ class StudentController extends CRUDController {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFormTitle(): string {
 		return "Edytujesz studenta: " . $this->model->name;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getFormInputs(): array {
 		$model = $this->model;
 		

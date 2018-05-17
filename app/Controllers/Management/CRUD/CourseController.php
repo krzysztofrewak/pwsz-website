@@ -6,16 +6,31 @@ use Phalcon\Mvc\Model\Resultset\Simple;
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
 use PWSZ\Helpers\NumberToRoman;
+use PWSZ\Models\Course;
+use PWSZ\Models\CourseTopic;
+use PWSZ\Models\CourseTopicFile;
 use PWSZ\Models\Semester;
 
+/**
+ * @property Course $model
+ */
 class CourseController extends CRUDController {
 
+	/**
+	 * @var string
+	 */
 	protected $repository_name = "courses";
 
+	/**
+	 * @return string
+	 */
 	public function getTableTitle(): string {
 		return "Kursy";
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getTableColumnHeaders(): array {
 		return [
 			"index" => "#",
@@ -27,10 +42,16 @@ class CourseController extends CRUDController {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFormTitle(): string {
 		return "Edytujesz kurs: " . $this->model->name;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getFormInputs(): array {
 		$model = $this->model;
 
@@ -93,6 +114,10 @@ class CourseController extends CRUDController {
 		return $form;
 	}
 
+	/**
+	 * @param int|null $semester_no
+	 * @return array
+	 */
 	protected function buildSemestersValues(?int $semester_no): array {
 		return array_map(function($value) use($semester_no) {
 			return [
@@ -103,6 +128,10 @@ class CourseController extends CRUDController {
 		}, range(Semester::FIRST_SEMESTER_NO, Semester::LAST_SEMESTER_NO));
 	}
 
+	/**
+	 * @param int|null $form_id
+	 * @return array
+	 */
 	protected function buildFormsValues(?int $form_id): array {
 		return array_map(function($value) use($form_id) {
 			return [
@@ -113,6 +142,10 @@ class CourseController extends CRUDController {
 		}, $this->repository->get("forms")->getAll());
 	}
 
+	/**
+	 * @param int|null $field_id
+	 * @return array
+	 */
 	protected function buildFieldsValues(?int $field_id): array {
 		return array_map(function($value) use($field_id) {
 			return [
@@ -123,12 +156,18 @@ class CourseController extends CRUDController {
 		}, $this->repository->get("fields")->getAll());
 	}
 
+	/**
+	 * @param null|Simple $topics
+	 * @return array
+	 */
 	protected function buildTopicsTable(?Simple $topics): array {
 		$result = [];
 
+		/** @var CourseTopic $topic */
 		foreach($topics as $topic) {
 			$files = [];
-			
+
+			/** @var CourseTopicFile $file */
 			foreach($topic->files as $file) {
 				$files[] = [
 					"id" => $file->id,

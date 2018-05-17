@@ -9,7 +9,7 @@ use PWSZ\Interfaces\CRUDControllerInterface;
 abstract class CRUDController extends Controller implements CRUDControllerInterface {
 
 
-	protected $model = null;
+	protected $model;
 	protected $repository_name = "";
 
 	/**

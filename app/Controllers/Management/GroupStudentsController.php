@@ -4,6 +4,7 @@ namespace PWSZ\Controllers\Management;
 
 use Phalcon\Http\Response;
 use PWSZ\Controllers\Controller;
+use PWSZ\Exceptions\NotFound;
 use PWSZ\Helpers\SelectItem;
 use PWSZ\Models\CourseGroup;
 use PWSZ\Models\CourseGroupStudent;
@@ -13,7 +14,7 @@ class GroupStudentsController extends Controller {
 
 	/**
 	 * @return Response
-	 * @throws \PWSZ\Exceptions\NotFound
+	 * @throws NotFound
 	 */
 	public function updateStudentsInGroupAction(): Response {
 		$request = json_decode($this->request->getRawBody());
@@ -28,7 +29,7 @@ class GroupStudentsController extends Controller {
 	/**
 	 * @param int $group_id
 	 * @param array $request_students
-	 * @throws \PWSZ\Exceptions\NotFound
+	 * @throws NotFound
 	 */
 	protected function manageStudentsInGroup(int $group_id, array $request_students): void {
 		$repository_students_ids = [];

@@ -4,14 +4,28 @@ namespace PWSZ\Controllers\Management\CRUD;
 
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
+use PWSZ\Models\SemesterCourse;
 
+/**
+ * @property SemesterCourse $model
+ */
 class SemesterCourseController extends CRUDController {
 
+	/**
+	 * @var string
+	 */
 	protected $repository_name = "semesterCourses";
 
+	/**
+	 * @return string
+	 */
 	public function getTableTitle(): string {
 		return "Kursy w semestrze";
 	}
+
+	/**
+	 * @return array
+	 */
 	public function getTableColumnHeaders(): array {
 		return [
 			"semester" => "semestr",
@@ -19,10 +33,17 @@ class SemesterCourseController extends CRUDController {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFormTitle(): string {
 		return "Edytujesz";
 	}
 
+	/**
+	 * @param int|null $form_id
+	 * @return array
+	 */
 	protected function buildSemestersValues(?int $form_id): array {
 		return array_map(function($value) use($form_id) {
 			return [
@@ -33,6 +54,10 @@ class SemesterCourseController extends CRUDController {
 		}, $this->repository->get("semesters")->getAll());
 	}
 
+	/**
+	 * @param int|null $form_id
+	 * @return array
+	 */
 	protected function buildCoursesValues(?int $form_id): array {
 		return array_map(function($value) use($form_id) {
 			return [
@@ -43,6 +68,9 @@ class SemesterCourseController extends CRUDController {
 		}, $this->repository->get("courses")->getAll());
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getFormInputs(): array {
 		$model = $this->model;
 		$semesters = $this->buildSemestersValues($model->semester_id);

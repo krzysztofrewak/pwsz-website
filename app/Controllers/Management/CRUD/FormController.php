@@ -4,14 +4,28 @@ namespace PWSZ\Controllers\Management\CRUD;
 
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
+use PWSZ\Models\Form;
 
+/**
+ * @property Form $model
+ */
 class FormController extends CRUDController {
 
+	/**
+	 * @var string
+	 */
 	protected $repository_name = "forms";
 
+	/**
+	 * @return string
+	 */
 	public function getTableTitle(): string {
 		return "Formy zajęć";
 	}
+
+	/**
+	 * @return array
+	 */
 	public function getTableColumnHeaders(): array {
 		return [
 			"index" => "skrótowiec", 
@@ -19,10 +33,16 @@ class FormController extends CRUDController {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFormTitle(): string {
 		return "Edytujesz formę zajęć: " . $this->model->name;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getFormInputs(): array {
 		$model = $this->model;
 

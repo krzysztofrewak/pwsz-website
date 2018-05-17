@@ -4,15 +4,28 @@ namespace PWSZ\Controllers\Management\CRUD;
 
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
+use PWSZ\Models\Field;
 
+/**
+ * @property Field $model
+ */
 class FieldController extends CRUDController {
 
+	/**
+	 * @var string
+	 */
 	protected $repository_name = "fields";
 
+	/**
+	 * @return string
+	 */
 	public function getTableTitle(): string {
 		return "Kierunki i specjalności";
 	}
-	
+
+	/**
+	 * @return array
+	 */
 	public function getTableColumnHeaders(): array {
 		return [
 			"index" => "skrótowiec", 
@@ -20,10 +33,16 @@ class FieldController extends CRUDController {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFormTitle(): string {
 		return "Edytujesz kierunek/specjalność: " . $this->model->name;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getFormInputs(): array {
 		$model = $this->model;
 

@@ -2,18 +2,31 @@
 
 namespace PWSZ\Controllers\Management\CRUD;
 
-use Phalcon\Http\Response;
 use PWSZ\Controllers\Management\CRUDController;
 use PWSZ\Helpers\FormInput;
+use PWSZ\Models\CourseGroup;
+use PWSZ\Models\Student;
 
+/**
+ * @property CourseGroup $model
+ */
 class CourseGroupController extends CRUDController {
 
+	/**
+	 * @var string
+	 */
 	protected $repository_name = "courseGroups";
 
+	/**
+	 * @return string
+	 */
 	public function getTableTitle(): string {
 		return "Grupy zajęciowe";
 	}
-	
+
+	/**
+	 * @return array
+	 */
 	public function getTableColumnHeaders(): array {
 		return [
 			"name" => "nazwa i termin",
@@ -25,15 +38,22 @@ class CourseGroupController extends CRUDController {
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getFormTitle(): string {
 		return "Edytujesz grupę: " . $this->model->name;
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getFormInputs(): array {
 		$model = $this->model;
 		$semester_courses = $this->buildSemesterCoursesValues($model->semester_course_id);
 
 		$students_ids = [];
+		/** @var Student $student */
 		foreach($model->students as $student) {
 			$students_ids[] = $student->id;
 		}
@@ -68,6 +88,10 @@ class CourseGroupController extends CRUDController {
 		return $form;
 	}
 
+	/**
+	 * @param int|null $semester_course_id
+	 * @return array
+	 */
 	protected function buildSemesterCoursesValues(?int $semester_course_id): array {
 		return array_map(function($value) use($semester_course_id) {
 			return [
@@ -78,6 +102,10 @@ class CourseGroupController extends CRUDController {
 		}, $this->repository->get("semesterCourses")->getAll());
 	}
 
+	/**
+	 * @param array|null $students_ids
+	 * @return array
+	 */
 	protected function buildStudentsValues(?array $students_ids = []): array {
 		return array_map(function($value) use($students_ids) {
 			return [
