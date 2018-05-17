@@ -2,20 +2,28 @@
 
 namespace PWSZ\Tests\Traits;
 
+use Phalcon\DiInterface;
 use Phinx\Config\Config;
 use Phinx\Migration\Manager;
 use PWSZ\Models\User;
 use Symfony\Component\Console\Input\StringInput;
 use Symfony\Component\Console\Output\NullOutput;
 
+/**
+ * @property DiInterface $di
+ */
 trait BeforeFeatures {
 
-	/** @BeforeFeature */
+	/**
+	 * @BeforeFeature
+	 */
 	public static function setServiceContainer(): void {
 		self::$di = self::getDI();
 	}
 
-	/** @BeforeFeature @database */
+	/**
+	 * @BeforeFeature @database
+	 */
 	public static function rebuildTestingDatabase(): void {
 		$db = self::$di->get("db");
 		$db->execute("SET foreign_key_checks = 0");
@@ -43,19 +51,25 @@ trait BeforeFeatures {
 		$manager->seed("testing");
 	}
 
-	/** @BeforeScenario @log */
+	/**
+	 * @BeforeScenario @log
+	 */
 	public function rebuildTestingLog(): void {
 		if(file_exists(self::TEST_LOG_FILNAME)) {
 			file_put_contents(self::TEST_LOG_FILNAME, "");
 		}
 	}
 
-	/** @BeforeFeature @auth */
+	/**
+	 * @BeforeFeature @auth
+	 */
 	public static function setAuthenticatedSession(): void {
 		self::$di->get("session")->set("auth", new User());
 	}
 
-	/** @BeforeFeature @guest */
+	/**
+	 * @BeforeFeature @guest
+	 */
 	public static function setUnauthenticatedSession(): void {
 		self::$di->get("session")->remove("auth");
 	}
