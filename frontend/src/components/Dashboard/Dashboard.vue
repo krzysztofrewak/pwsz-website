@@ -54,10 +54,11 @@
 					},
 					{
 						label: "Ustawienia",
-						elements: "four",
+						elements: "five",
 						links: [
 							{ label: "Konto użytkownika", target: "dashboard.account", icon: "address book outline" },
 							{ label: "Ustawienia", target: "dashboard", icon: "cogs" },
+							{ label: "Logi", target: "dashboard.logger", icon: "sticky note" },
 							{ label: "Analityki", action: "google", icon: "google" },
 							{ label: "Wyloguj się", action: "logout", icon: "window close" },
 						]

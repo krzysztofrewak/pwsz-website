@@ -21,6 +21,7 @@ import Dashboard from "@/components/Dashboard/Dashboard"
 import ManagementForm from "@/components/Dashboard/ManagementForm"
 import ManagementList from "@/components/Dashboard/ManagementList"
 import AccountPage from "@/components/Dashboard/AccountPage"
+import Logger from "@/components/Dashboard/Logger"
 import ManagementGradesForm from "@/components/Dashboard/GradesForm"
 
 Vue.use(Router)
@@ -47,6 +48,7 @@ let routes = [
 	{ path: "/zarzadzaj", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard", component: Dashboard, },
 	{ path: "/zarzadzaj/konto", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard.account", component: AccountPage },
 	{ path: "/zarzadzaj/oceny", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard.grades", component: ManagementGradesForm },
+	{ path: "/zarzadzaj/logi", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard.logger", component: Logger },
 
 	{ path: "/brak-dostepu", meta: { section: "error" }, name: "not-allowed", component: NotAllowed },
 	{ path: "*", meta: { section: "error" }, name: "not-found", component: NotFound },
