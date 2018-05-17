@@ -4,29 +4,46 @@ namespace PWSZ\Controllers\Management;
 
 use Phalcon\Http\Response;
 use PWSZ\Controllers\Controller;
+use PWSZ\Helpers\SelectItem;
+use PWSZ\Models\CourseGroup;
+use PWSZ\Models\CourseGroupStudent;
+use PWSZ\Repositories\CourseGroups;
 
 class GroupStudentsController extends Controller {
 
+	/**
+	 * @return Response
+	 * @throws \PWSZ\Exceptions\NotFound
+	 */
 	public function updateStudentsInGroupAction(): Response {
 		$request = json_decode($this->request->getRawBody());
 
 		$this->manageStudentsInGroup($request->group, $request->students);
 
-		$this->responseArray
-			->setSuccessStatus();
+		$this->responseArray->setSuccessStatus();
 
 		return $this->renderResponse();
 	}
 
+	/**
+	 * @param int $group_id
+	 * @param array $request_students
+	 * @throws \PWSZ\Exceptions\NotFound
+	 */
 	protected function manageStudentsInGroup(int $group_id, array $request_students): void {
+		$repository_students_ids = [];
+
+		/** @var CourseGroups $repository */
 		$repository = $this->repository->get("courseGroups");
+		/** @var CourseGroup $group */
 		$group = $repository->getRaw($group_id);
 
-		$repository_students_ids = [];
+		/** @var CourseGroupStudent $student */
 		foreach($group->groupStudents as $student) {
 			$repository_students_ids[] = $student->student_id;
 		}
 
+		/** @var SelectItem $student */
 		foreach($request_students as $student) {
 			if(in_array($student->value, $repository_students_ids)) {
 				if($student->selected) {

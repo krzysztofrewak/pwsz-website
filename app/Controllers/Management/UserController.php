@@ -8,8 +8,12 @@ use PWSZ\Models\User;
 
 class UserController extends Controller {
 
+	/**
+	 * @return Response
+	 */
 	public function getAction(): Response {
-		$user = $this->session->auth;
+		/** @var User $user */
+		$user = $this->session->get("auth");
 
 		$this->responseArray->setData($user->toArray());
 		$this->responseArray->setSuccessStatus();
@@ -17,6 +21,9 @@ class UserController extends Controller {
 		return $this->renderResponse();
 	}
 
+	/**
+	 * @return Response
+	 */
 	public function updateAction(): Response {
 		$request = json_decode($this->request->getRawBody());
 

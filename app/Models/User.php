@@ -2,6 +2,9 @@
 
 namespace PWSZ\Models;
 
+/**
+ * @method static User findFirstById(int $id)
+ */
 class User extends Model {
 
 	public $id;

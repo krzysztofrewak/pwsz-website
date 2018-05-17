@@ -4,10 +4,12 @@ namespace PWSZ\Controllers\Management;
 
 use Phalcon\Http\Response;
 use PWSZ\Controllers\Controller;
-use PWSZ\Interfaces\ManagementControllerInterface;
 
 class UpdateController extends Controller {
 
+	/**
+	 * @return Response
+	 */
 	public function updateAction(): Response {
 		$request = json_decode($this->request->getRawBody());
 		$repositoryName = $request->repository;
@@ -35,6 +37,10 @@ class UpdateController extends Controller {
 		return $this->renderResponse();
 	}
 
+	/**
+	 * @param array $request
+	 * @return array
+	 */
 	protected function mapValues(array $request): array {
 		$filtered = array_filter($request, function($key) {
 			return $key[0] !== "_";
