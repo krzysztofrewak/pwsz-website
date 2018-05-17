@@ -2,6 +2,8 @@
 
 namespace PWSZ\Interfaces;
 
-interface ModelInterface {
+use Phalcon\Mvc\ModelInterface as BaseModelInterface;
+
+interface ModelInterface extends BaseModelInterface {
 	
 }
