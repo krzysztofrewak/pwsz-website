@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @param string $path
+ * @param string $env_filename
+ * @return array
+ */
 function getBootstrap(string $path = "..", string $env_filename = ".env"): array {
 	defined("APP_PATH") || define("APP_PATH", realpath($path));
 	defined("ENV_FILENAME") || define("ENV_FILENAME", $env_filename);

@@ -7,12 +7,12 @@ $router = new Router(false);
 $router->removeExtraSlashes(true);
 $router->setUriSource(Router::URI_SOURCE_SERVER_REQUEST_URI);
 
+/** @var bool $auth_status */
 $auth_status = !is_null($di->get("session")->get("auth"));
 
 $namespace = "PWSZ\\Controllers";
 
 {
-
 	$router->notFound(R::get("notFound", "index", $namespace));
 
 	$router->addGet("/api", R::get("index", "index", $namespace));
@@ -34,7 +34,6 @@ $namespace = "PWSZ\\Controllers";
 	$router->addPost("/api/auth", R::get("check", "authentication", $namespace));
 	$router->addPost("/api/login", R::get("login", "authentication", $namespace, !$auth_status));
 	$router->addPost("/api/logout", R::get("logout", "authentication", $namespace, $auth_status));
-
 }
 
 $namespace = "PWSZ\\Controllers\\Management";

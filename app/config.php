@@ -7,8 +7,8 @@ use Phalcon\Config;
 defined("APP_PATH") || define("APP_PATH", realpath("."));
 defined("ENV_FILENAME") || define("ENV_FILENAME", ".env");
 
-$dotenv = new Dotenv(APP_PATH, ENV_FILENAME);
-$dotenv->load();
+$env = new Dotenv(APP_PATH, ENV_FILENAME);
+$env->load();
 
 Carbon::setLocale(getenv("APP_LOCALE", "pl"));
 date_default_timezone_set(getenv("APP_TIMEZONE", "Europe/Warsaw"));
