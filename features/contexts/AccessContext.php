@@ -5,6 +5,7 @@ namespace PWSZ\Tests;
 use Behat\Gherkin\Node\TableNode;
 use Phalcon\Http\Response;
 use PWSZ\Helpers\ResponseArray;
+use PWSZ\Models\Consultation;
 use PWSZ\Models\News;
 use PHPUnit\Framework\Assert as PHPUnit;
 
@@ -143,7 +144,9 @@ class AccessContext extends Context {
 	}
 
 	/**
+	 * @Then there should be :arg1 entries
 	 * @Then there should be :arg1 news entries
+	 * @Then there should be :arg1 consultation entries
 	 * @param int $expectedNumberOfNews
 	 */
 	public function thereShouldBeNewsEntries(int $expectedNumberOfNews): void {
@@ -189,6 +192,36 @@ class AccessContext extends Context {
 
 		PHPUnit::assertEquals($logMessagesCount, $testMessagesCount);
 		PHPUnit::assertEmpty(array_diff_assoc($logMessages, $testMessages));
+	}
+
+	/**
+	 * @Given /^a set of existing consultations in database:$/
+	 * @param TableNode $table
+	 */
+	public function aSetOfExistingConsultationsInDatabase(TableNode $table) {
+		$hash = $table->getHash();
+
+		foreach($hash as $row) {
+			$consultation = new Consultation();
+			$consultation->id = $row["id"];
+			$consultation->datetime = $row["datetime"];
+			$consultation->place = $row["place"];
+			$consultation->save();
+		}
+	}
+
+	/**
+	 * @Given /^received consultation should be arranged in chronological order$/
+	 */
+	public function receivedConsultationShouldBeArrangedInChronologicalOrder() {
+		$comparer = null;
+
+		foreach($this->responseArray->data as $consultation) {
+			if(is_null($comparer)) {
+				$comparer = $consultation->datetime;
+			}
+			PHPUnit::assertLessThanOrEqual($consultation->datetime, $comparer);
+		}
 	}
 
 

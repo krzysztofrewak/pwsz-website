@@ -30,6 +30,8 @@ $namespace = "PWSZ\\Controllers";
 	$router->addGet("/api/grades/courses", R::get("getCourses", "grades", $namespace));
 	$router->addGet("/api/grades/groups", R::get("getGroups", "grades", $namespace));
 
+	$router->addGet("/api/consultations", R::get("getConsultations", "consultations", $namespace));
+
 	$router->addGet("/api/auth", R::get("check", "authentication", $namespace));
 	$router->addPost("/api/auth", R::get("check", "authentication", $namespace));
 	$router->addPost("/api/login", R::get("login", "authentication", $namespace, !$auth_status));

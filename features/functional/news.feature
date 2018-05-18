@@ -1,5 +1,5 @@
 @database @log @news
-Feature: Check news retrieving functions when there's some news in databasae
+Feature: Check news retrieving functions when there's some news in database
 
 	Background: 
 		Given a set of existing news in database:
