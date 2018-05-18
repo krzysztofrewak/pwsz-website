@@ -5,21 +5,19 @@ namespace PWSZ\Tests;
 use Behat\Gherkin\Node\TableNode;
 use Phalcon\Http\Response;
 use PWSZ\Helpers\ResponseArray;
-use PWSZ\Models\Consultation;
-use PWSZ\Models\News;
 use PHPUnit\Framework\Assert as PHPUnit;
 
-class AccessContext extends Context {
+abstract class AccessContext extends Context {
 
 	/**
 	 * @var Response;
 	 */
-	private $response;
+	protected $response;
 
 	/**
 	 * @var ResponseArray
 	 */
-	private $responseArray;
+	protected $responseArray;
 
 	/**
 	 * @When a client requests :arg1
@@ -127,42 +125,13 @@ class AccessContext extends Context {
 	}
 
 	/**
-	 * @Given a set of existing news in database:
-	 * @param TableNode $table
-	 */
-	public function aSetOfExistingNewsInDatabase(TableNode $table): void {
-		$hash = $table->getHash();
-
-		foreach($hash as $row) {
-			$news = new News();
-			$news->id = $row["id"];
-			$news->title = $row["title"];
-			$news->content = $row["content"];
-			$news->created_at = $row["created_at"];
-			$news->save();
-		}
-	}
-
-	/**
 	 * @Then there should be :arg1 entries
 	 * @Then there should be :arg1 news entries
 	 * @Then there should be :arg1 consultation entries
-	 * @param int $expectedNumberOfNews
+	 * @param int $expectedNumberOfEntries
 	 */
-	public function thereShouldBeNewsEntries(int $expectedNumberOfNews): void {
-		PHPUnit::assertGreaterThanOrEqual(count($this->responseArray->data), $expectedNumberOfNews);
-	}
-
-	/** @Then received news should be arranged in chronological order */
-	public function receivedNewsShouldBeArrangedInChronologicalOrder(): void {
-		$comparer = null;
-
-		foreach($this->responseArray->data as $news) {
-			if(is_null($comparer)) {
-				$comparer = $news->timestamp;
-			}
-			PHPUnit::assertGreaterThanOrEqual($news->timestamp, $comparer);
-		}
+	public function thereShouldBeEntries(int $expectedNumberOfEntries): void {
+		PHPUnit::assertGreaterThanOrEqual(count($this->responseArray->data), $expectedNumberOfEntries);
 	}
 
 	/**
@@ -193,36 +162,5 @@ class AccessContext extends Context {
 		PHPUnit::assertEquals($logMessagesCount, $testMessagesCount);
 		PHPUnit::assertEmpty(array_diff_assoc($logMessages, $testMessages));
 	}
-
-	/**
-	 * @Given /^a set of existing consultations in database:$/
-	 * @param TableNode $table
-	 */
-	public function aSetOfExistingConsultationsInDatabase(TableNode $table) {
-		$hash = $table->getHash();
-
-		foreach($hash as $row) {
-			$consultation = new Consultation();
-			$consultation->id = $row["id"];
-			$consultation->datetime = $row["datetime"];
-			$consultation->place = $row["place"];
-			$consultation->save();
-		}
-	}
-
-	/**
-	 * @Given /^received consultation should be arranged in chronological order$/
-	 */
-	public function receivedConsultationShouldBeArrangedInChronologicalOrder() {
-		$comparer = null;
-
-		foreach($this->responseArray->data as $consultation) {
-			if(is_null($comparer)) {
-				$comparer = $consultation->datetime;
-			}
-			PHPUnit::assertLessThanOrEqual($consultation->datetime, $comparer);
-		}
-	}
-
 
 }

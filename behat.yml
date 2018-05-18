@@ -2,8 +2,17 @@
 
 default:
     suites:
-        default:
+        frontyard:
             bootstrap: 
                 - features/bootstrap/bootstrap.php
             contexts:
-                - PWSZ\Tests\AccessContext
+                - PWSZ\Tests\FrontyardContext
+            paths:
+                - features/functional/frontyard
+        backyard:
+            bootstrap:
+                - features/bootstrap/bootstrap.php
+            contexts:
+                - PWSZ\Tests\BackyardContext
+            paths:
+                - features/functional/backyard

@@ -6,7 +6,7 @@ use Behat\Behat\Context\Context as ContextInterface;
 use Phalcon\DiInterface;
 use PWSZ\Tests\Traits\BeforeFeatures;
 
-class Context implements ContextInterface {
+abstract class Context implements ContextInterface {
 
 	use BeforeFeatures;
 
