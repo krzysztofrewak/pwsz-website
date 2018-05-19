@@ -2,8 +2,8 @@
 	<div id="schedule">
 		<h1>Plan zajęć</h1>
 
-		<button class="ui right floated button">tydzień nieparzysty</button>
-		<button class="ui disabled primary right floated button">tydzień parzysty</button>
+		<!--<button class="ui right floated button">tydzień nieparzysty</button>-->
+		<!--<button class="ui disabled primary right floated button">tydzień parzysty</button>-->
 
 		<div class="ui schedule divided grid">
 			<div class="five column center aligned row">
@@ -24,7 +24,7 @@
 		</div>
 
 		<div class="ui info icon message">
-			<i class="question circle icon"></i>
+			<i class="sign in icon"></i>
 			<div class="content">
 				<div class="header">
 					Dokładny plan znajdziesz na stronie uczelni.
@@ -63,11 +63,11 @@
 				this.days = [
 					{
 						name: "poniedziałek",
-						slots: [null, null, null, null, { name: "PPSI1", group: "s2PAM1", place: "C/125", type: "lecture" }, { name: "PPSI1", group: "s2PAM1(2)", place: "C/222", type: "project" }, { name: "PPSI1", group: "s2PAM1(1)", place: "C/222", type: "project" }, null],
+						slots: [null, null, null, null, null, null, null, null],
 					},
 					{
 						name: "wtorek",
-						slots: [null, null, null, null, null, { name: "PPO2", group: "s2PAM1(2)", place: "C/10", type: "laboratory" }, { name: "PPO2", group: "s2PAM1(1)", place: "C/10", type: "laboratory" }, null],
+						slots: [null, null, null, null, null, null, null, null],
 					},
 					{
 						name: "środa",
@@ -128,6 +128,7 @@
 			&.exercises { background: rgba(Lime, .5); }
 			&.laboratory { background: rgba(DodgerBlue, .5); }
 			&.project { background: rgba(Yellow, .5); }
+			&.consultation { background: rgba(Black, .5); }
 
 			.time {
 				position: absolute;

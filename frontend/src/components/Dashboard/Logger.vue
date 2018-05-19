@@ -35,25 +35,16 @@
 							łącznie
 						</div>
 					</th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="date in dates">
-					<td><strong>{{ date.date }}</strong></td>
-					<td>{{ date.debug }}</td>
-					<td>{{ date.info }}</td>
-					<td>{{ date.warning }}</td>
-					<td>{{ date.alert }}</td>
-					<td><strong>{{ sumLogs(date) }}</strong></td>
-					<td>
-						<button class="ui primary circular icon button" data-inverted="" data-tooltip="przejrzyj logi" data-position="top right">
-							<i class="sticky note icon"></i>
-						</button>
-						<button class="ui red circular icon button" data-inverted="" data-tooltip="usuń" data-position="top right">
-							<i class="close icon"></i>
-						</button>
-					</td>
+				<tr v-for="log in logs">
+					<td><strong>{{ log.date }}</strong></td>
+					<td>{{ log.debug }}</td>
+					<td>{{ log.info }}</td>
+					<td>{{ log.warning }}</td>
+					<td>{{ log.alert }}</td>
+					<td><strong>{{ log.all }}</strong></td>
 				</tr>
 			</tbody>
 		</table>
@@ -61,24 +52,20 @@
 </template>
 
 <script type="text/javascript">
-
 	export default {
 		data() {
 			return {
-				dates: [
-					{ date: "2018-05-13", debug: 0, info: 123, warning: 13, alert: 0 },
-					{ date: "2018-05-12", debug: 0, info: 142, warning: 11, alert: 0 },
-				],
+				logs: [],
 			}
 		},
 		created() {
 			this.fetchInitialData()
 		},
 		methods: {
-			sumLogs(date) {
-				return date.debug + date.info + date.warning + date.alert
-			},
 			fetchInitialData() {
+				this.$http.get("management/logs").then(function(response) {
+					this.logs = response.body.data
+				})
 			},
 		},
 	} 
