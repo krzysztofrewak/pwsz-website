@@ -10,3 +10,11 @@ DirectoryIndex index.html index.php
 	RewriteCond %{REQUEST_FILENAME} !-d
 	RewriteRule . /index.html [L]
 </IfModule>
+
+<IfModule mod_headers.c>
+    <FilesMatch "^(.*)\-\-.+\.(js|css)$">
+        Header set Cache-Control "max-age=15552000"
+        Header unset ETag
+        Header unset Last-Modified
+    </FilesMatch>
+</IfModule>
