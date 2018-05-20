@@ -10,7 +10,7 @@ use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
 use Phalcon\Security;
-use Phalcon\Session\Adapter\Files as SessionFileAdapter;
+use Phalcon\Session\Adapter\Redis as SessionRedisAdapter;
 use PWSZ\Helpers\LoggerLineFormatter;
 use PWSZ\Helpers\RepositoryDispatcher;
 
@@ -36,7 +36,7 @@ $di->set("db", function() use($config) {
 	);
 });
 
-$di->Set("dispatcher", function() {
+$di->set("dispatcher", function() {
 	$dispatcher = new Dispatcher();
 	return $dispatcher;
 }, true);
@@ -46,7 +46,7 @@ $di->set("logger", function() use($config) {
 		$log_filename = "./logs/test.log";
 		$logger = new LoggerFileAdapter($log_filename);
 		$logger->setFormatter(new TestsLoggerLineFormatter("%type%"));
-		
+
 		return $logger;
 	}
 
@@ -69,8 +69,12 @@ $di->set("security", function() {
 	return $security;
 }, true);
 
-$di->set("session", function() {
-	$session = new SessionFileAdapter();
+$di->setShared("session", function() {
+	$session = new SessionRedisAdapter([
+		'path' => 'tcp://127.0.0.1:6379?weight=1',
+		"lifetime" => 3600,
+	]);
+
 	$session->start();
 	return $session;
 });
