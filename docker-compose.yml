@@ -20,6 +20,8 @@ services:
             dockerfile: docker/database/Dockerfile
         ports:
             - 13306:3306
+        volumes:
+            - database-volume:/var/lib/mysql
         environment:
             MYSQL_DATABASE: pwsz
             MYSQL_USER: root
@@ -32,3 +34,9 @@ services:
             dockerfile: docker/cache/Dockerfile
         ports:
             - 16379:6379
+        volumes:
+            - cache-volume:/data
+
+volumes:
+    database-volume:
+    cache-volume:
