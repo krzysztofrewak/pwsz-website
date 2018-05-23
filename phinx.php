@@ -23,7 +23,7 @@ $phinx_settings["environments"] = [
 		"name" => getenv("DATABASE_NAME"),
 		"user" => getenv("DATABASE_USERNAME"),
 		"pass" => getenv("DATABASE_PASSWORD"),
-		"port" => "3306",
+		"port" => getenv("DATABASE_PORT"),
 		"charset" => "utf8",
 	],
 ];

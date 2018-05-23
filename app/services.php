@@ -10,7 +10,7 @@ use Phalcon\Mvc\Dispatcher;
 use Phalcon\Mvc\Url as UrlProvider;
 use Phalcon\Mvc\View;
 use Phalcon\Security;
-use Phalcon\Session\Adapter\Redis as SessionRedisAdapter;
+use Phalcon\Session\Adapter\Files as SessionRedisAdapter;
 use PWSZ\Helpers\LoggerLineFormatter;
 use PWSZ\Helpers\RepositoryDispatcher;
 
@@ -26,6 +26,7 @@ $di->set("db", function() use($config) {
 	return new MySQLDatabaseAdapter(
 		[
 			"host" => $config->get("database")->host,
+			"port" => $config->get("database")->port,
 			"username" => $config->get("database")->username,
 			"password" => $config->get("database")->password,
 			"dbname" => $config->get("database")->name,
@@ -71,7 +72,7 @@ $di->set("security", function() {
 
 $di->setShared("session", function() {
 	$session = new SessionRedisAdapter([
-		'path' => 'tcp://127.0.0.1:6379?weight=1',
+		'path' => 'tcp://127.0.0.1:16379?weight=1',
 		"lifetime" => 3600,
 	]);
 

@@ -1,7 +1,6 @@
 <?php
 
 use Phalcon\Mvc\Application;
-use PWSZ\Helpers\ResponseArray;
 use Whoops\Provider\Phalcon\WhoopsServiceProvider as Whoops;
 
 require_once "../app/bootstrap.php";

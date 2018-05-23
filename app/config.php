@@ -22,6 +22,7 @@ return new Config([
 	],
 	"database" => [
 		"host" => getenv("DATABASE_HOST"),
+		"port" => getenv("DATABASE_PORT"),
 		"username" => getenv("DATABASE_USERNAME"),
 		"password" => getenv("DATABASE_PASSWORD"),
 		"name" => getenv("DATABASE_NAME"),
