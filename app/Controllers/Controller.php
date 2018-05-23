@@ -22,6 +22,7 @@ abstract class Controller extends BaseController {
 	 */
 	protected function buildResponseArray(): void {
 		$this->responseArray = new ResponseArray();
+		$this->responseArray->setAuthenticationStatus(!is_null($this->session->get("auth")));
 	}
 
 	/**

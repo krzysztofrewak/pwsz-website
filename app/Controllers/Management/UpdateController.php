@@ -34,6 +34,11 @@ class UpdateController extends Controller {
 
 		$this->responseArray->setData($outcome);
 		$this->responseArray->setSuccessStatus();
+
+
+		$id = isset($outcome["id"]) ? $outcome["id"] : "?";
+		$this->logger->info("Entry { id: $id } of repository { $repositoryName } has been updated.");
+
 		return $this->renderResponse();
 	}
 

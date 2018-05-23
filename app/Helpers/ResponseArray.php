@@ -5,18 +5,31 @@ namespace PWSZ\Helpers;
 class ResponseArray {
 
 	/**
-	 * @var
+	 * HTTP status
+	 * @var int
 	 */
 	protected $status;
+
 	/**
+	 * Authentication status
+	 * @var bool
+	 */
+	public $auth = false;
+
+	/**
+	 * Action status
 	 * @var bool
 	 */
 	public $success = false;
+
 	/**
+	 * Response message for notification
 	 * @var string
 	 */
 	public $message = "";
+
 	/**
+	 * Data array
 	 * @var array
 	 */
 	public $data = [];
@@ -33,10 +46,20 @@ class ResponseArray {
 	 */
 	public function get(): array {
 		return [
+			"auth" => $this->auth,
 			"success" => $this->success,
 			"message" => $this->message,
 			"data" => $this->data,
 		];
+	}
+
+	/**
+	 * @param bool $authStatus
+	 * @return ResponseArray
+	 */
+	public function setAuthenticationStatus(bool $authStatus): self {
+		$this->auth = $authStatus;
+		return $this;
 	}
 
 	/**
