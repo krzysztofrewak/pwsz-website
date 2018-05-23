@@ -36,6 +36,9 @@
 			}
 		},
 		created() {
+			this.$http.interceptors.response.use(response => {
+				return response
+			})
 			this.checkAuthentication()
 		},
 		mounted() {
@@ -48,11 +51,13 @@
 		},
 		methods: {
 			checkAuthentication() {
-				this.$http.post("auth").then(response => this.$bus.$emit("authenticate", true)).catch(error => this.$bus.$emit("authenticate", false))
+				this.$http.post("auth")
+					.then(() => this.$bus.$emit("authenticate", true))
+					.catch(() => this.$bus.$emit("authenticate", false))
 			},
 			reduceNotificationLifespan(notification) {
 				if(notification.lifespan) {
-					setTimeout(() => { 
+					setTimeout(() => {
 						notification.lifespan--
 						this.reduceNotificationLifespan(notification)
 					}, 1000)

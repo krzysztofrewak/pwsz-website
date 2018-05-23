@@ -94,27 +94,27 @@ const router = new Router({
 	routes: routes
 })
 
-router.beforeEach((to, from, next) => {
-	let isAuthenticated = EventBus.isAuthenticated
-
-	if(EventBus.isAuthenticated !== null) {
-		checkRoute(isAuthenticated, to, next)
-		return 
-	}
-
-	Vue.http.post("auth").then(response => checkRoute(true, to, next)).catch(response => checkRoute(false, to, next))
-})
-
-function checkRoute(isAuthenticated, to, next) {
-	if(to.meta.requiresAuth && !isAuthenticated) {
-		next({ name: "not-allowed" })
-	}
-
-	if(to.meta.requiresGuest && isAuthenticated) {
-		next({ name: "not-allowed" })
-	}
-
-	next()
-}
+// router.beforeEach((to, from, next) => {
+// 	let isAuthenticated = EventBus.isAuthenticated
+//
+// 	if(EventBus.isAuthenticated !== null) {
+// 		checkRoute(isAuthenticated, to, next)
+// 		return
+// 	}
+//
+// 	Vue.http.post("auth").then(response => checkRoute(true, to, next)).catch(response => checkRoute(false, to, next))
+// })
+//
+// function checkRoute(isAuthenticated, to, next) {
+// 	if(to.meta.requiresAuth && !isAuthenticated) {
+// 		next({ name: "not-allowed" })
+// 	}
+//
+// 	if(to.meta.requiresGuest && isAuthenticated) {
+// 		next({ name: "not-allowed" })
+// 	}
+//
+// 	next()
+// }
 
 export default router
