@@ -1,6 +1,6 @@
 {
   "name": "pwsz-teacher-homepage",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Phalcon/Vue.js app",
   "author": "Krzysztof Rewak",
   "private": true,
@@ -10,6 +10,7 @@
     "build": "node frontend/build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "semantic-ui-css": "^2.3",
     "sizzle": "^2.3.3",
     "vue": "^2.3.3",
