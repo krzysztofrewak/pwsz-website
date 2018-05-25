@@ -36,18 +36,22 @@
 			}
 		},
 		created() {
+			console.log("created on")
 			this.$http.interceptors.response.use(response => {
 				return response
 			})
 			this.checkAuthentication()
+			console.log("created off")
 		},
 		mounted() {
+			console.log("mounted on")
 			this.$bus.$on("authenticate", status => this.isAuthenticated = status)
 			this.$bus.$on("show-notification", notification => {
 				this.systemNotifications.push(notification)
 				this.reduceNotificationLifespan(notification)
 			})
 			this.$bus.$on("close-notification", notification => this.systemNotifications = this.systemNotifications.filter(e => e !== notification))
+			console.log("mounted off")
 		},
 		methods: {
 			checkAuthentication() {

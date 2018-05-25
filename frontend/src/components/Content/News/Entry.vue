@@ -1,5 +1,5 @@
 <template>
-	<div v-if="entry">
+	<div v-if="!fetching">
 		<div class="ui piled segments">
 			<div class="ui entry title secondary segment">
 				<span class="ui medium header">{{ entry.title }}</span>
@@ -13,7 +13,7 @@
 				<i class="large user middle aligned icon"></i>
 				<div class="content">
 					<span class="header">autor</span>
-					<div class="description">Krzysztof Rewak</div>
+					<div class="description">{{ entry.author }}</div>
 				</div>
 			</div>
 			<div class="item">
@@ -30,6 +30,20 @@
 					<div class="description">{{ entry.timestamp }}</div>
 				</div>
 			</div>
+			<div class="item" v-if="authenticated">
+				<router-link class="ui green circular icon button" :to="{ name: 'dashboard.news.form', params: { id: entry.id } }">
+					<i class="pencil icon"></i>
+				</router-link>
+				<div class="content">
+					<span class="header">edytuj</span>
+					<div class="description">id: {{ entry.id }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="ui" v-else>
+		<div class="ui active inverted dimmer">
+			<div class="ui loader"></div>
 		</div>
 	</div>
 </template>
@@ -38,6 +52,7 @@
 	export default {
 		data() {
 			return {
+				fetching: true,
 				entry: null,
 			}
 		},
@@ -47,7 +62,8 @@
 		methods: {
 			fetchInitialData() {
 				this.$http.get("news/" + this.$route.params.id).then(response => {
-					this.entry = response.body.data
+					this.entry = response.data.data
+					this.fetching = false
 				}).catch(error => {
 					this.$router.replace({ name: "not-found" })
 				})

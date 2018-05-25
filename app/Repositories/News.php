@@ -34,7 +34,8 @@ class News extends Repository {
 			"title" => $news->title,
 			"timestamp" => $news->created_at,
 			"publication" => DateTimeTranslator::getDateForHuman($news->created_at),
-			"content" => $news->content
+			"content" => $news->content,
+			"author" => "Krzysztof Rewak", // TODO: implement author retrieving
 		];
 	}
 

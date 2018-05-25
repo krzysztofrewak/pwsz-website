@@ -47,8 +47,8 @@
 		methods: {
 			fetchInitialData() {
 				this.$http.get("news").then(response => {
-					this.fetching = false
 					this.news = response.data.data
+					this.fetching = false
 				})
 			},
 		},
