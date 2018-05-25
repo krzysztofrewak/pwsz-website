@@ -35,9 +35,15 @@
 	} 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 	.superheader {
 		z-index: 99;
+		background: cornflowerblue !important;
+
+		.menu {
+			border: none !important;
+			box-shadow: none;
+		}
 
 		a.item.active {
 			border: 0px !important;

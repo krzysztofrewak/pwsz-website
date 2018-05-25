@@ -7,22 +7,23 @@
 						Informacje
 						<router-link v-if="!authenticated" :to="{ name: 'login' }" class="latent">| Logowanie</router-link>
 					</h4>
-					<p>Krzysztof Rewak &copy; {{ new Date().getFullYear() }}</p>
+					<p>Krzysztof Rewak <i class="copyright outline icon"></i> {{ new Date().getFullYear() }}</p>
 				</div>
 				<div class="column">
-					<h4 class="ui inverted header">Linki na zewnątrz</h4>
+					<h4 class="ui inverted header">Linki</h4>
 					<div class="ui horizontal inverted link list">
-						<a href="https://bitbucket.org/krewak/pwsz/" class="item" target="_blank"><i class="bitbucket icon"></i> Bitbucket</a>
-						<a href="https://linkedin.com/in/krzysztofrewak" class="item" target="_blank"><i class="linkedin icon"></i> LinkedIn</a>
-						<a href="http://rewak.pl/" class="item" target="_blank"><i class="globe icon"></i> rewak.pl</a>
+						<a :href="link.url" class="item" target="_blank" v-for="link in links">
+							<i class="icon" :class="link.icon"></i>
+							{{ link.label }}
+						</a>
 					</div>
 				</div>
 				<div class="column">
 					<h4 class="ui inverted header">Technologie</h4>
 					<div class="ui horizontal inverted link list">
-						<a href="https://phalconphp.com" class="item" target="_blank">Phalcon</a>
-						<a href="https://vuejs.org" class="item" target="_blank">Vue.js</a>
-						<a href="https://semantic-ui.com" class="item" target="_blank">Semantic UI</a>
+						<a :href="technology.url" class="item" target="_blank" v-for="technology in technologies">
+							{{ technology.label }}
+						</a>
 					</div>
 				</div>
 			</div>
@@ -30,7 +31,31 @@
 	</div>
 </template>
 
-<style>
+<script type="text/javascript">
+	export default {
+		data() {
+			return {
+				links: [
+					{ label: "Bitbucket", icon: "bitbucket", url: "https://bitbucket.org/krewak/pwsz/" },
+					{ label: "LinkedIn", icon: "linkedin", url: "https://linkedin.com/in/krzysztofrewak" },
+					{ label: "rewak.pl", icon: "globe", url: "http://rewak.pl/" },
+				],
+				technologies: [
+					{ label: "Phalcon", url: "https://phalconphp.com/" },
+					{ label: "MySQL", url: "https://mysql.com/" },
+					{ label: "Vue.js", url: "https://vuejs.org/" },
+					{ label: "Semantic UI", url: "https://semantic-ui.com/" },
+				],
+			}
+		},
+	}
+</script>
+
+<style scoped>
+	.footer {
+		background: cornflowerblue !important;
+	}
+
 	.footer.segment {
 		padding: 2em 0em;
 	}
