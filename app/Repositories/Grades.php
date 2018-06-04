@@ -43,7 +43,6 @@ class Grades extends Repository implements GradesRepositoryInterface {
 
 		return [
 			"number" => $student->student_no,
-			"initials" => $show_full_names ? $student->name : $student->initials,
 			"classes" => $grades,
 		];
 	}
@@ -88,6 +87,7 @@ class Grades extends Repository implements GradesRepositoryInterface {
 			}
 
 			$result["students"] = $this->sortStudents($result["students"]);
+			$result["students"] = $this->obfuscateStudents($result["students"], $student_no);
 		}
 		
 		return $result;
@@ -112,6 +112,20 @@ class Grades extends Repository implements GradesRepositoryInterface {
 		});
 
 		return $students;
+	}
+
+	/**
+	 * @param array $students
+	 * @param string $student_no
+	 * @return array
+	 */
+	protected function obfuscateStudents(array $students, string $student_no): array {
+		return array_map(function(array $student) use($student_no): array {
+			if($student_no !== $student["number"]) {
+				$student["number"] = "";
+			}
+			return $student;
+		}, $students);
 	}
 
 }

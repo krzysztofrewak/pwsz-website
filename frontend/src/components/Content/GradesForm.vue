@@ -2,7 +2,7 @@
 	<div>
 		<h1>Sprawdź swoje oceny</h1>
 
-		<table class="ui very basic celled table">
+		<table class="ui very basic celled grades table">
 			<tbody>
 				<tr>
 					<td class="collapsing single line">
@@ -45,7 +45,7 @@
 					</td>
 					<td>
 						<input class="ui basic tiny button" v-model="formData.studentId" v-on:keyup.enter="fetchGrades">
-						<button class="ui primary circular icon button" v-on:click="fetchGrades">
+						<button class="ui primary circular icon button" v-on:click="fetchGrades" v-bind:class="{ loading: fetching }">
 							<i class="search icon"></i>
 						</button>
 					</td>
@@ -60,15 +60,13 @@
 					<thead>
 						<tr>
 							<th class="one wide single line">indeks <i class="sort numeric ascending icon"></i></th>
-							<th class="one wide">student</th>
 							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass.name }}</th>
 							<th class="center aligned" v-if="$parent.authenticated"><i class="plus icon"></i></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for="student in grades.students">
-							<td>{{ student.number }}</td>
-							<td class="student name">{{ student.initials }}</td>
+						<tr class="student row" v-for="student in grades.students" v-bind:class="{ inactive: !student.number }">
+							<td class="student number">{{ student.number }}</td>
 							<td v-for="grade in student.classes" class="student grade" v-bind:class="{ present: grade.present == true, absent: grade.present == false }">
 								{{ grade.value }}
 							</td>
@@ -114,6 +112,7 @@
 					semesterId: null,
 					studentId: null,
 				},
+				fetching: false,
 				grades: null,
 				groups: [],
 				semesters: [],
@@ -163,7 +162,9 @@
 				this.formData.groupId = groupId
 			},
 			fetchGrades() {
+				this.fetching = true
 				this.$http.get("grades", { params: this.formData }).then(function(response) {
+					this.fetching = false
 					if(response.status) {
 						this.grades = response.body.data
 						this.step = 4
@@ -185,9 +186,22 @@
 		line-height: 1.75em;
 	}
 
-	.student.name {
-		word-spacing: 100vw;
-		text-align: left !important;
+	@media screen and (max-width: 720px) {
+		.grades.table {
+			.button {
+				width: 100%;
+				display: block;
+			}
+		}
+	}
+
+	.student.row {
+		height: 2em;
+	}
+
+	.student.number {
+		text-align: center;
+		font-weight: bold;
 	}
 
 	.student.grades {
