@@ -61,4 +61,5 @@
 	}
 
 	.latent { opacity: 0; }
+	.copyright.icon { margin: 0; padding: 0; }
 </style>
