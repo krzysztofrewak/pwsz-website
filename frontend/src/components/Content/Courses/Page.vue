@@ -2,35 +2,6 @@
 	<div class="course page" v-if="course">
 		<h1>{{ course.name }}</h1>
 
-		<div class="ui divider"></div>
-
-		<div class="ui three course informations statistics">
-			<div class="statistic">
-				<div class="value">
-					{{ course.field }}
-				</div>
-				<div class="label">
-					kierunek
-				</div>
-			</div>
-			<div class="statistic">
-				<div class="value">
-					{{ course.semester_no }}
-				</div>
-				<div class="label">
-					semestr
-				</div>
-			</div>
-			<div class="statistic">
-				<div class="value">
-					{{ course.form }}
-				</div>
-				<div class="label">
-					forma zajęć
-				</div>
-			</div>
-		</div>
-
 		<div v-if="course.description">
 			<div class="ui divider"></div>
 
@@ -68,6 +39,10 @@
 				</tbody>
 			</table>
 		</div>
+
+		<div class="ui divider"></div>
+		<h2>Kurs prowadzony w semestrach</h2>
+		<span class="ui basic tiny semester button">semestr letni 2017/18</span>
 	</div>
 </template>
 
@@ -83,8 +58,10 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("courses/" + this.$route.params.id).then(function(response) {
-					this.course = response.body.data
+				this.$http.get("courses/" + this.$route.params.id).then(response => {
+					this.course = response.data.data
+				}).catch(error => {
+					this.$router.push({ name: "not-retrieved" });
 				})
 			},
 		},

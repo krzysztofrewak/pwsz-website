@@ -16,6 +16,7 @@ import GradesForm from "@/components/Content/GradesForm"
 import LoginForm from "@/components/System/LoginForm"
 import NotAllowed from "@/components/System/NotAllowed"
 import NotFound from "@/components/System/NotFound"
+import NotRetrieved from "@/components/System/NotRetrieved"
 
 import Dashboard from "@/components/Dashboard/Dashboard"
 import ManagementForm from "@/components/Dashboard/ManagementForm"
@@ -51,6 +52,7 @@ let routes = [
 	{ path: "/zarzadzaj/logi", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard.logger", component: Logger },
 
 	{ path: "/brak-dostepu", meta: { section: "error" }, name: "not-allowed", component: NotAllowed },
+	{ path: "/brak-zasobu", meta: { section: "error" }, name: "not-retrieved", component: NotRetrieved },
 	{ path: "*", meta: { section: "error" }, name: "not-found", component: NotFound },
 ]
 

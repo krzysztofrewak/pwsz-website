@@ -17,6 +17,7 @@ require("semantic-ui-css/components/popup.min.css")
 require("semantic-ui-css/components/reset.min.css")
 require("semantic-ui-css/components/segment.min.css")
 require("semantic-ui-css/components/site.min.css")
+require("semantic-ui-css/components/table.min.css")
 
 import App from "./components/App"
 import Global from "./mixins/Global"

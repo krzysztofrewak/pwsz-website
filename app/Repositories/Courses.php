@@ -38,6 +38,7 @@ class Courses extends Repository {
 			"field" => $course->field->index,
 			"semester_no" => NumberToRoman::transform($course->semester_no),
 			"form" => $course->form->name,
+			"mode" => "stacjonarny",
 		];
 	}
 

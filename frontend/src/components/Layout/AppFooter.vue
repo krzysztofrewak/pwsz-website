@@ -52,14 +52,7 @@
 </script>
 
 <style scoped>
-	.footer {
-		background: cornflowerblue !important;
-	}
-
-	.footer.segment {
-		padding: 2em 0em;
-	}
-
+	.footer.segment { padding: 2em 0em; }
 	.latent { opacity: 0; }
 	.copyright.icon { margin: 0; padding: 0; }
 </style>

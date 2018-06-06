@@ -4,12 +4,12 @@
 
 		<p class="description">Poniżej znajduje się tabela z prowadzonymi przeze mnie kursami. Każdy kurs jest dostępny z poziomu własnej podstrony ze szczegółowymi informacjami, zasadami zaliczenia, wykazem tematów i istotnymi plikami. Wyszarzone kursy to te, które nie są prowadzone w obecnym semestrze.</p>
 		
-		<table class="ui very basic very compact table" v-if="fetched">
+		<table class="ui very basic very compact table" v-if="!fetching">
 			<thead>
 				<tr>
 					<th>kod</th>
-					<th>nazwa</th>
-					<th>kier./spec.</th>
+					<th>pełna nazwa kursu</th>
+					<th>specjalność</th>
 					<th>semestr</th>
 					<th>forma</th>
 					<th>tryb</th>
@@ -31,7 +31,7 @@
 					<td>{{ course.field }}</td>
 					<td>{{ course.semester_no }}</td>
 					<td>{{ course.form }}</td>
-					<td>stacjonarny</td>
+					<td>{{ course.mode }}</td>
 					<td>
 						<router-link :to="{ name: 'course.page', params: { id: course.id } }" class="ui primary circular tiny icon button" data-inverted="" data-tooltip="zobacz materiały" data-position="right center">
 							<i class="chevron right icon"></i>
@@ -40,6 +40,11 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="ui" v-else>
+			<div class="ui active inverted dimmer">
+				<div class="ui loader"></div>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -48,7 +53,7 @@
 		data() {
 			return {
 				courses: [],
-				fetched: false,
+				fetching: true,
 			}
 		},
 		created() {
@@ -56,13 +61,10 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("courses").then(function(response) {
-					this.courses = response.body.data
-					this.toggleFetchedStatus()
+				this.$http.get("courses").then(response => {
+					this.courses = response.data.data
+					this.fetching = false
 				})
-			},
-			toggleFetchedStatus() {
-				this.fetched = !this.fetched
 			}
 		},
 	}
@@ -70,6 +72,7 @@
 
 <style lang="scss" scoped>
 	.description {
-		margin: 3em;
+		margin: 3em 0em;
+		font-size: 1.15em;
 	}
 </style>

@@ -38,7 +38,6 @@
 <style lang="scss" scoped>
 	.superheader {
 		z-index: 99;
-		background: cornflowerblue !important;
 
 		.menu {
 			border: none !important;
