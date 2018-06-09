@@ -42,7 +42,7 @@ class Grades extends Repository implements GradesRepositoryInterface {
 		}
 
 		return [
-			"number" => $student->student_no,
+			"student" => $student->student_no,
 			"classes" => $grades,
 		];
 	}
@@ -118,8 +118,8 @@ class Grades extends Repository implements GradesRepositoryInterface {
 	 */
 	protected function obfuscateStudents(array $students, string $student_no): array {
 		return array_map(function(array $student) use($student_no): array {
-			if($student_no !== $student["number"]) {
-				$student["number"] = "";
+			if($student_no !== $student["student"]) {
+				$student["student"] = "";
 			}
 			return $student;
 		}, $students);

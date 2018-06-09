@@ -1,8 +1,5 @@
 import Vue from "vue"
 import Router from "vue-router"
-import axios from "axios"
-
-import EventBus from "./eventbus.js";
 
 import Home from "@/components/Content/Home"
 import ContactPage from "@/components/Content/Contact/Contact"
@@ -12,7 +9,7 @@ import NewsEntry from "@/components/Content/News/Entry"
 import NewsReel from "@/components/Content/News/Reel"
 import FAQ from "@/components/Content/FAQ"
 import Schedule from "@/components/Content/Schedule"
-import GradesForm from "@/components/Content/GradesForm"
+import GradesForm from "@/components/Content/Grades/GradesForm"
 
 import LoginForm from "@/components/System/LoginForm"
 import NotAllowed from "@/components/System/NotAllowed"
@@ -38,6 +35,10 @@ let routes = [
 	{ path: "/kursy/:id", meta: { section: "courses" }, name: "course.page", component: CoursePage },
 
 	{ path: "/oceny", meta: { section: "grades" }, name: "grades", component: GradesForm },
+	{ path: "/oceny/:semester", meta: { section: "grades" }, name: "grades.semester", component: GradesForm },
+	{ path: "/oceny/:semester/:course", meta: { section: "grades" }, name: "grades.course", component: GradesForm },
+	{ path: "/oceny/:semester/:course/:group", meta: { section: "grades" }, name: "grades.group", component: GradesForm },
+	{ path: "/oceny/:semester/:course/:group/:student", meta: { section: "grades" }, name: "grades.student", component: GradesForm },
 
 	{ path: "/faq", meta: { section: "faq" }, name: "faq", component: FAQ },
 	{ path: "/plan-zajec", meta: { section: "schedule" }, name: "schedule", component: Schedule },
