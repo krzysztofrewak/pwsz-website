@@ -15,10 +15,12 @@ $namespace = "PWSZ\\Controllers";
 {
 	$router->notFound(R::get("notFound", "index", $namespace));
 
+	$router->addGet("/")->setName("home");
 	$router->addGet("/api", R::get("index", "index", $namespace));
 
 	$router->addGet("/api/news", R::get("getNews", "news", $namespace));
-	$router->addGet("/api/news/{id}", R::get("getEntry", "news", $namespace));
+	$router->addGet("/api/news/{id}", R::get("getEntry", "news", $namespace))->setName("news");
+	$router->addGet("/api/news/rss", R::get("getRss", "news", $namespace));
 
 	$router->addGet("/api/courses", R::get("getCourses", "courses", $namespace));
 	$router->addGet("/api/courses/{id}", R::get("getEntry", "courses", $namespace));

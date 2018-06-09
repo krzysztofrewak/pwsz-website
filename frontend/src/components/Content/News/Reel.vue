@@ -1,6 +1,15 @@
 <template>
-	<div>
-		<h1>Aktualności i informacje</h1>
+	<div class="news reel">
+		<h1 class="ui header">
+			<i class="orange large rss square icon"></i>
+			<div class="content">
+				Aktualności
+				<div class="sub header">
+					Najnowsze informacje dotyczące studiów
+				</div>
+			</div>
+		</h1>
+
 		<div class="entries">
 			<div v-if="!fetching">
 				<div v-if="news.length">
@@ -52,11 +61,13 @@
 </script>
 
 <style lang="scss" scoped>
-	.entries {
-		margin-top: 3em;
-	}
+	.news.reel {
+		.entries {
+			margin-top: 3em;
+		}
 
-	.entry.timestamp {
-		padding-left: 10px;
+		.entry.timestamp {
+			padding-left: 10px;
+		}
 	}
 </style>

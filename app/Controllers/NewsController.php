@@ -3,7 +3,9 @@
 namespace PWSZ\Controllers;
 
 use Phalcon\Http\Response;
+use Phalcon\Mvc\Url;
 use PWSZ\Exceptions\NotFound;
+use SimpleXMLElement;
 
 class NewsController extends Controller {
 
@@ -17,6 +19,34 @@ class NewsController extends Controller {
 		$this->logger->info("News reel requested and delivered.");
 
 		return $this->renderResponse();
+	}
+
+	/**
+	 * @return Response
+	 */
+	public function getRssAction(): Response {
+		$news = $this->repository->get("news")->getAll();
+
+		$xml = new SimpleXMLElement("<xml/>");
+		$this->url->setBaseUri(getenv("APP_URL"));
+
+		$channel = $xml->addChild("channel");
+		$channel->addChild("title", "Krzysztof Rewak");
+		$channel->addChild("link", $this->url->get(["for" => "home"]));
+		$channel->addChild("language", "pl");
+
+		foreach($news as $entry) {
+			$item = $channel->addChild("item");
+			$item->addChild("title", $entry["title"]);
+			$item->addChild("description", $entry["content"]);
+			$item->addChild("link", $this->url->get(["for" => "news", "id" => $entry["id"]]));
+			$item->addChild("pubDate", $entry["timestamp"]);
+		}
+
+		$this->response->setHeader("Content-Type", "application/xml+rss");
+		$this->response->setContent($xml->asXML());
+
+		return $this->response;
 	}
 
 	/**
