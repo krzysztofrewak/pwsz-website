@@ -65,6 +65,7 @@
 		<h2>Kurs prowadzony w semestrach</h2>
 		<span class="ui basic tiny semester button">semestr letni 2017/18</span>
 	</div>
+	<content-loader v-else></content-loader>
 </template>
 
 <script type="text/javascript">
