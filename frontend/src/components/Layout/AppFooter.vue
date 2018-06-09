@@ -7,7 +7,7 @@
 						Informacje
 						<router-link v-if="!authenticated" :to="{ name: 'login' }" class="latent">| Logowanie</router-link>
 					</h4>
-					<p>Krzysztof Rewak <i class="copyright outline icon"></i> {{ new Date().getFullYear() }}</p>
+					<p>Krzysztof Rewak <i class="creative commons icon"></i> {{ new Date().getFullYear() }} | pewne prawa zastrzeżone</p>
 				</div>
 				<div class="column">
 					<h4 class="ui inverted header">Linki</h4>
@@ -36,12 +36,13 @@
 		data() {
 			return {
 				links: [
-					{ label: "Bitbucket", icon: "bitbucket", url: "https://bitbucket.org/krewak/pwsz/" },
+					{ label: "Bitbucket", icon: "bitbucket", url: "https://bitbucket.org/krewak/" },
 					{ label: "LinkedIn", icon: "linkedin", url: "https://linkedin.com/in/krzysztofrewak" },
 					{ label: "rewak.pl", icon: "globe", url: "http://rewak.pl/" },
 				],
 				technologies: [
 					{ label: "Phalcon", url: "https://phalconphp.com/" },
+					{ label: "Behat", url: "https://behat.org/" },
 					{ label: "MySQL", url: "https://mysql.com/" },
 					{ label: "Vue.js", url: "https://vuejs.org/" },
 					{ label: "Semantic UI", url: "https://semantic-ui.com/" },
@@ -54,5 +55,5 @@
 <style scoped>
 	.footer.segment { padding: 2em 0em; }
 	.latent { opacity: 0; }
-	.copyright.icon { margin: 0; padding: 0; }
+	.creative.commons.icon { margin: 0; padding: 0; }
 </style>

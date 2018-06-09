@@ -116,10 +116,10 @@
 			fetchInitialData() {
 				this.fetched = false
 				
-				this.$http.get(this.apiRepositoryUrl).then(function(response) {
-					this.dataset = response.body.data.data
-					this.title = response.body.data.title
-					this.columns = response.body.data.columns
+				this.$http.get(this.apiRepositoryUrl).then(response => {
+					this.dataset = response.data.data.data
+					this.title = response.data.data.title
+					this.columns = response.data.data.columns
 					this.fetched = true
 				})
 			},
@@ -131,7 +131,7 @@
 				}
 			},
 			deleteItem(item) {
-				this.$http.delete("management/" + this.repository + "/" + item.item.id).then(function(response) {
+				this.$http.delete("management/" + this.repository + "/" + item.item.id).then(response => {
 					item.event.target.classList.remove("loading")
 					this.fetchInitialData()
 					this.deletingItem = null
@@ -141,16 +141,16 @@
 					this.notifyError("Wystąpił błąd.")
 				})
 			},
-			sortBy: function(name) {
-				if(this.sortingKey == name) {
+			sortBy(name) {
+				if(this.sortingKey === name) {
 					this.sortingAsc = !this.sortingAsc
 				} else {
 					this.sortingKey = name
 					this.sortingAsc = true
 				}
 			},
-			getSortingClass: function(name) {
-				if(this.sortingKey == name) {
+			getSortingClass(name) {
+				if(this.sortingKey === name) {
 					return this.sortingAsc ? "up" : "down"
 				} 
 

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="authenticated">
 		<div class="ui basic segment" v-for="section in sections">
 			<h3>{{ section.label }}</h3>
 			<div class="ui item labeled icon menu" v-bind:class="section.elements">
@@ -14,6 +14,7 @@
 			</div>
 		</div>
 	</div>
+	<content-loader v-else></content-loader>
 </template>
 
 <script type="text/javascript">
@@ -71,7 +72,7 @@
 				this[action]()
 			},
 			logout() {
-				this.$http.post("logout").then(function(response) {
+				this.$http.post("logout").then(response => {
 					if(response.data.success) {
 						this.$bus.$emit("authenticate", false)
 						this.notifySuccess("Zostałeś poprawnie wylogowany.")

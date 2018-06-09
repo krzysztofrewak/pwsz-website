@@ -29,7 +29,7 @@
 		},
 		methods: {
 			isActive(section) {
-				return section == this.$route.meta.section
+				return section === this.$route.meta.section
 			},
 		}
 	} 

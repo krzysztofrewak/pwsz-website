@@ -54,11 +54,11 @@
 			}
 		},
 		methods: {
-			login: function() {
-				var parameters = this.credentials === undefined ? [] : this.credentials
+			login() {
+				let parameters = this.credentials === undefined ? [] : this.credentials
 
 				this.toggleLoading()
-				this.$http.post("login", parameters).then(function(response) {
+				this.$http.post("login", parameters).then(response => {
 					this.$bus.$emit("authenticate", true)
 					this.notifySuccess("Zalogowano poprawnie.")
 					this.$router.push({ name: "dashboard" })
@@ -67,12 +67,12 @@
 					this.reloadAuthButton(error.data.message)
 				})
 			},
-			reloadAuthButton: function(message) {
+			reloadAuthButton(message) {
 				this.toggleLoading()
 				this.hasErrorOccurred = true
 				this.errorMessage = message
 			},
-			toggleLoading: function() {
+			toggleLoading() {
 				this.loading = !this.loading
 			}
 		}

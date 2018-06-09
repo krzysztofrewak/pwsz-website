@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="authenticated">
 		<h1>Logger</h1>
 		<table class="ui dashboard very basic very compact table">
 			<thead>

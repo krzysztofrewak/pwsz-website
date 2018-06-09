@@ -54,7 +54,7 @@
 			}
 		},
 		computed: {
-			listRoute: function() {
+			listRoute() {
 				return "dashboard." + this.repository + ".list"
 			}
 		},

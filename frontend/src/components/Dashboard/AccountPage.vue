@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="authenticated">
 		<h1>Konto użytkownika</h1>
 		<form class="ui form" v-if="user">
 			<disabled-input label="ID" name="id" :value="user.id"></disabled-input>

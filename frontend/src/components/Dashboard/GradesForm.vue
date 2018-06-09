@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div v-if="authenticated">
 		<table class="ui very basic celled table">
 			<tbody>
 				<tr>

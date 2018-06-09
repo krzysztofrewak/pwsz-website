@@ -31,30 +31,39 @@
 		},
 		data() {
 			return {
-				isAuthenticated: false,
+				isAuthenticated: null,
 				systemNotifications: [],
 			}
 		},
 		created() {
-			this.$http.interceptors.response.use(response => {
-				return response
-			})
-			this.checkAuthentication()
-		},
-		mounted() {
 			this.$bus.$on("authenticate", status => this.isAuthenticated = status)
 			this.$bus.$on("show-notification", notification => {
 				this.systemNotifications.push(notification)
 				this.reduceNotificationLifespan(notification)
 			})
 			this.$bus.$on("close-notification", notification => this.systemNotifications = this.systemNotifications.filter(e => e !== notification))
+
+			this.$http.interceptors.response.use(response => {
+				this.$bus.$emit("authenticate", response.data.auth)
+				return response
+			})
+		},
+		mounted() {
+			setTimeout(() => {
+				if(this.isAuthenticated !== null) {
+					this.guardRoute(this.isAuthenticated)
+					return
+				}
+
+				this.$http.post("auth")
+					.then(response => this.guardRoute(response.data.auth))
+					.catch(error => this.guardRoute(error.data.auth))
+			}, 500)
+		},
+		ready() {
+			console.log("ready")
 		},
 		methods: {
-			checkAuthentication() {
-				this.$http.post("auth")
-					.then(() => this.$bus.$emit("authenticate", true))
-					.catch(() => this.$bus.$emit("authenticate", false))
-			},
 			reduceNotificationLifespan(notification) {
 				if(notification.lifespan) {
 					setTimeout(() => {
@@ -64,6 +73,30 @@
 				} else {
 					this.$bus.$emit("close-notification", notification)
 				}
+			},
+			authenticate() {
+				if(this.isAuthenticated !== null) {
+					this.guardRoute(this.isAuthenticated)
+					return
+				}
+
+				this.$http.post("auth")
+					.then(response => this.guardRoute(response.data.auth))
+					.catch(error => this.guardRoute(false))
+			},
+			guardRoute(authenticationStatus) {
+				if(this.$route.meta.requiresAuth && !authenticationStatus) {
+					this.$router.push({ name: "not-allowed" })
+				}
+
+				if(this.$route.meta.requiresGuest && authenticationStatus) {
+					this.$router.push({ name: "not-allowed" })
+				}
+			}
+		},
+		watch: {
+			"$route"(to, from) {
+				this.authenticate()
 			}
 		}
 	}
