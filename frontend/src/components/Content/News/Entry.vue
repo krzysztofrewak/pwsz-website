@@ -41,11 +41,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="ui" v-else>
-		<div class="ui active inverted dimmer">
-			<div class="ui loader"></div>
-		</div>
-	</div>
+	<content-loader v-else></content-loader>
 </template>
 
 <script type="text/javascript">

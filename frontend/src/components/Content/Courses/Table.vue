@@ -40,11 +40,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<div class="ui" v-else>
-			<div class="ui active inverted dimmer">
-				<div class="ui loader"></div>
-			</div>
-		</div>
+		<content-loader v-else></content-loader>
 	</div>
 </template>
 
