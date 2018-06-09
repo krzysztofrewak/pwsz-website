@@ -55,12 +55,12 @@
 
 		<div v-if="step > 3">
 			<div class="student grades" v-if="grades.students">
-				<h3>Arkusz obecności i ocen</h3>
+				<h2>Arkusz obecności i ocen</h2>
 				<table class="ui very basic celled very compact unstackable table">
 					<thead>
-						<tr>
-							<th class="one wide single line">indeks <i class="sort numeric ascending icon"></i></th>
-							<th v-for="studentClass in grades.classes" class="center aligned">{{ studentClass.name }}</th>
+						<tr class="center aligned">
+							<th class="one wide single line">student</th>
+							<th v-for="studentClass in grades.classes">{{ studentClass.name }}</th>
 							<th class="center aligned" v-if="$parent.authenticated"><i class="plus icon"></i></th>
 						</tr>
 					</thead>
@@ -125,9 +125,9 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("grades/semesters").then(function(response) {
+				this.$http.get("grades/semesters").then((response) => {
 					if(response.status) {
-						this.semesters = response.body.data
+						this.semesters = response.data.data
 					}
 				})
 			},
@@ -137,9 +137,9 @@
 				this.courses = []
 
 				this.formData.semesterId = semesterId
-				this.$http.get("grades/courses", { params: this.formData }).then(function(response) {
+				this.$http.get("grades/courses", { params: this.formData }).then((response) => {
 					if(response.status) {
-						this.courses = response.body.data
+						this.courses = response.data.data
 						this.step = 1
 					}
 				})
@@ -150,9 +150,9 @@
 				this.groups = []
 
 				this.formData.courseId = courseId
-				this.$http.get("grades/groups", { params: this.formData }).then(function(response) {
+				this.$http.get("grades/groups", { params: this.formData }).then((response) => {
 					if(response.status) {
-						this.groups = response.body.data
+						this.groups = response.data.data
 						this.step = 2
 					}
 				})
@@ -163,10 +163,10 @@
 			},
 			fetchGrades() {
 				this.fetching = true
-				this.$http.get("grades", { params: this.formData }).then(function(response) {
+				this.$http.get("grades", { params: this.formData }).then((response) => {
 					this.fetching = false
 					if(response.status) {
-						this.grades = response.body.data
+						this.grades = response.data.data
 						this.step = 4
 					}
 				})
@@ -209,6 +209,11 @@
 		overflow-x: auto;
 
 		tr td:last-child { font-weight: bold; width: 10%; }
+
+		h2 {
+			margin-top: 1em;
+			margin-bottom: 1em;
+		}
 
 		.student.grade {
 			text-align: center;

@@ -107,10 +107,7 @@ class Grades extends Repository implements GradesRepositoryInterface {
 	 * @return array
 	 */
 	protected function sortStudents(array $students): array {
-		usort($students, function($a, $b) {
-			return $a["number"] - $b["number"];
-		});
-
+		shuffle($students);
 		return $students;
 	}
 

@@ -78,11 +78,15 @@ class Courses extends Repository {
 		}
 
 		return [
+			"informations" => [
+				["label" => "kierunek", "value" => $model->field->index, "description" => $model->field->name],
+				["label" => "semestr", "value" => NumberToRoman::transform($model->semester_no), "description" => $model->semester_no % 2 == 0 ? "letni" : "zimowy"],
+				["label" => "forma zajęć", "value" => $model->form->index, "description" =>	$model->form->name],
+				["label" => "tryb", "value" => "s", "description" => "stacjonarny"],
+			],
 			"id" => $model->id,
+			"index" => $model->index,
 			"name" => $model->name,
-			"field" => $model->field->index,
-			"semester_no" => NumberToRoman::transform($model->semester_no),
-			"form" => $model->form->index,
 			"description" => $model->description,
 			"last_updated" => DateTimeTranslator::getDateForHuman($last_updated),
 			"topics" => $topics,

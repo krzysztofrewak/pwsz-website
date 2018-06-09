@@ -1,6 +1,27 @@
 <template>
 	<div class="course page" v-if="course">
-		<h1>{{ course.name }}</h1>
+		<h1 class="ui header">
+			{{ course.name }}
+			<div class="sub header">
+				Strona informacyjna kursu {{ course.index }}
+			</div>
+		</h1>
+
+		<div class="ui divider"></div>
+
+		<div class="ui four course informations statistics">
+			<div class="statistic" v-for="information in course.informations">
+				<div class="label">
+					{{ information.label }}
+				</div>
+				<div class="value">
+					{{ information.value }}
+				</div>
+				<div class="label">
+					{{ information.description }}
+				</div>
+			</div>
+		</div>
 
 		<div v-if="course.description">
 			<div class="ui divider"></div>
@@ -76,6 +97,17 @@
 
 		.course.informations {
 			margin-top: 3em !important;
+
+			.statistic {
+				width: 25%;
+			}
+
+			@media screen and (max-width: 720px) {
+				.statistic {
+					display: block !important;
+					width: 100%;
+				}
+			}
 		}
 
 		.divider {

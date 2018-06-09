@@ -8,8 +8,10 @@
 				{{ nav.label }}
 			</router-link>
 		</div>
-		
-		<component v-bind:is="contactComponent"></component>
+
+		<transition name="page" mode="out-in">
+			<component v-bind:is="contactComponent"></component>
+		</transition>
 	</div>
 </template>
 

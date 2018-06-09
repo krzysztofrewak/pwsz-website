@@ -13,18 +13,22 @@ require("semantic-ui-css/components/icon.min.css")
 require("semantic-ui-css/components/list.min.css")
 require("semantic-ui-css/components/loader.min.css")
 require("semantic-ui-css/components/menu.min.css")
+require("semantic-ui-css/components/message.min.css")
 require("semantic-ui-css/components/popup.min.css")
 require("semantic-ui-css/components/reset.min.css")
 require("semantic-ui-css/components/segment.min.css")
 require("semantic-ui-css/components/site.min.css")
+require("semantic-ui-css/components/statistic.min.css")
 require("semantic-ui-css/components/table.min.css")
 
 import App from "./components/App"
-import Global from "./mixins/Global"
+import GlobalComponents from "./mixins/GlobalComponents"
+import GlobalFunctions from "./mixins/GlobalFunctions"
 import router from "./router.js"
 
 Vue.use(VueCookie)
-Vue.mixin(Global)
+Vue.use(GlobalComponents)
+Vue.mixin(GlobalFunctions)
 
 if(process.env.NODE_ENV !== "development") {
 	Vue.use(VueAnalytics, {

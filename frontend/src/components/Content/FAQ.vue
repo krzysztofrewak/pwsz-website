@@ -1,6 +1,11 @@
 <template>
-	<div id="faq">
-		<h1>FAQ (często zadawane pytania i odpowiedzi na nie)</h1>
+	<div id="faq" v-if="fetching">
+		<h1 class="ui header">
+			FAQ
+			<div class="sub header">
+				Często zadawane pytania i odpowiedzi na nie
+			</div>
+		</h1>
 
 		<div class="question" v-for="question in questions">
 			<div class="ui divider"></div>
@@ -11,6 +16,7 @@
 			<blockquote v-html="question.answer"></blockquote>
 		</div>
 	</div>
+	<content-loader v-else></content-loader>
 </template>
 
 <script type="text/javascript">
@@ -18,6 +24,7 @@
 		data() {
 			return {
 				questions: [],
+				fetching: true,
 			}
 		},
 		created() {
@@ -25,8 +32,8 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("faq").then(function(response) {
-					this.questions = response.body.data
+				this.$http.get("faq").then(response => {
+					this.questions = response.data.data
 				})
 			},
 		},
