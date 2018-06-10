@@ -66,4 +66,13 @@ class ManagementGrades extends Grades {
 		return $students;
 	}
 
+	/**
+	 * @param array $students
+	 * @param string $student_no
+	 * @return array
+	 */
+	protected function obfuscateStudents(array $students, string $student_no): array {
+		return $students;
+	}
+
 }

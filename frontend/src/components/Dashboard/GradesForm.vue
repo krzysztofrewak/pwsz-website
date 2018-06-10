@@ -46,7 +46,7 @@
 				<table class="ui very basic celled very compact unstackable table">
 					<thead>
 						<tr>
-							<th class="one wide single line center aligned">
+							<th class="one wide single line center aligned" colspan="2">
 								<button class="ui circular tiny icon button" v-on:click="fetchGrades()">
 									<i class="icon" v-bind:class="getIcon"></i>
 								</button>
@@ -63,6 +63,7 @@
 					</thead>
 					<tbody>
 						<tr v-for="student in grades.students">
+							<td class="student name">{{ student.number }}</td>
 							<td class="student name">{{ student.name }}</td>
 							<td v-for="grade in student.classes" class="student" v-bind:class="{ present: grade.was_present == true, absent: grade.was_present == false }" v-on:dblclick="toggleGrade(grade)">
 								<input class="student grade" v-model="grade.value" v-on:keyup.enter="updateGrade(grade)">
@@ -108,7 +109,7 @@
 
 				this.$http.get("management/grades/semesters").then((response) => {
 					if(response.status) {
-						this.semesters = response.body.data
+						this.semesters = response.data.data
 					}
 				})
 			},
@@ -119,7 +120,7 @@
 				this.formData.semesterId = semesterId
 				this.$http.get("management/grades/courses", { params: this.formData }).then((response) => {
 					if(response.status) {
-						this.courses = response.body.data
+						this.courses = response.data.data
 						this.step = 1
 					}
 				})
@@ -132,7 +133,7 @@
 				this.formData.courseId = courseId
 				this.$http.get("management/grades/groups", { params: this.formData }).then((response) => {
 					if(response.status) {
-						this.groups = response.body.data
+						this.groups = response.data.data
 						this.step = 2
 					}
 				})
@@ -145,7 +146,7 @@
 			fetchGrades() {
 				this.grades = []
 				this.$http.get("management/grades", { params: this.formData }).then((response) => {
-					this.grades = response.body.data
+					this.grades = response.data.data
 					this.step = 4
 				})
 			},
