@@ -61,7 +61,6 @@
 </script>
 
 <style lang="scss" scoped>
-
 	.student.row {
 		height: 2em;
 	}

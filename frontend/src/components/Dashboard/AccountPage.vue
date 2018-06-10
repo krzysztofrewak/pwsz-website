@@ -45,16 +45,16 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("management/user").then(function(response) {
-					if(response.body.success) {
-						this.user = response.body.data
+				this.$http.get("management/user").then(response => {
+					if(response.data.success) {
+						this.user = response.data.data
 					}
 				})
 			},
 			updateUser() {
 				this.loading = true
 				
-				this.$http.post("management/user", { user: this.user }).then(function(response) {
+				this.$http.post("management/user", { user: this.user }).then(response => {
 					this.loading = false
 					this.notifySuccess("Dane zostały zmienione.")
 				}).catch(error => {

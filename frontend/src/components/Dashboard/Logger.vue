@@ -1,54 +1,68 @@
 <template>
-	<div v-if="authenticated">
-		<h1>Logger</h1>
+	<div v-if="authenticated && !fetching">
+		<h1 class="ui header">
+			<i class="tile bordered inverted cogs icon"></i>
+			<div class="content">
+				Logi
+				<div class="sub header">
+					Lista logów systemowych
+				</div>
+			</div>
+		</h1>
+
 		<table class="ui dashboard very basic very compact table">
 			<thead>
 				<tr>
-					<th>data</th>
+					<th>plik</th>
 					<th>
-						<div class="ui teal horizontal fluid label">
-							<i class="play circle icon"></i>
-							debug
-						</div>
+						<i class="circular white small circle icon"></i>
+						debug
 					</th>
 					<th>
-						<div class="ui blue horizontal fluid label">
-							<i class="question circle icon"></i>
-							info
-						</div>
+						<i class="circular blue small circle icon"></i>
+						info
 					</th>
 					<th>
-						<div class="ui yellow horizontal fluid label">
-							<i class="exclamation circle icon"></i>
-							warning
-						</div>
+						<i class="circular yellow small circle icon"></i>
+						warning
 					</th>
 					<th>
-						<div class="ui red horizontal fluid label">
-							<i class="times circle icon"></i>
-							alert
-						</div>
+						<i class="circular red small circle icon"></i>
+						alert
 					</th>
 					<th>
-						<div class="ui green horizontal fluid label">
-							<i class="circle icon"></i>
-							łącznie
-						</div>
+						<i class="circular black small circle icon"></i>
+						łącznie
+					</th>
+					<th class="right aligned">
+						akcje
 					</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr v-for="log in logs">
 					<td><strong>{{ log.date }}</strong></td>
-					<td>{{ log.debug }}</td>
-					<td>{{ log.info }}</td>
-					<td>{{ log.warning }}</td>
-					<td>{{ log.alert }}</td>
-					<td><strong>{{ log.all }}</strong></td>
+					<td class="log column">{{ log.debug }}</td>
+					<td class="log column">{{ log.info }}</td>
+					<td class="log column">{{ log.warning }}</td>
+					<td class="log column">{{ log.alert }}</td>
+					<td class="log column"><strong>{{ log.all }}</strong></td>
+					<td class="right aligned">
+						<router-link class="ui blue circular icon button" :to="{ name: 'dashboard.logger.log', params: { day: log.date } }" data-inverted="" data-tooltip="zobacz" data-position="right center">
+							<i class="chevron right icon"></i>
+						</router-link>
+						<router-link class="ui green circular icon button" :to="{ name: 'home' }" data-inverted="" data-tooltip="pobierz" data-position="right center">
+							<i class="chevron down icon"></i>
+						</router-link>
+						<router-link class="ui red circular icon button" :to="{ name: 'home' }" data-inverted="" data-tooltip="usuń" data-position="right center">
+							<i class="close icon"></i>
+						</router-link>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	<content-loader v-else></content-loader>
 </template>
 
 <script type="text/javascript">
@@ -56,6 +70,7 @@
 		data() {
 			return {
 				logs: [],
+				fetching: true,
 			}
 		},
 		created() {
@@ -63,8 +78,9 @@
 		},
 		methods: {
 			fetchInitialData() {
-				this.$http.get("management/logs").then(function(response) {
-					this.logs = response.body.data
+				this.$http.get("management/logs").then(response => {
+					this.logs = response.data.data
+					this.fetching = false
 				})
 			},
 		},
@@ -72,5 +88,7 @@
 </script>
 
 <style lang="scss" scoped>
-
+	.log.column {
+		width: 10%;
+	}
 </style>

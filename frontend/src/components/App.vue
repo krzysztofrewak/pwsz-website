@@ -179,6 +179,10 @@
 		background: cornflowerblue !important;
 	}
 
+	h1 {
+		margin-bottom: 1em !important;
+	}
+
 	@media screen and (max-width: 720px) {
 		.header {
 			text-align: center;

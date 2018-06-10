@@ -23,7 +23,7 @@ class LogsController extends Controller {
 			$content = file_get_contents($logsDirectory . $file);
 
 			$day = [
-				"date" => $file,
+				"date" => str_replace(".log", "", $file),
 				"all" => sizeof(explode("\n", $content)) - 1,
 			];
 
@@ -50,7 +50,7 @@ class LogsController extends Controller {
 		$logsDirectory = "../logs/";
 
 		try {
-			$content = file_get_contents($logsDirectory . $log, true);
+			$content = file_get_contents($logsDirectory . $log . ".log", true);
 		} catch(Exception $e) {
 			$this->responseArray->setMessage("Log not found")->setStatusCode(404);
 			$this->logger->warning("Non-existing log { id: $log } requested and not delivered.");

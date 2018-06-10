@@ -76,6 +76,6 @@
 
 <style lang="scss" scoped>
 	.description {
-		padding: 3em 1em;
+		padding: 1em 1em 3em;
 	}
 </style>
