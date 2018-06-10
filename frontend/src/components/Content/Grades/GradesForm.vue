@@ -1,9 +1,12 @@
 <template>
 	<div class="">
 		<h1 class="ui header">
-			Formularz dostępu do ocen
-			<div class="sub header">
-				Wybierz odpowiedni semestr, kurs oraz grupę, a następnie wpisz swój numer indeksu, aby uzyskać arkusz ocen i obecności
+			<i class="bordered inverted graduation cap icon"></i>
+			<div class="content">
+				Formularz dostępu do ocen
+				<div class="sub header">
+					Wybierz odpowiedni semestr, kurs oraz grupę, a następnie wpisz swój numer indeksu, aby uzyskać arkusz ocen i obecności
+				</div>
 			</div>
 		</h1>
 

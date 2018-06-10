@@ -1,10 +1,15 @@
 <template>
 	<div id="home">
-		<div class="header">
-			<h1>mgr inż. Krzysztof Rewak</h1>
-			<h2>Zakład Informatyki, Wydział Nauk Technicznych i Ekonomicznych</h2>
-			<h3>Państwowa Wyższa Szkoła Zawodowa im. Witelona w Legnicy</h3>
-		</div>
+		<h1 class="ui header">
+			<i class="bordered inverted university icon"></i>
+			<div class="content">
+				mgr inż. Krzysztof Rewak
+				<div class="sub header">
+					Zakład Informatyki, Wydział Nauk Technicznych i Ekonomicznych,
+					Państwowa Wyższa Szkoła Zawodowa im. Witelona w Legnicy
+				</div>
+			</div>
+		</h1>
 
 		<div class="ui divider"></div>
 

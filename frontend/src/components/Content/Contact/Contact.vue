@@ -1,6 +1,14 @@
 <template>
 	<div>
-		<h1>Kontakt</h1>
+		<h1 class="ui header">
+			<i class="bordered inverted envelope icon"></i>
+			<div class="content">
+				Kontakt
+				<div class="sub header">
+					Wybierz formę kontaktu z prowadzącym
+				</div>
+			</div>
+		</h1>
 
 		<div class="ui secondary pointing menu">
 			<router-link v-for="nav in navs" :key="nav.name" :to="{ name: nav.name }" class="item" v-bind:class="{ active: nav.name == $route.name }">

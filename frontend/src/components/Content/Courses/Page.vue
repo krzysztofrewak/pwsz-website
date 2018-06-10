@@ -1,14 +1,18 @@
 <template>
 	<div class="course page" v-if="course">
 		<h1 class="ui header">
-			{{ course.name }}
-			<div class="sub header">
-				Strona informacyjna kursu {{ course.index }}
+			<i class="bordered inverted folder icon"></i>
+			<div class="content">
+				{{ course.name }}
+				<div class="sub header">
+					Strona informacyjna kursu {{ course.index }}
+				</div>
 			</div>
 		</h1>
 
 		<div class="ui divider"></div>
 
+		<h2>Podstawowe informacje</h2>
 		<div class="ui four course informations statistics">
 			<div class="statistic" v-for="information in course.informations">
 				<div class="label">
@@ -60,10 +64,6 @@
 				</tbody>
 			</table>
 		</div>
-
-		<div class="ui divider"></div>
-		<h2>Kurs prowadzony w semestrach</h2>
-		<span class="ui basic tiny semester button">semestr letni 2017/18</span>
 	</div>
 	<content-loader v-else></content-loader>
 </template>
@@ -93,7 +93,7 @@
 <style lang="scss" scoped>
 	.course.page {
 		h2 {
-			margin-top: 2em;
+			margin-top: 1em;
 		}
 
 		.course.informations {

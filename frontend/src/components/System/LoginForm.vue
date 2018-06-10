@@ -1,15 +1,14 @@
 <template>
 	<div>
-		<center>
-			<div class="ui red icon header" v-if="hasErrorOccurred">
-				<i class="close icon"></i>
-				Wystąpił błąd: {{ errorMessage }}
-			</div>
-			<div class="ui icon header" v-else>
-				<i class="sign in icon"></i>
+		<h1 class="ui header">
+			<i class="bordered inverted sign in icon"></i>
+			<div class="content">
 				Logowanie do systemu
+				<div class="sub header">
+					Zaloguj się, aby zarządzać zawartością strony
+				</div>
 			</div>
-		</center>
+		</h1>
 
 		<div class="content">
 			<form id="login-form" @submit.prevent="login">
@@ -48,29 +47,24 @@
 					login: "",
 					password: "",
 				},
-				hasErrorOccurred: false,
-				errorMessage: "",
 				loading: false
 			}
 		},
 		methods: {
 			login() {
+				this.loading = true
+
 				let parameters = this.credentials === undefined ? [] : this.credentials
 
-				this.toggleLoading()
 				this.$http.post("login", parameters).then(response => {
 					this.$bus.$emit("authenticate", true)
 					this.notifySuccess("Zalogowano poprawnie.")
 					this.$router.push({ name: "dashboard" })
 					this.toggleLoading()
 				}).catch(error => {
-					this.reloadAuthButton(error.data.message)
+					this.notifyError(error.response.data.message)
+					this.loading = false
 				})
-			},
-			reloadAuthButton(message) {
-				this.toggleLoading()
-				this.hasErrorOccurred = true
-				this.errorMessage = message
 			},
 			toggleLoading() {
 				this.loading = !this.loading

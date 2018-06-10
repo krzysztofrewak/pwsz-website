@@ -1,9 +1,12 @@
 <template>
 	<div id="faq" v-if="fetching">
 		<h1 class="ui header">
-			FAQ
-			<div class="sub header">
-				Często zadawane pytania i odpowiedzi na nie
+			<i class="olive bordered inverted question mark circle icon"></i>
+			<div class="content">
+				FAQ
+				<div class="sub header">
+					Często zadawane pytania i odpowiedzi na nie
+				</div>
 			</div>
 		</h1>
 

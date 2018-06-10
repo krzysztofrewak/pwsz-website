@@ -48,7 +48,7 @@ class Courses extends Repository {
 	 */
 	protected function mapExtended($model): array {
 		$topics = [];
-		$last_updated = null;
+		$last_updated = $model->updated_at;
 
 		foreach($model->topics as $topic) {
 			$files = [];

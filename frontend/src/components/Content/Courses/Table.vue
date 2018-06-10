@@ -1,6 +1,14 @@
 <template>
 	<div class="courses table">
-		<h1>Lista kursów</h1>
+		<h1 class="ui header">
+			<i class="bordered inverted list alternate icon"></i>
+			<div class="content">
+				Lista kursów
+				<div class="sub header">
+					Szczegółowe informacje dotyczące kursów
+				</div>
+			</div>
+		</h1>
 
 		<p class="description">Poniżej znajduje się tabela z prowadzonymi przeze mnie kursami. Każdy kurs jest dostępny z poziomu własnej podstrony ze szczegółowymi informacjami, zasadami zaliczenia, wykazem tematów i istotnymi plikami. Wyszarzone kursy to te, które nie są prowadzone w obecnym semestrze.</p>
 		
@@ -68,7 +76,6 @@
 
 <style lang="scss" scoped>
 	.description {
-		margin: 3em 0em;
-		font-size: 1.15em;
+		padding: 3em 1em;
 	}
 </style>
