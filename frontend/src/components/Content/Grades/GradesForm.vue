@@ -54,7 +54,10 @@
 				<tr v-if="formData.groupId">
 					<td class="collapsing single line">Wpisz numer indeksu:</td>
 					<td>
-						<input class="ui basic tiny button" v-model="temporaryStudentId" v-on:keyup.enter="selectStudent()">
+						<div class="ui left icon input">
+							<i class="user icon"></i>
+							<input v-model="temporaryStudentId" v-on:keyup.enter="selectStudent()">
+						</div>
 						<button class="ui primary circular icon button" v-bind:class="{ loading: fetchingGrades && formData.studentId }" v-on:click="selectStudent()">
 							<i class="search icon"></i>
 						</button>
@@ -191,7 +194,6 @@
 </script>
 
 <style lang="scss" scoped>
-
 	.button {
 		margin: 0.25em;
 		padding: 1.25em;
@@ -206,6 +208,14 @@
 			.button {
 				width: 100%;
 				display: block;
+			}
+			.input {
+				width: 100%;
+				display: block;
+			}
+			input {
+				width: 100%;
+				text-align: center;
 			}
 		}
 	}
