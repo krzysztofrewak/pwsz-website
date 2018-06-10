@@ -56,4 +56,9 @@
 	.footer.segment { padding: 2em 0em; }
 	.latent { opacity: 0; }
 	.creative.commons.icon { margin: 0; padding: 0; }
+
+	@media screen and (max-width: 720px) {
+		.footer { text-align: center; }
+		.latent { display: block; }
+	}
 </style>

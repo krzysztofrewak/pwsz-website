@@ -1,7 +1,7 @@
 <template>
 	<div id="home">
 		<h1 class="ui header">
-			<i class="bordered inverted university icon"></i>
+			<i class="tile bordered inverted university icon"></i>
 			<div class="content">
 				mgr inż. Krzysztof Rewak
 				<div class="sub header">

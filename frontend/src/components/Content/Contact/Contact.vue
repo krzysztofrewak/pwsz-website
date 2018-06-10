@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<h1 class="ui header">
-			<i class="bordered inverted envelope icon"></i>
+			<i class="tile bordered inverted envelope icon"></i>
 			<div class="content">
 				Kontakt
 				<div class="sub header">

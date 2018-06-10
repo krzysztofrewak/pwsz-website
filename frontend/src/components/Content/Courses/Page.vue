@@ -1,7 +1,7 @@
 <template>
 	<div class="course page" v-if="course">
 		<h1 class="ui header">
-			<i class="bordered inverted folder icon"></i>
+			<i class="tile bordered inverted folder icon"></i>
 			<div class="content">
 				{{ course.name }}
 				<div class="sub header">

@@ -1,7 +1,7 @@
 <template>
 	<div id="faq" v-if="fetching">
 		<h1 class="ui header">
-			<i class="olive bordered inverted question mark circle icon"></i>
+			<i class="tile bordered inverted question mark circle icon"></i>
 			<div class="content">
 				FAQ
 				<div class="sub header">

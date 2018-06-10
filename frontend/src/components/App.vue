@@ -178,4 +178,14 @@
 	.primary {
 		background: cornflowerblue !important;
 	}
+
+	@media screen and (max-width: 720px) {
+		.header {
+			text-align: center;
+
+			.tile {
+				display: none !important;
+			}
+		}
+	}
 </style>

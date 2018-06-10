@@ -1,7 +1,7 @@
 <template>
 	<div class="courses table">
 		<h1 class="ui header">
-			<i class="bordered inverted list alternate icon"></i>
+			<i class="tile bordered inverted list alternate icon"></i>
 			<div class="content">
 				Lista kursów
 				<div class="sub header">

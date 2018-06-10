@@ -1,7 +1,7 @@
 <template>
 	<div class="">
 		<h1 class="ui header">
-			<i class="bordered inverted graduation cap icon"></i>
+			<i class="tile bordered inverted graduation cap icon"></i>
 			<div class="content">
 				Formularz dostępu do ocen
 				<div class="sub header">

@@ -1,7 +1,7 @@
 <template>
 	<div class="news reel">
 		<h1 class="ui header">
-			<i class="bordered inverted rss icon"></i>
+			<i class="tile bordered inverted rss icon"></i>
 			<div class="content">
 				Aktualności
 				<div class="sub header">
