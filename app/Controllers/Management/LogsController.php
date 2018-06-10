@@ -58,10 +58,14 @@ class LogsController extends Controller {
 			return $this->renderResponse();
 		}
 
-		$logs = explode("\r\n", $content);
+		$content = str_replace("\r", "", $content);
+		$logs = explode("\n", $content);
 
-		array_pop($logs);
 		$logs = array_reverse($logs);
+		$logs = array_filter($logs, function(string $log): bool {
+			return strlen($log) > 0;
+		});
+
 		$logs = array_map(function(string $log): array {
 			preg_match("/\[[^\]]*\]/", $log, $time);
 			$log = str_replace($time, "", $log);
