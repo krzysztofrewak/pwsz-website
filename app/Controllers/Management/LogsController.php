@@ -82,6 +82,8 @@ class LogsController extends Controller {
 			];
 		}, $logs);
 
+		$logs = array_values($logs);
+
 		$this->responseArray->setData($logs);
 		$this->responseArray->setSuccessStatus();
 

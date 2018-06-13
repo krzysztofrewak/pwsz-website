@@ -10,6 +10,15 @@
 			</div>
 		</h1>
 
+		<div class="five ui basic tiny buttons">
+			<button class="ui button" v-for="level in levels" v-on:click="filterLevel = level.name" v-bind:class="{ active: filterLevel === level.name }">
+				<i class="circular circle icon" :class="level.color"></i> {{ level.name }}
+			</button>
+			<button class="ui button" v-on:click="filterLevel = ''">
+				<i class="circular close icon"></i> resetuj filtr
+			</button>
+		</div>
+
 		<div class="ui fluid icon search input">
 			<input placeholder="Przeszukaj tabelę..." type="text" v-model="searchPhrase">
 			<i class="search icon"></i>
@@ -41,16 +50,35 @@
 	export default {
 		data() {
 			return {
+				levels: [
+					{ name: "DEBUG", color: "white" },
+					{ name: "INFO", color: "blue" },
+					{ name: "WARNING", color: "yellow" },
+					{ name: "ALERT", color: "red" },
+				],
 				logs: [],
 				fetching: true,
 				searchPhrase: "",
+				filterLevel: ""
 			}
 		},
 		computed: {
 			filteredLogs() {
-				return this.searchPhrase.length ? this.logs.filter(value => {
-					return JSON.stringify(value).toLowerCase().includes(this.searchPhrase.toLowerCase())
-				}) : this.logs
+				let logs = this.logs;
+
+				if(this.filterLevel.length) {
+					logs = logs.filter(value => {
+						return value.method === this.filterLevel
+					})
+				}
+
+				if(this.searchPhrase.length) {
+					logs = logs.filter(value => {
+						return JSON.stringify(value).toLowerCase().includes(this.searchPhrase.toLowerCase())
+					})
+				}
+
+				return logs
 			}
 		},
 		created() {
@@ -60,6 +88,7 @@
 			fetchInitialData() {
 				this.$http.get("management/logs/" + this.$route.params.day).then(response => {
 					this.logs = response.data.data
+					console.log(response.data.data)
 					this.fetching = false
 				})
 			},
@@ -83,7 +112,7 @@
 
 <style lang="scss" scoped>
 	.search.input {
-		margin: 3em auto;
+		margin: 1em auto 3em;
 	}
 
 	.table td {
