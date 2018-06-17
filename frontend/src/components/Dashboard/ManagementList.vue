@@ -22,6 +22,9 @@
 						<i class="caret icon" v-bind:class="getSortingClass(name)"></i>
 					</th>
 					<th class="collapsing right aligned">
+						<button class="ui blue circular icon button" v-on:click="fetchInitialData()" data-inverted="" data-tooltip="odśwież tabelę" data-position="top right">
+							<i class="refresh icon"></i>
+						</button>
 						<router-link class="ui green circular icon button" :to="{ name: addRoute }" data-inverted="" data-tooltip="dodaj nowy" data-position="top right">
 							<i class="plus icon"></i>
 						</router-link>

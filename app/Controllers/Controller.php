@@ -28,13 +28,6 @@ abstract class Controller extends BaseController {
 	/**
 	 * @return void
 	 */
-	public function initialize(): void {
-		$this->buildResponseArray();
-	}
-
-	/**
-	 * @return void
-	 */
 	public function beforeExecuteRoute(): void {
 		$this->buildResponseArray();
 	}

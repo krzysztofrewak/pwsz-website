@@ -30,7 +30,8 @@ class StudentController extends CRUDController {
 		return [
 			"student_no" => "numer indeksu", 
 			"initials" => "inicjały",
-			"name" => "imię",
+			"first_name" => "imię",
+			"last_name" => "nazwisko",
 		];
 	}
 

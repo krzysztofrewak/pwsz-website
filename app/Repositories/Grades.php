@@ -42,7 +42,7 @@ class Grades extends Repository implements GradesRepositoryInterface {
 		}
 
 		return [
-			"student" => $student->student_no,
+			"student" => $show_full_names ? $student->getInitials() : $student->student_no,
 			"classes" => $grades,
 		];
 	}
@@ -86,8 +86,10 @@ class Grades extends Repository implements GradesRepositoryInterface {
 				$result["students"][] = $this->map($student, $class_ids, $force_result);
 			}
 
-			$result["students"] = $this->sortStudents($result["students"]);
-			$result["students"] = $this->obfuscateStudents($result["students"], $student_no);
+			if(!$force_result) {
+				$result["students"] = $this->sortStudents($result["students"]);
+				$result["students"] = $this->obfuscateStudents($result["students"], $student_no);
+			}
 		}
 		
 		return $result;

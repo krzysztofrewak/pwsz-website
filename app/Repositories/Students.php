@@ -28,9 +28,14 @@ class Students extends Repository {
 	 */
 	public function map(Model $student): array {
 		/** @var Student $student */
+
+		$name = explode(" ", $student->name);
+
 		return [
 			"id" => $student->id,
 			"name" => $student->name,
+			"first_name" => $name[0],
+			"last_name" => $name[1],
 			"initials" => $student->getInitials(),
 			"student_no" => $student->student_no,
 		];

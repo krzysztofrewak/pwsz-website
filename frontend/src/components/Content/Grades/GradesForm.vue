@@ -132,6 +132,9 @@
 				})
 			},
 			selectSemester(id) {
+				this.formSets.courses = null
+				this.formSets.groups = null
+
 				this.$router.push({
 					name: "grades.semester",
 					params: {
@@ -141,6 +144,8 @@
 				this.fetch("courses")
 			},
 			selectCourse(id) {
+				this.formSets.groups = null
+
 				this.$router.push({
 					name: "grades.course",
 					params: {

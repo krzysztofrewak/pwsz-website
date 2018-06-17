@@ -36,10 +36,10 @@ class SemesterCourses extends Repository {
 	 * @return array
 	 */
 	protected function mapCourses(Model $course): array {
-		/** @var Course $course */
+		/** @var SemesterCourse $course */
 		return [
 			"id" => $course->id,
-			"name" => $course->name . " | " . $course->form->name,
+			"name" => $course->course->name . " | " . $course->course->form->name,
 		];
 	}
 
@@ -58,8 +58,8 @@ class SemesterCourses extends Repository {
 
 		$result = [];
 
-		/** @var Course $course */
-		foreach($semester->courses as $course) {
+		/** @var SemesterCourse $course */
+		foreach($semester->semesterCourses as $course) {
 			$result[] = $this->mapCourses($course);
 		}
 		
