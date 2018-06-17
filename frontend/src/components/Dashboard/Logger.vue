@@ -48,14 +48,8 @@
 					<td class="log column">{{ log.alert }}</td>
 					<td class="log column"><strong>{{ log.all }}</strong></td>
 					<td class="right aligned">
-						<router-link class="ui blue circular icon button" :to="{ name: 'dashboard.logger.log', params: { day: log.date } }" data-inverted="" data-tooltip="zobacz" data-position="right center">
+						<router-link class="ui blue circular icon button" :to="{ name: 'dashboard.logger.log', params: { day: log.date } }" data-inverted="" data-tooltip="zobacz" data-position="top center">
 							<i class="chevron right icon"></i>
-						</router-link>
-						<router-link class="ui green circular icon button" :to="{ name: 'home' }" data-inverted="" data-tooltip="pobierz" data-position="right center">
-							<i class="chevron down icon"></i>
-						</router-link>
-						<router-link class="ui red circular icon button" :to="{ name: 'home' }" data-inverted="" data-tooltip="usuń" data-position="right center">
-							<i class="close icon"></i>
 						</router-link>
 					</td>
 				</tr>

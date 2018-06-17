@@ -98,7 +98,7 @@ class GradesController extends Controller {
 		} else {
 			if(empty($grades)) {
 				$no = $student_id ?: "[?]";
-				$this->logger->warning("Grades requested for group { id: $group_id } by non-existing student { no: ($no) } and not delivered.");
+				$this->logger->warning("Grades requested for group { id: $group_id } by non-existing student { no: $no } and not delivered.");
 			} else {
 				$this->logger->info("Grades requested for group { id: $group_id } by student { no: $student_id } and delivered.");
 			}
