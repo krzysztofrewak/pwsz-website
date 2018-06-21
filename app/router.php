@@ -65,6 +65,7 @@ $namespace = "PWSZ\\Controllers\\Management\\CRUD";
 	$modules = [
 		"news" => "news",
 		"faqs" => "faq",
+		"modes" => "mode",
 		"fields" => "field",
 		"forms" => "form",
 		"semesters" => "semester",

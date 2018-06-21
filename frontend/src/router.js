@@ -63,6 +63,7 @@ let routes = [
 let managementModules = [
 	{ repository: "news", url: "aktualnosci" },
 	{ repository: "faqs", url: "faq" },
+	{ repository: "modes", url: "tryby" },
 	{ repository: "fields", url: "kierunki" },
 	{ repository: "forms", url: "formy" },
 	{ repository: "semestercourses", url: "semestry/kursy" },
