@@ -10,7 +10,7 @@
 					<p>Krzysztof Rewak <i class="creative commons icon"></i> {{ new Date().getFullYear() }} | pewne prawa zastrzeżone</p>
 				</div>
 				<div class="column">
-					<h4 class="ui inverted header">Linki</h4>
+					<h4 class="ui inverted header">Linki na zewnątrz</h4>
 					<div class="ui horizontal inverted link list">
 						<a :href="link.url" class="item" target="_blank" v-for="link in links">
 							<i class="icon" :class="link.icon"></i>
@@ -19,7 +19,7 @@
 					</div>
 				</div>
 				<div class="column">
-					<h4 class="ui inverted header">Technologie</h4>
+					<h4 class="ui inverted header">Wykorzystane technologie</h4>
 					<div class="ui horizontal inverted link list">
 						<a :href="technology.url" class="item" target="_blank" v-for="technology in technologies">
 							{{ technology.label }}
@@ -36,6 +36,7 @@
 		data() {
 			return {
 				links: [
+					{ label: "Slack", icon: "slack", url: "https://pwszlegnica.slack.com/" },
 					{ label: "Bitbucket", icon: "bitbucket", url: "https://bitbucket.org/krewak/" },
 					{ label: "LinkedIn", icon: "linkedin", url: "https://linkedin.com/in/krzysztofrewak" },
 					{ label: "rewak.pl", icon: "globe", url: "http://rewak.pl/" },

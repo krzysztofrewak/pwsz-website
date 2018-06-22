@@ -1,5 +1,5 @@
 <template>
-	<div class="ui inverted vertical superheader center aligned segment">
+	<div class="ui inverted vertical superheader center aligned segment" id="header">
 		<div class="ui container" id="navigation">
 			<div class="ui large secondary inverted pointing menu">
 				<router-link :to="{ name: 'home' }" class="brand item">

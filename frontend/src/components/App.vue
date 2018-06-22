@@ -1,12 +1,12 @@
 <template>
-	<div id="app">
+	<div id="app" v-bind:class="{ landing: isHome() }">
 		<app-header></app-header>
 		<notifications-bar></notifications-bar>
 
 		<div class="ui vertical stripe segment" id="content">
-			<div class="ui container">
+			<div class="ui" v-bind:class="{ container: !isHome() }">
 				<keep-alive>
-					<transition name="page" mode="out-in">
+					<transition name="page-disabled" mode="out-in">
 						<router-view></router-view>
 					</transition>
 				</keep-alive>
@@ -92,6 +92,9 @@
 				if(this.$route.meta.requiresGuest && authenticationStatus) {
 					this.$router.push({ name: "not-allowed" })
 				}
+			},
+			isHome() {
+				return this.$route.name === "home"
 			}
 		},
 		watch: {
@@ -109,7 +112,7 @@
 
 	body {
 		overflow-y: scroll;
-		overflow-x: none;
+		overflow-x: unset;
 	}
 	
 	.clear {
