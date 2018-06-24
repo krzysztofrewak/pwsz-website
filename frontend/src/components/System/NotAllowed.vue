@@ -1,6 +1,12 @@
 <template>
 	<div>
-		<h1>Brak dostępu</h1>
-		<p>Nie masz dostępu do tej części serwisu.</p>
+		<h1 class="ui header">
+			<div class="content">
+				Brak dostępu
+				<div class="sub header">
+					Nie masz dostępu do tej części serwisu.
+				</div>
+			</div>
+		</h1>
 	</div>
 </template>

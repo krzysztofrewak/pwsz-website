@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<h1 class="ui header">
-			<i class="tile bordered inverted sign in icon"></i>
 			<div class="content">
 				Logowanie do systemu
 				<div class="sub header">

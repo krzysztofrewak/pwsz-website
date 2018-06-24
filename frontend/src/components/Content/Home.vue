@@ -74,6 +74,16 @@
 			color: White;
 			opacity: .5;
 		}
+
+		@media only screen and (max-width: 720px) {
+			#content {
+				margin-top: 0;
+			}
+
+			.landing.page {
+				margin-top: -3em;
+			}
+		}
 	}
 
 	#home {

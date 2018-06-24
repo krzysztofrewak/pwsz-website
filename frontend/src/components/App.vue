@@ -147,6 +147,16 @@
 		padding: 3em 0em 3em;
 	}
 
+	@media only screen and (max-width: 720px) {
+		#content {
+			margin-top: 5em;
+		}
+
+		.only.wide.screen {
+			display: none;
+		}
+	}
+
 	.clickable {
 		cursor: pointer;
 	}
@@ -182,13 +192,13 @@
 		background: cornflowerblue !important;
 	}
 
-	h1 {
-		margin-bottom: 1em !important;
-	}
-
 	@media screen and (max-width: 720px) {
 		.header {
-			text-align: center;
+			.content {
+				display: block !important;
+				width: 100%;
+				text-align: center;
+			}
 
 			.tile {
 				display: none !important;

@@ -5,6 +5,9 @@
 				<router-link :to="{ name: 'home' }" class="brand item">
 					Krzysztof <span class="bolded">Rewak</span>
 				</router-link>
+				<span class="brand item menu toggler">
+					<i class="bars icon"></i>
+				</span>
 
 				<router-link v-for="link in headerLinks" :to="{ name: link.name }" v-bind:key="link.name" class="item" v-bind:class="{ active: isActive(link.name) }">{{ link.label }}</router-link>
 
@@ -39,38 +42,50 @@
 	.superheader {
 		z-index: 99;
 
-		.menu {
+		.ui.menu {
 			border: none !important;
 			box-shadow: none;
-		}
 
-		a.item.active {
-			border: 0px !important;
-			margin: 0px !important;
-		}
+			a.item.active {
+				border: 0px !important;
+				margin: 0px !important;
+			}
+			
+			.menu.toggler {
+				display: none;
+				cursor: pointer;
+			}
 
-		.brand.item {
-			font-weight: 700;
-			background: rgba(255, 255, 255, 0.1) !important;
+			.brand.item {
+				font-weight: 700;
+				background: rgba(255, 255, 255, 0.1) !important;
 
-			.bolded {
-				text-transform: uppercase;
-				margin-left: 5px;
-				color: White;
+				.bolded {
+					text-transform: uppercase;
+					margin-left: 5px;
+					color: White;
+				}
 			}
 		}
 	}
 
 	@media only screen and (max-width: 720px) {
-		#navigation {
-			.menu {
-				display: flex;
-				flex-direction: column;
+		#header {
+			position: fixed;
+			width: 100vw;
 
-				a {
-					display: block !important;
-					flex: 1;
-					width: 100%;
+			.menu {
+				.brand {
+					width: 50%;
+				}
+				
+				.menu.toggler {
+					display: inline-block;
+					text-align: right;
+				}
+
+				a.item:not(.brand) {
+					display: none !important;
 				}
 			}
 		}
