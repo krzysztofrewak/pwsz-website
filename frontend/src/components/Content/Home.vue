@@ -96,6 +96,12 @@
 				width: 120px;
 			}
 
+			@media only screen and (max-width: 720px) {
+				h1, h2, h3, .header {
+					text-align: center;
+				}
+			}
+
 			h1, h2, h3 {
 				margin: .25em auto;
 			}

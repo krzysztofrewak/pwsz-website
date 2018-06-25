@@ -60,9 +60,6 @@
 					.catch(error => this.guardRoute(error.data.auth))
 			}, 500)
 		},
-		ready() {
-			console.log("ready")
-		},
 		methods: {
 			reduceNotificationLifespan(notification) {
 				if(notification.lifespan) {

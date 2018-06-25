@@ -88,7 +88,6 @@
 			fetchInitialData() {
 				this.$http.get("management/logs/" + this.$route.params.day).then(response => {
 					this.logs = response.data.data
-					console.log(response.data.data)
 					this.fetching = false
 				})
 			},
