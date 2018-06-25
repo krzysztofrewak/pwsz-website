@@ -9,11 +9,11 @@
 			</div>
 		</h1>
 
-		<div class="ui divider"></div>
+		<div class="ui content divider"></div>
 
 		<p class="description">Poniżej znajduje się tabela z prowadzonymi przeze mnie kursami. Każdy kurs jest dostępny z poziomu własnej podstrony ze szczegółowymi informacjami, zasadami zaliczenia, wykazem tematów i istotnymi plikami. Wyszarzone kursy to te, które nie są prowadzone w obecnym semestrze.</p>
 
-		<div class="ui divider"></div>
+		<div class="ui content divider"></div>
 		
 		<table class="ui very basic very compact unstackable table" v-if="!fetching">
 			<thead>
@@ -78,7 +78,4 @@
 </script>
 
 <style lang="scss" scoped>
-	.divider {
-		margin: 3em 0;
-	}
 </style>

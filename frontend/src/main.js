@@ -22,6 +22,7 @@ require("semantic-ui-css/components/segment.min.css")
 require("semantic-ui-css/components/site.min.css")
 require("semantic-ui-css/components/statistic.min.css")
 require("semantic-ui-css/components/table.min.css")
+require("semantic-ui-css/components/feed.min.css")
 
 import App from "./components/App"
 import GlobalComponents from "./mixins/GlobalComponents"

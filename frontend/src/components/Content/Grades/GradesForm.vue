@@ -9,6 +9,8 @@
 			</div>
 		</h1>
 
+		<div class="ui content divider"></div>
+
 		<table class="ui very basic celled grades table">
 			<tbody>
 				<tr>

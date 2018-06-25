@@ -9,23 +9,31 @@
 			</div>
 		</h1>
 
+		<div class="ui content divider"></div>
+
 		<div class="entries">
 			<div v-if="!fetching">
-				<div v-if="news.length">
-					<div class="ui segments" v-for="(entry, index) in news" v-bind:class="{ piled: index === 0 }">
+				<div v-if="news.length"  class="ui feed">
+					<div class="ui event" v-for="(entry, index) in news">
+						<router-link :to="{ name: 'news.entry', params: { id: entry.id } }" class="label">
+							<i class="primary newspaper icon"></i>
+						</router-link>
+						<div class="ui segments" v-bind:class="{ piled: index === 0 }">
 						<div class="ui entry title secondary segment">
-							<span class="ui medium header">{{ entry.title }}</span>
-							<span class="entry timestamp" data-inverted="" :data-tooltip="entry.timestamp" data-position="top center">
-								dodano <time v-bind:datetime="entry.timestamp" v-bind:title="entry.timestamp">{{ entry.publication }}</time>
-							</span>
+								<span class="ui medium header">{{ entry.title }}</span>
+								<span class="entry timestamp" data-inverted="" :data-tooltip="entry.timestamp" data-position="top center">
+									dodano <time v-bind:datetime="entry.timestamp" v-bind:title="entry.timestamp">{{ entry.publication }}</time>
+								</span>
+							</div>
+							<div class="ui segment" v-html="entry.content">
+							</div>
 						</div>
-						<div class="ui segment" v-html="entry.content">
-						</div>
-						<div class="ui clearing secondary segment">
-							<router-link :to="{ name: 'news.entry', params: { id: entry.id } }" class="ui primary tiny circular icon right floated button" title="Przejdź do wiadomości" data-inverted="" data-tooltip="przejdź do wiadomości" data-position="right center">
-								<i class="share alternate icon"></i>
-							</router-link>
-						</div>
+					</div>
+					<div class="ui event">
+						<span class="label">
+							<i class="primary star icon"></i>
+						</span>
+						<div class="content"></div>
 					</div>
 				</div>
 				<div v-else>
@@ -61,12 +69,46 @@
 
 <style lang="scss" scoped>
 	.news.reel {
-		.entries {
-			margin-top: 3em;
-		}
-
 		.entry.timestamp {
 			padding-left: 10px;
 		}
+
+		.event {
+			padding: 0;
+		}
+
+		.label {
+			padding-top: 1.5em;
+		}
+
+		.segments {
+			margin-bottom: 2em !important;
+		}
+
+		.piled {
+			margin: 1em 0;
+		}
+	}
+
+	// timeline Semantic UI theme
+	.ui.feed > .event .label {
+		border-left: 3px solid #DDDDDD;
+	}
+
+	.ui.feed > .event > .label {
+		margin-left: 1.6em;
+	}
+
+	.ui.feed > .event > .label > img,
+	.ui.feed > .event > .label > .icon {
+		background-color: #009FDA;
+		border-radius: 500rem;
+		color: #FFFFFF;
+		width: 3rem;
+		height: 3rem;
+		line-height: 1.5;
+		left: -1.6rem;
+		opacity: 1;
+		position: relative;
 	}
 </style>

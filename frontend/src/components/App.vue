@@ -192,6 +192,10 @@
 		background: cornflowerblue !important;
 	}
 
+	.content.divider {
+		margin: 2.5em 0;
+	}
+
 	@media screen and (max-width: 720px) {
 		.header {
 			.content {

@@ -1,7 +1,6 @@
 <template>
 	<div class="course page" v-if="course">
 		<h1 class="ui header">
-			<i class="tile bordered inverted folder icon"></i>
 			<div class="content">
 				{{ course.name }}
 				<div class="sub header">
@@ -10,7 +9,7 @@
 			</div>
 		</h1>
 
-		<div class="ui divider"></div>
+		<div class="ui content divider"></div>
 
 		<h2>Podstawowe informacje</h2>
 		<div class="ui four course informations statistics">
@@ -28,14 +27,14 @@
 		</div>
 
 		<div v-if="course.description">
-			<div class="ui divider"></div>
+			<div class="ui content divider"></div>
 
 			<h2>Opis kursu</h2>
 			<blockquote v-html="course.description"></blockquote>
 		</div>
 
 		<div v-if="course.topics.length">
-			<div class="ui divider"></div>
+			<div class="ui content divider"></div>
 
 			<h2>
 				Wykaz tematów
@@ -92,9 +91,6 @@
 
 <style lang="scss" scoped>
 	.course.page {
-		h2 {
-			margin-top: 1em;
-		}
 
 		.course.informations {
 			margin-top: 3em !important;
@@ -109,10 +105,6 @@
 					width: 100%;
 				}
 			}
-		}
-
-		.divider {
-			margin-top: 3em;
 		}
 	}
 </style>

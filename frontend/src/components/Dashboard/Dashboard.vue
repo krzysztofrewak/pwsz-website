@@ -1,5 +1,16 @@
 <template>
 	<div v-if="authenticated">
+		<h1 class="ui header">
+			<div class="content">
+				Panel administracyjny
+				<div class="sub header">
+					Zarządzaj serwisem jako administrator
+				</div>
+			</div>
+		</h1>
+
+		<div class="ui content divider"></div>
+
 		<div class="ui basic segment" v-for="section in sections">
 			<h3>{{ section.label }}</h3>
 			<div class="ui item labeled icon menu" v-bind:class="section.elements">
@@ -34,35 +45,35 @@
 						]
 					},
 					{
-						label: "Uczelnia",
-						elements: "six",
+						label: "Dane uczelniane",
+						elements: "five",
 						links: [
 							{ label: "Tryby studiów", target: "dashboard.modes.list", icon: "tasks" },
 							{ label: "Formy zajęć", target: "dashboard.forms.list", icon: "tasks" },
 							{ label: "Semestry", target: "dashboard.semesters.list", icon: "tasks" },
 							{ label: "Kierunki i specjalności", target: "dashboard.fields.list", icon: "tasks" },
 							{ label: "Kursy", target: "dashboard.courses.list", icon: "tasks" },
-							{ label: "Studenci", target: "dashboard.students.list", icon: "tasks" },
 						]
 					},
 					{
-						label: "Zajęcia",
-						elements: "three",
+						label: "Zarządzanie studentami",
+						elements: "four",
 						links: [
+							{ label: "Studenci", target: "dashboard.students.list", icon: "user" },
 							{ label: "Kursy w semestrze", target: "dashboard.semestercourses.list", icon: "graduation cap" },
 							{ label: "Grupy zajęciowe", target: "dashboard.coursegroups.list", icon: "users" },
 							{ label: "Oceny", target: "dashboard.grades", icon: "star" },
 						]
 					},
 					{
-						label: "Ustawienia",
+						label: "Ustawienia serwisu",
 						elements: "five",
 						links: [
 							{ label: "Konto użytkownika", target: "dashboard.account", icon: "address book outline" },
 							{ label: "Ustawienia", target: "dashboard", icon: "cogs" },
 							{ label: "Logi", target: "dashboard.logger", icon: "sticky note" },
 							{ label: "Analityki", action: "google", icon: "google" },
-							{ label: "Wyloguj się", action: "logout", icon: "window close" },
+							{ label: "Wyloguj się", action: "logout", icon: "red sign out" },
 						]
 					},
 				],

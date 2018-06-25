@@ -2,7 +2,7 @@ import Vue from "vue"
 import Router from "vue-router"
 
 import Home from "@/components/Content/Home"
-import ContactPage from "@/components/Content/Contact/Contact"
+import ContactPage from "@/components/Content/Contact"
 import CoursePage from "@/components/Content/Courses/Page"
 import CoursesTable from "@/components/Content/Courses/Table"
 import NewsEntry from "@/components/Content/News/Entry"
@@ -45,8 +45,6 @@ let routes = [
 	{ path: "/plan-zajec", meta: { section: "schedule" }, name: "schedule", component: Schedule },
 
 	{ path: "/kontakt", meta: { section: "contact" }, name: "contact", component: ContactPage },
-	{ path: "/kontakt/formularz", meta: { section: "contact" }, name: "contact.form", component: ContactPage },
-	{ path: "/kontakt/konsultacje", meta: { section: "contact" }, name: "contact.consultations", component: ContactPage },
 
 	{ path: "/logowanie", meta: { section: "dashboard", requiresGuest: true }, name: "login", component: LoginForm, },
 	{ path: "/zarzadzaj", meta: { section: "dashboard", requiresAuth: true }, name: "dashboard", component: Dashboard, },
