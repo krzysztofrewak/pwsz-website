@@ -9,6 +9,8 @@
 			</div>
 		</h1>
 
+		<div class="ui content divider"></div>
+
 		<div class="content">
 			<form id="login-form" @submit.prevent="login">
 				<div class="ui three column grid">
@@ -73,7 +75,4 @@
 </script>
 
 <style>
-	#login-form {
-		margin-top: 5em;
-	}
 </style>

@@ -13,6 +13,8 @@
 
 		<p class="description">Poniżej znajduje się tabela z prowadzonymi przeze mnie kursami. Każdy kurs jest dostępny z poziomu własnej podstrony ze szczegółowymi informacjami, zasadami zaliczenia, wykazem tematów i istotnymi plikami. Wyszarzone kursy to te, które nie są prowadzone w obecnym semestrze.</p>
 
+		<p class="description only narrow screen">Bardziej szczegółowa tabela wyświetla się na urządzeniach z ekranem o większej rozdzielczości.</p>
+
 		<div class="ui content divider"></div>
 		
 		<table class="ui very basic very compact unstackable table" v-if="!fetching">

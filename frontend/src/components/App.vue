@@ -6,7 +6,7 @@
 		<div class="ui vertical stripe segment" id="content">
 			<div class="ui" v-bind:class="{ container: !isHome() }">
 				<keep-alive>
-					<transition name="page-disabled" mode="out-in">
+					<transition name="page" mode="out-in">
 						<router-view></router-view>
 					</transition>
 				</keep-alive>
@@ -147,13 +147,33 @@
 		padding: 3em 0em 3em;
 	}
 
+	.only.narrow.screen {
+		display: none;
+	}
+
 	@media only screen and (max-width: 720px) {
 		#content {
 			margin-top: 5em;
 		}
 
+		.only.narrow.screen {
+			display: unset;
+		}
+
 		.only.wide.screen {
 			display: none;
+		}
+
+		.header {
+			.content {
+				display: block !important;
+				width: 100%;
+				text-align: center;
+			}
+
+			.tile {
+				display: none !important;
+			}
 		}
 	}
 
@@ -194,19 +214,5 @@
 
 	.content.divider {
 		margin: 2.5em 0;
-	}
-
-	@media screen and (max-width: 720px) {
-		.header {
-			.content {
-				display: block !important;
-				width: 100%;
-				text-align: center;
-			}
-
-			.tile {
-				display: none !important;
-			}
-		}
 	}
 </style>

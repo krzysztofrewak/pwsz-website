@@ -82,6 +82,7 @@
 
 			.landing.page {
 				margin-top: -3em;
+				background-position-x: 50%;
 			}
 		}
 	}

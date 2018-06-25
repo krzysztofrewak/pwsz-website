@@ -83,6 +83,7 @@
 
 		.segments {
 			margin-bottom: 2em !important;
+			width: 100%;
 		}
 
 		.piled {
