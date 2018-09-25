@@ -60,8 +60,8 @@
 						elements: "four",
 						links: [
 							{ label: "Studenci", target: "dashboard.students.list", icon: "user" },
-							{ label: "Kursy w semestrze", target: "dashboard.semestercourses.list", icon: "graduation cap" },
-							{ label: "Grupy zajęciowe", target: "dashboard.coursegroups.list", icon: "users" },
+							{ label: "Kursy w semestrze", target: "dashboard.semesterCourses.list", icon: "graduation cap" },
+							{ label: "Grupy zajęciowe", target: "dashboard.courseGroups.list", icon: "users" },
 							{ label: "Oceny", target: "dashboard.grades", icon: "star" },
 						]
 					},

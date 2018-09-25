@@ -71,8 +71,8 @@ $namespace = "PWSZ\\Controllers\\Management\\CRUD";
 		"semesters" => "semester",
 		"courses" => "course",
 		"students" => "student",
-		"semestercourses" => "semester-course",
-		"coursegroups" => "course-group",
+		"semesterCourses" => "semester-course",
+		"courseGroups" => "course-group",
 	];
 
 	foreach($modules as $url => $controller) {

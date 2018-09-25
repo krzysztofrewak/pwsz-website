@@ -64,11 +64,11 @@ let managementModules = [
 	{ repository: "modes", url: "tryby" },
 	{ repository: "fields", url: "kierunki" },
 	{ repository: "forms", url: "formy" },
-	{ repository: "semestercourses", url: "semestry/kursy" },
+	{ repository: "semesterCourses", url: "semestry/kursy" },
 	{ repository: "semesters", url: "semestry" },
 	{ repository: "courses", url: "kursy" },
 	{ repository: "students", url: "studenci" },
-	{ repository: "coursegroups", url: "grupy" },
+	{ repository: "courseGroups", url: "grupy" },
 ]
 
 for(let module of managementModules) {
