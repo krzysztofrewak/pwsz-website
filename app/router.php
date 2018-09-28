@@ -56,7 +56,7 @@ $namespace = "PWSZ\\Controllers\\Management";
 	$router->addGet("/api/management/grades/semesters", R::get("getSemesters", "grades", $namespace, $auth_status));
 	$router->addGet("/api/management/grades/courses", R::get("getCourses", "grades", $namespace, $auth_status));
 	$router->addGet("/api/management/grades/groups", R::get("getGroups", "grades", $namespace, $auth_status));
-	$router->addPost("/api/management/coursegroups/students", R::get("updateStudentsInGroup", "groupstudents", $namespace, $auth_status));
+	$router->addPost("/api/management/coursegroups/students", R::get("updateStudentsInGroup", "groupStudents", $namespace, $auth_status));
 }
 
 $namespace = "PWSZ\\Controllers\\Management\\CRUD";
