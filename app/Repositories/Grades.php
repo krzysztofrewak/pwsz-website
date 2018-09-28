@@ -20,6 +20,20 @@ class Grades extends Repository implements GradesRepositoryInterface {
 	}
 
 	/**
+	 * @param array $request
+	 * @param int $id
+	 * @return array
+	 * @throws NotFound
+	 */
+	public function updateById(array $request, int $id): array {
+		$object = $this->getObjectById($id);
+		$this->actionStatus = $object->save($request);
+		return [
+			"id" => $id,
+		];
+	}
+
+	/**
 	 * @param Model $student_group
 	 * @param array $class_ids
 	 * @param bool $show_full_names

@@ -61,7 +61,7 @@
 		methods: {
 			update: function() {
 				this.updating = true
-				this.$http.post("management/coursegroups/students", { group: this.$route.params.id, students: this.dataset }).then(function(response) {
+				this.$http.post("management/coursegroups/students", { group: this.$route.params.id, students: this.dataset }).then(response => {
 					this.updating = false
 				})
 			}

@@ -14,13 +14,13 @@ module.exports = {
 	},
 	dev: {
 		env: require("./dev.env"),
-		port: 7312,
+		port: 7317,
 		autoOpenBrowser: true,
 		assetsSubDirectory: "static",
 		assetsPublicPath: "/",
 		proxyTable: {
 			"/api": {
-				target: "http://pwsz.local",
+				target: "http://pwsz.local/",
 				changeOrigin: true,
 				partRewrite: {
 					"^/": ""

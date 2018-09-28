@@ -5,6 +5,7 @@ namespace PWSZ\Repositories;
 use PWSZ\Interfaces\ModelInterface as Model;
 use PWSZ\Models\CourseGroupClass;
 use PWSZ\Models\CourseGroupStudent;
+use PWSZ\Models\Grade;
 
 class ManagementGrades extends Grades {
 
