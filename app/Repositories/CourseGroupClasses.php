@@ -16,6 +16,20 @@ class CourseGroupClasses extends Repository {
 	}
 
 	/**
+	 * @param array $request
+	 * @param int $id
+	 * @return array
+	 * @throws NotFound
+	 */
+	public function updateById(array $request, int $id): array {
+		$object = $this->getObjectById($id);
+		$this->actionStatus = $object->save($request);
+		return [
+			"id" => $id,
+		];
+	}
+
+	/**
 	 * @param Model $grade
 	 * @return array
 	 */
