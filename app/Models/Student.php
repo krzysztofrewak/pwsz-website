@@ -23,7 +23,7 @@ class Student extends Model {
 
 	public function getInitials(): string {
 		return implode("", array_map(function($word) {
-			return $word[0];
+			return mb_substr($word, 0, 1);
 		}, explode(" ", $this->name)));
 	}
 
