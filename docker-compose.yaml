@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  php-apache:
+    build:
+      context: ./docker/php-phalcon
+      dockerfile: Dockerfile
+    image: pwsz-website-phalcon
+    container_name: pwsz-website
+    working_dir: /var/www/html
+    volumes:
+      - .:/var/www/html/
+    restart: unless-stopped
+    ports:
+      - 8080:80
